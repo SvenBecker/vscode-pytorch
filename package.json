@@ -1,14 +1,26 @@
 {
     "name": "pytorch-snippets",
     "displayName": "PyTorch Snippets",
-    "description": "PyTorch and Fastai Snippets for VS Code",
+    "description": "PyTorch and Fastai Snippets for Visual Studio Code",
     "version": "0.1.0",
     "publisher": "SBSnippets",
     "icon": "images/pytorch-logo.png",
+    "galleryBanner": {
+        "color": "#fbfbfb",
+        "theme": "light"
+    },
+    "keywords": [
+        "fastai",
+        "pytorch",
+        "python",
+        "snippet"
+    ],
     "repository": {
         "type": "git",
         "url": "https://github.com/SvenBecker/vscode-pytorch.git"
     },
+    "license": "MIT",
+    "homepage": "https://github.com/SvenBecker/vscode-pytorch/blob/master/README.md",
     "engines": {
         "vscode": "^1.25.0"
     },
