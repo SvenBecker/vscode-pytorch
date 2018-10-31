@@ -1,13 +1,27 @@
-from fastai import *
-from fastai.vision import *
-from fastai.vision.models.wrn import wrn_22
+import torch.nn as nn
 
-torch.backends.cudnn.benchmark = True
+class Bottleneck(nn.Module):
+  # see https://pytorch.org/docs/0.4.0/_modules/torchvision/models/resnet.html  
+  def __init__(self, inplanes, planes, stride=1, downsample=None):
+    super(Bottleneck, self).__init__()
+    self.conv1 = nn.Conv2d(inplanes, planes, kernel_size=1, stride=stride, bias=False)
+    self.bn1 = nn.BatchNorm2d(planes)
+    self.conv2 = nn.Conv2d(planes, planes, kernel_size=3, stride=1, padding=1, bias=False)
+    self.bn2 = nn.BatchNorm2d(planes)
+    self.conv3 = nn.Conv2d(planes, planes * 4, kernel_size=1, bias=False)
+    self.bn3 = nn.BatchNorm2d(planes * 4)
+    self.relu = nn.ReLU(inplace=True)
 
-path = untar_data(URLs.CIFAR)
-
-ds_tfms = ([*rand_pad(4, 32), flip_lr(p=0.5)], [])
-data = ImageDataBunch.from_folder(path, valid='test', ds_tfms=ds_tfms, tfms=cifar_norm, bs=512)
-
-learn = Learner(data, wrn_22(), metrics=accuracy)
-learn.fit_one_cycle(30, 3e-3, wd=0.4, div_factor=10, pct_start=0.5)
+  def forward(self, x):
+    residual = x
+    out = self.conv1(x)
+    out = self.bn1(out)
+    out = self.relu(out)
+    out = self.conv2(out)
+    out = self.bn2(out)
+    out = self.relu(out)
+    out = self.conv3(out)
+    out = self.bn3(out)
+    out += residual
+    out = self.relu(out)
+    return out

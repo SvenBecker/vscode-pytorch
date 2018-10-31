@@ -17,7 +17,7 @@
         ]
     },
     "PyTorch Module": {
-        "prefix": "nn:module",
+        "prefix": "pytorch:module",
         "description": "Creates a custom class template which inherits from torch.nn.Module",
         "body": [
             "class ${1:MyModule}(nn.Module):",            
@@ -75,8 +75,85 @@
             "print('Finished Training')"
         ]
     },
+    "Freeze Layers": {
+        "prefix": "pytorch:freeze",
+        "desription": "Freeze all layers of the network",
+        "body": [
+            "for params in ${1:model}.parameters():",
+            "\tparams.require_grad = False"
+        ]
+    },
+    "Unfreeze Layers":{
+        "prefix": "pytorch:unfreeze",
+        "desription": "Unfreeze all layers of the network",
+        "body": [
+            "for params in ${1:model}.parameters():",
+            "\tparams.require_grad = True"
+        ]
+    },
+    "Resnet Basic Block":{
+        "prefix": "pytorch:layer:resblock",
+        "description": "Creates a Resnet basic block",
+        "body": [
+            "import torch.nn as nn",
+            "",
+            "class BasicBlock(nn.Module):",
+            "\t# see https://pytorch.org/docs/0.4.0/_modules/torchvision/models/resnet.html",
+            "\tdef __init__(self, inplanes, planes, stride=1):",
+            "\t\tsuper(BasicBlock, self).__init__()",
+            "\t\tself.conv1 = nn.Conv2d(inplanes, planes, kernel_size=3, stride=stride, padding=1, bias=False)",
+            "\t\tself.bn1 = nn.BatchNorm2d(planes)",
+            "\t\tself.relu = nn.ReLU(inplace=True)",
+            "\t\tself.conv2 = nn.Conv2d(planes, planes, kernel_size=3, padding=1, bias=False)",
+            "\t\tself.bn2 = nn.BatchNorm2d(planes)",
+            "",
+            "\tdef forward(self, x):",
+            "\t\tresidual = x",
+            "\t\tout = self.conv1(x)",
+            "\t\tout = self.bn1(out)",
+            "\t\tout = self.relu(out)",
+            "\t\tout = self.conv2(out)",
+            "\t\tout = self.bn2(out)",
+            "\t\tout += residual",
+            "\t\tout = self.relu(out)",
+            "\t\treturn out"
+        ]
+    },
+    "Resnet Bottleneck Block":{
+        "prefix": "pytorch:layer:resbottleneck",
+        "description": "Creates a Resnet bottleneck block",
+        "body": [
+            "import torch.nn as nn",
+            "",
+            "class Bottleneck(nn.Module):",
+            "\t# see https://pytorch.org/docs/0.4.0/_modules/torchvision/models/resnet.html ",
+            "\tdef __init__(self, inplanes, planes, stride=1, downsample=None):",
+            "\t\tsuper(Bottleneck, self).__init__()",
+            "\t\tself.conv1 = nn.Conv2d(inplanes, planes, kernel_size=1, stride=stride, bias=False)",
+            "\t\tself.bn1 = nn.BatchNorm2d(planes)",
+            "\t\tself.conv2 = nn.Conv2d(planes, planes, kernel_size=3, stride=1, padding=1, bias=False)",
+            "\t\tself.bn2 = nn.BatchNorm2d(planes)",
+            "\t\tself.conv3 = nn.Conv2d(planes, planes * 4, kernel_size=1, bias=False)",
+            "\t\tself.bn3 = nn.BatchNorm2d(planes * 4)",
+            "\t\tself.relu = nn.ReLU(inplace=True)",
+            "",
+            "\tdef forward(self, x):",
+            "\t\tresidual = x",
+            "\t\tout = self.conv1(x)",
+            "\t\tout = self.bn1(out)",
+            "\t\tout = self.relu(out)",
+            "\t\tout = self.conv2(out)",
+            "\t\tout = self.bn2(out)",
+            "\t\tout = self.relu(out)",
+            "\t\tout = self.conv3(out)",
+            "\t\tout = self.bn3(out)",
+            "\t\tout += residual",
+            "\t\tout = self.relu(out)",
+            "\t\treturn out"
+        ]
+    },
     "Train Image Classifier on CIFAR10": {
-        "prefix": "pytorch:cifar10",
+        "prefix": "pytorch:example:cifar10",
         "description": "Creates an image classifier on CIFAR10",
         "body":[
             "# image classifier example taken from:",
@@ -170,7 +247,7 @@
         ]
     },
     "Train Image Classifier on MNIST": {
-        "prefix": "pytorch:mnist",
+        "prefix": "pytorch:example:mnist",
         "description": "Creates an image classifier on CIFAR10",
         "body":[
             "# image classifier example taken from:",

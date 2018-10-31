@@ -15,7 +15,11 @@ def add_tab_symbol(line):
     return line
 
 
-def build_json_file(prefix, description):
+def build_json_file(prefix: str, description: str):
+    """ 
+    Builts a json file out of a txt files. 
+    Used for transforming python scripts into their json representation.
+    """
     body = []
     with open("python_snippet.txt", "r") as f:
         file = f.readlines()

@@ -45,18 +45,18 @@ causing the problem (line of code or commit)
 You can file new issues by providing the above information [here](https://github.com/johnpapa/vscode-angular1-snippets/issues/new).
 
   ### <a name="submit-pr" > </a> Submitting a Pull Request (PR)
-  
+
 Before you submit your Pull Request (PR) consider the following guidelines:
 
-* Search[GitHub](https://github.com/SvenBecker/vscode-pytorch/pulls) for an open or closed PR
+1. Search[GitHub](https://github.com/SvenBecker/vscode-pytorch/pulls) for an open or closed PR
     that relates to your submission.You don't want to duplicate effort.
 
-    * Make your changes in a new git fork:
+    - Make your changes in a new git fork:
 
-* Commit your changes using a descriptive commit message
-    * Push your fork to GitHub:
-* In GitHub, send a pull request
-    * If I suggest changes then:
+2. Commit your changes using a descriptive commit message
+    - Push your fork to GitHub:
+3. In GitHub, send a pull request
+    3.1. If I suggest changes then:
   * Make the required updates.
   * Rebase your fork and force push to your GitHub repository (this will update your Pull Request):
 
