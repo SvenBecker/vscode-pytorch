@@ -3,7 +3,7 @@
     "displayName": "PyTorch Snippets",
     "description": "PyTorch and Fastai Snippets for VS Code",
     "version": "0.1.0",
-    "publisher": "Sven Becker",
+    "publisher": "SBSnippets",
     "icon": "images/pytorch-logo.png",
     "repository": {
         "type": "git",

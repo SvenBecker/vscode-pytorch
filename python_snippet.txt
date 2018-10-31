@@ -1,24 +1,13 @@
-import pandas as pd 
-import numpy as np 
-from pgtaa.config import *
-from core.optimize import WeightOptimize
+from fastai import *
+from fastai.vision import *
+from fastai.vision.models.wrn import wrn_22
 
-def get_compounded_returns(pct_returns):
-    """ This is a comment """
-    pass
+torch.backends.cudnn.benchmark = True
 
-def get_linear_returns(assets: pd.DataFrame):
-    lt = assets.pct_change(1)
-    lt5 = assets.pct_change(5)
-    lt10 = assets.pct_change(19)
-    return lt, lt5, lt10
+path = untar_data(URLs.CIFAR)
 
+ds_tfms = ([*rand_pad(4, 32), flip_lr(p=0.5)], [])
+data = ImageDataBunch.from_folder(path, valid='test', ds_tfms=ds_tfms, tfms=cifar_norm, bs=512)
 
-class DataLoader(object):
-    def __init__(self, df: pd.DataFrame):
-        self.df = df
-        # portfolio assets are assumed to be in the first x columns
-        self.assets = df.iloc[:,:NB_ASSETS]
-
-    def __getattribute__(self, x):
-        return self.assets.iloc[x]
+learn = Learner(data, wrn_22(), metrics=accuracy)
+learn.fit_one_cycle(30, 3e-3, wd=0.4, div_factor=10, pct_start=0.5)
