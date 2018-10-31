@@ -1,0 +1,30 @@
+{
+    "prefix": "pytorch:prefix",
+    "description": "Short description",
+    "body": [
+        "import pandas as pd",
+        "import numpy as np",
+        "from pgtaa.config import *",
+        "from core.optimize import WeightOptimize",
+        "",
+        "def get_compounded_returns(pct_returns):",
+        "\t\"\"\" This is a comment \"\"\"",
+        "\tpass",
+        "",
+        "def get_linear_returns(assets: pd.DataFrame):",
+        "\tlt = assets.pct_change(1)",
+        "\tlt5 = assets.pct_change(5)",
+        "\tlt10 = assets.pct_change(19)",
+        "\treturn lt, lt5, lt10",
+        "",
+        "",
+        "class DataLoader(object):",
+        "\tdef __init__(self, df: pd.DataFrame):",
+        "\t\tself.df = df",
+        "\t\t# portfolio assets are assumed to be in the first x columns",
+        "\t\tself.assets = df.iloc[:,:NB_ASSETS]",
+        "",
+        "\tdef __getattribute__(self, x):",
+        "\t\treturn self.assets.iloc[x]"
+    ]
+}
