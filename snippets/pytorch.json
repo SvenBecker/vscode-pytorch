@@ -157,7 +157,7 @@
         "description": "Creates an image classifier on CIFAR10",
         "body":[
             "# image classifier example taken from:",
-            "https://pytorch.org/tutorials/beginner/blitz/cifar10_tutorial.html#sphx-glr-beginner-blitz-cifar10-tutorial-pyy",
+            "# https://pytorch.org/tutorials/beginner/blitz/cifar10_tutorial.html#sphx-glr-beginner-blitz-cifar10-tutorial-pyy",
             "",
             "import torch",
             "import torch.nn as nn",
@@ -251,7 +251,7 @@
         "description": "Creates an image classifier on CIFAR10",
         "body":[
             "# image classifier example taken from:",
-            "https://pytorch.org/tutorials/beginner/blitz/cifar10_tutorial.html#sphx-glr-beginner-blitz-cifar10-tutorial-pyy",
+            "# https://pytorch.org/tutorials/beginner/blitz/cifar10_tutorial.html#sphx-glr-beginner-blitz-cifar10-tutorial-pyy",
             "",
             "import torch",
             "import torch.nn as nn",

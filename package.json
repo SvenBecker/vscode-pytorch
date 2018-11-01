@@ -4,6 +4,10 @@
     "description": "PyTorch and Fastai Snippets for Visual Studio Code",
     "version": "0.1.0",
     "publisher": "SBSnippets",
+    "author": {
+        "name": "Sven Becker",
+        "email": "SvenBecker19@gmail.com"
+    },
     "icon": "images/pytorch-logo.png",
     "galleryBanner": {
         "color": "#fbfbfb",
@@ -13,8 +17,12 @@
         "fastai",
         "pytorch",
         "python",
+        "examples",
         "snippet"
     ],
+    "bugs": {
+        "url": "https://github.com/SvenBecker/vscode-pytorch/issues"
+    },
     "repository": {
         "type": "git",
         "url": "https://github.com/SvenBecker/vscode-pytorch.git"

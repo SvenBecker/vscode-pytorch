@@ -25,9 +25,7 @@ list appears. Entries starting with `pytorch:` or `fastai:` represent code snipp
 Snippets appear in the same way as code completion by using `Ctrl+Space` (Windows, Linux) or `Cmd+Space` (MacOS). Examples on how to use
 this extension are shown below.
 
-For PyTorch snippets:
-
-For Fastai snippets:
+![Preview](images/preview.gif)
 
 ## <a name="installation" > </a> Installation
 
