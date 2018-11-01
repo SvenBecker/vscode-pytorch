@@ -6,7 +6,7 @@
 [![The MIT License](https://img.shields.io/badge/license-MIT-orange.svg)](LICENSE.md)
 [![GitHub](https://img.shields.io/badge/github-v0.1.0-blue.svg)](https://github.com/SvenBecker/vscode-pytorch/releases)
 
-This project aims to provide a faster workflow when using the [PyTorch](https://pytorch.org/) or [Fastai](https://www.fast.ai/) library in [Visual Studio Code](https://code.visualstudio.com/).
+This project aims to provide a faster workflow when using the [PyTorch](https://github.com/pytorch/pytorch) or [fastai](https://github.com/fastai/fastai) library in [Visual Studio Code](https://code.visualstudio.com/).
 This extension provides code snippets for often used coding blocks as well as code example provided by the libraries for common deep learning problems.
 
 ## Table of Content
@@ -40,7 +40,7 @@ For Fastai snippets:
 
 ## <a name="changelog" > </a> Changelog
 
-See [Changelog](changelog.md).
+See [Changelog](CHANGELOG.md).
 
 ## <a name="contributing" > </a> Contributing
 
