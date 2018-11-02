@@ -43,11 +43,10 @@ For a full overview please take a look at the [Snippet Collection](COLLECTIONS.m
 The installation process is very straightforward. The most recommend way is shown below.
 
 1. Launch Visual Studio Code
-2. From the command palette `Ctrl-Shift-P` (Windows, Linux) or `Cmd-Shift-P` (MacOS)
-3. Select Install Extension
-4. Type `PyTorch Snippets`
-5. Choose extension
-6. Restart Visual Studio Code
+2. From the command palette `Ctrl-Shift-P` (Windows, Linux) or `Cmd-Shift-P` (MacOS) select Install Extension or just simply go to the VS Marketplace
+3. Type `PyTorch Snippets`
+4. Choose and install extension
+5. Restart/reload Visual Studio Code
 
 This will give you the most recent version you can find on the [VS Marketplace](https://marketplace.visualstudio.com/vscode).
 Alternatively you can also clone this repository and move it manually into your VS Code extension folder which will give you

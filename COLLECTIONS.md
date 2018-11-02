@@ -8,7 +8,6 @@
 | ------------------ | -------------------------------------- |
 | `pytorch:imports`  | insert the most common pytroch imports |
 | `pytorch:device`   | check the available device (cpu/gpu)   |
-| `pytorch:function` | creates a pytorch function class       |
 | `pytorch:module`   | creates a pytorch module class         |
 | `pytorch:function` | creates a pytorch function class       |
 | `pytorch:train`    | creates a training loop                |
@@ -33,9 +32,9 @@
 
 ## Fastai Basics
 
-| Trigger        | Content                 |
-| -------------- | ----------------------- |
-| `fastai:train` | creates a training loop |
+| Trigger        | Content                             |
+| -------------- | ----------------------------------- |
+| `fastai:train` | creates a two step training process |
 
 ## Fastai Vision
 
