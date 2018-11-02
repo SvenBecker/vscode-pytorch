@@ -44,6 +44,10 @@
             {
                 "language": "python",
                 "path": "./snippets/fastai.json"
+            },
+            {
+                "language": "python",
+                "path": "./snippets/ignite.json"
             }
         ]
     }

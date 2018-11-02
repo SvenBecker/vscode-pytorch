@@ -9,15 +9,18 @@
 This project aims to provide a faster workflow when using the [PyTorch](https://github.com/pytorch/pytorch) or [fastai](https://github.com/fastai/fastai) library in [Visual Studio Code](https://code.visualstudio.com/).
 This extension provides code snippets for often used coding blocks as well as code example provided by the libraries for common deep learning tasks.
 
-## Table of Content
+## Table of Contents
 
-* [Getting Started](#usage)
-* [Installation](#installation)
-* [Changelog](#changelog)
-* [Contributing](#contributing)
-* [Future Plans](#plans)
-* [Contact](#contact)
-* [Credits](#credits)
+1. [Getting Started](#usage)
+    1. [PyTorch Preview](#pytroch)
+    2. [Fastai Preview](#fastai)
+2. [Installation](#installation)
+3. [Changelog](#changelog)
+4. [Get Involved](#involved)
+    1. [Contributing](#contributing)
+    2. [Future Plans](#plans)
+    3. [Contact](#contact)
+5. [Credits](#credits)
 
 ## <a name="usage" > </a> Getting Started
 
@@ -25,12 +28,13 @@ If this extension is installed and activated you might notice by start typing `p
 list appears. Entries starting with `pytorch:` or `fastai:` represent code snippets refering to those libraries offered by this extension.
 Snippets appear in the same way as code completion by using `Ctrl+Space`. I defined variables inside the code snippets so you can jump from one
 variable to another by pressing `Tab`. Examples on how to use this extension are shown below.
+For a full overview please take a look at [collection](COLLECTION.md).
 
-### PyTorch Preview
+### <a name="pytorch" > </a> PyTorch Preview
 
 ![PyTorch Preview](images/preview.gif)
 
-### Fastai Preview (not ready yet)
+### <a name="fastai" > </a> Fastai Preview (not ready yet)
 
 ![Fastai Preview](images/preview.gif)
 
@@ -46,7 +50,7 @@ The installation process is very straightforward. The most recommend way is show
 6. Restart Visual Studio Code
 
 This will give you the most recent version you can find on the [VS Marketplace](https://marketplace.visualstudio.com/vscode).
-Alternativly you can also clone this repository and move it manually into your VSCode extension folder which will give you
+Alternatively you can also clone this repository and move it manually into your VS Code extension folder which will give you
 the most recent version on GitHub.
 
 ```sh
@@ -54,36 +58,35 @@ git clone https://github.com/SvenBecker/vscode-pytorch.git
 mv vscode-pytorch /path/to/your/VSCodeExtensionFolder/
 ```
 
-On Windows for example you can normally find the extension folder at `C:\Users\YourName\.vscode\extensions`. On MacOs and Linux it should be
-located at `~/.vscode/extensions`.
+On Windows for example you can normally find the extension folder at `C:\Users\YourName\.vscode\extensions`. On MacOS and Linux it should be located at `~/.vscode/extensions`.
 
 > The second method will give you the overall most recent version because I won't update the VS Marketplace version as often
-> as the GitHub version but the VS Marketplace version will be the more stable one.
+> as the GitHub version but the VS Marketplace version will probably be the more stable one.
 
 ## <a name="changelog" > </a> Changelog
 
 There are not any changes yet but in case of any major changes I will post the most recent ones here.
 All of the past as well as the upcoming changes can further be viewed at [Changelog](CHANGELOG.md).
 
-## <a name="contributing" > </a> Contributing
+## <a name="involved" > </a> Get Involved
+
+### <a name="contributing" > </a> Contributing
 
 If you want to contribute, what I would highly appreciate since this project is currently in a very early stage
 and there is still so much to do, please take a look at [Contributing](CONTRIBUTING.md).
 
-## <a name="plans" > </a> Future Plans
+### <a name="plans" > </a> Future Plans
 
 I would like to extend snippet options to additional packages which are related to PyTorch.
 This might include [Ignite](https://github.com/pytorch/ignite) or [Pyro](https://github.com/uber/pyro).
 
 Furthermore, but not in this project, I would like to offer VS Code snippets for visualization in Python, like for
-example Matplotlib or Seaborn. If anyone is interested in this kind of project and/or want to offer some help please
+example [Matplotlib](https://matplotlib.org/api/pyplot_api.html) or [Seaborn](https://seaborn.pydata.org/). Eventually even considering the inclusion of interactive visualization libraries like [Bokeh](https://bokeh.pydata.org/en/latest/) or [Plotly](https://plot.ly/). If anyone is interested in this kind of project and/or want to offer some help please
 [contact](#contact) me.
 
-## <a name="contact" > </a> Contact
+### <a name="contact" > </a> Contact
 
-Suggestions for improvements will be highly appreciated.
-You can write me an email (address is provided on my [profile](https://github.com/SvenBecker)) or you can
-contact me on Twitter [@SBX9209](https://twitter.com/SBX9209).
+Suggestions for improvements will be highly appreciated. You can write me an email (address is provided on my [profile](https://github.com/SvenBecker)) or you can contact me via Twitter [@SBX9209](https://twitter.com/SBX9209).
 
 ## <a name="credits" > </a> Credits
 
