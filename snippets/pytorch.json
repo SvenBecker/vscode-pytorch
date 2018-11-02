@@ -154,7 +154,7 @@
     },
     "Train Image Classifier on CIFAR10": {
         "prefix": "pytorch:example:cifar10",
-        "description": "Creates an image classifier on CIFAR10",
+        "description": "Creates an image classifier for CIFAR10",
         "body":[
             "# image classifier example taken from:",
             "# https://pytorch.org/tutorials/beginner/blitz/cifar10_tutorial.html#sphx-glr-beginner-blitz-cifar10-tutorial-pyy",
@@ -248,7 +248,7 @@
     },
     "Train Image Classifier on MNIST": {
         "prefix": "pytorch:example:mnist",
-        "description": "Creates an image classifier on CIFAR10",
+        "description": "Creates an image classifier for MNIST",
         "body":[
             "# image classifier example taken from:",
             "# https://pytorch.org/tutorials/beginner/blitz/cifar10_tutorial.html#sphx-glr-beginner-blitz-cifar10-tutorial-pyy",

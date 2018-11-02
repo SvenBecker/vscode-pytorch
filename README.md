@@ -28,7 +28,7 @@ If this extension is installed and activated you might notice by start typing `p
 list appears. Entries starting with `pytorch:` or `fastai:` represent code snippets refering to those libraries offered by this extension.
 Snippets appear in the same way as code completion by using `Ctrl+Space`. I defined variables inside the code snippets so you can jump from one
 variable to another by pressing `Tab`. Examples on how to use this extension are shown below.
-For a full overview please take a look at [collection](COLLECTION.md).
+For a full overview please take a look at the [Snippet Collection](COLLECTIONS.md).
 
 ### <a name="pytorch" > </a> PyTorch Preview
 

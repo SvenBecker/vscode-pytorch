@@ -2,36 +2,54 @@
 
 ## PyTorch Snippets
 
-### Basic
+### Pytorch Basics
 
-| Snippet | Result |
-|----------|----------|
-| pytorch:train | creates a training loop |
-| pytorch:module | creates a pytorch module class|
-| pytorch:function | creates a pytorch function class|
+| Trigger            | Content                                |
+| ------------------ | -------------------------------------- |
+| `pytorch:imports`  | insert the most common pytroch imports |
+| `pytorch:device`   | check the available device (cpu/gpu)   |
+| `pytorch:function` | creates a pytorch function class       |
+| `pytorch:module`   | creates a pytorch module class         |
+| `pytorch:function` | creates a pytorch function class       |
+| `pytorch:train`    | creates a training loop                |
+| `pytorch:freeze`   | freezes all layers of the model        |
+| `pytorch:unfreeze` | unfreeze all layers of the model       |
 
-### Code Examples
+### Pytorch Layer Snippets
 
-| Snippet | Result |
-|----------|----------|
-| pytorch:example:mnist | creates a training loop |
-| pytorch:example:cifar10 | creates a pytorch module class |
-| pytorch:function | creates a pytorch function class |
+| Trigger              | Content                           |
+| -------------------- | --------------------------------- |
+| `pytorch:resblock`   | creates a basic Resnet Block      |
+| `pytorch:bottleneck` | creates a Resnet Bottleneck block |
+
+### PyTorch Code Examples
+
+| Trigger                   | Content                                  |
+| ------------------------- | ---------------------------------------- |
+| `pytorch:example:mnist`   | creates an image classifier for mnist    |
+| `pytorch:example:cifar10` | creates an image classifier for cifar 10 |
 
 ## Fastai Snippets
 
-## Basic
+## Fastai Basics
 
-| Snippets      | Result |
-| ------------- |---------------|
-| col 3 is      | right-aligned |
-| col 2 is      | centered      |
-| zebra stripes | are neat      |
+| Trigger        | Content                 |
+| -------------- | ----------------------- |
+| `fastai:train` | creates a training loop |
 
-### Code Examples
+## Fastai Vision
 
-| Snippets      | Result |
-| ------------- |---------------|
-| col 3 is      | right-aligned |
-| col 2 is      | centered      |
-| zebra stripes | are neat      |
+| Trigger                        | Content                                                  |
+| ------------------------------ | -------------------------------------------------------- |
+| `fastai:vision:imports`        | inserts most important imports                           |
+| `fastai:vision:databunch`      | creates an ImageDataBunch                                |
+| `fastai:vision:classifier`     | creates an ImageClassifier                               |
+| `fastai:vision:interpreter`    | creates an ImageClassifierInterpreter                    |
+| `fastai:vision:classification` | creates a template for common image classification tasks |
+
+### Fastai Code Examples
+
+| Trigger                  | Content                             |
+| ------------------------ | ----------------------------------- |
+| `fastai:example:mnist`   | creates a mnist image classifier    |
+| `fastai:example:cifar10` | creates a cifar 10 image classifier |
