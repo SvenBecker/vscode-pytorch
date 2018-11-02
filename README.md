@@ -15,6 +15,7 @@ This extension provides code snippets for often used coding blocks as well as co
 * [Installation](#installation)
 * [Changelog](#changelog)
 * [Contributing](#contributing)
+* [Future Plans](#plans)
 * [Contact](#contact)
 * [Credits](#credits)
 
@@ -22,10 +23,16 @@ This extension provides code snippets for often used coding blocks as well as co
 
 If this extension is installed and activated you might notice by start typing `pytorch` or `fastai` in your python file a dropdown
 list appears. Entries starting with `pytorch:` or `fastai:` represent code snippets refering to those libraries offered by this extension.
-Snippets appear in the same way as code completion by using `Ctrl+Space` (Windows, Linux) or `Cmd+Space` (MacOS). Examples on how to use
-this extension are shown below.
+Snippets appear in the same way as code completion by using `Ctrl+Space`. I defined variables inside the code snippets so you can jump from one
+variable to another by pressing `Tab`. Examples on how to use this extension are shown below.
 
-![Preview](images/preview.gif)
+### PyTorch Preview
+
+![PyTorch Preview](images/preview.gif)
+
+### Fastai Preview (not ready yet)
+
+![Fastai Preview](images/preview.gif)
 
 ## <a name="installation" > </a> Installation
 
@@ -50,10 +57,8 @@ mv vscode-pytorch /path/to/your/VSCodeExtensionFolder/
 On Windows for example you can normally find the extension folder at `C:\Users\YourName\.vscode\extensions`. On MacOs and Linux it should be
 located at `~/.vscode/extensions`.
 
-<aside class="notice">
-The second method will give you the overall most recent version because I won't update the VS Marketplace version as often
-as the GitHub version but the VS Marketplace version will be the more stable one.
-</aside>
+> The second method will give you the overall most recent version because I won't update the VS Marketplace version as often
+> as the GitHub version but the VS Marketplace version will be the more stable one.
 
 ## <a name="changelog" > </a> Changelog
 
@@ -65,6 +70,15 @@ All of the past as well as the upcoming changes can further be viewed at [Change
 If you want to contribute, what I would highly appreciate since this project is currently in a very early stage
 and there is still so much to do, please take a look at [Contributing](CONTRIBUTING.md).
 
+## <a name="plans" > </a> Future Plans
+
+I would like to extend snippet options to additional packages which are related to PyTorch.
+This might include [Ignite](https://github.com/pytorch/ignite) or [Pyro](https://github.com/uber/pyro).
+
+Furthermore, but not in this project, I would like to offer VS Code snippets for visualization in Python, like for
+example Matplotlib or Seaborn. If anyone is interested in this kind of project and/or want to offer some help please
+[contact](#contact) me.
+
 ## <a name="contact" > </a> Contact
 
 Suggestions for improvements will be highly appreciated.
@@ -73,5 +87,6 @@ contact me on Twitter [@SBX9209](https://twitter.com/SBX9209).
 
 ## <a name="credits" > </a> Credits
 
-* [PyTorch](https://pytorch.org/)
-* [Fastai](https://www.fast.ai/)
+* [PyTorch](https://pytorch.org/): A huge thanks to the PyTorch team for building such an awesome, easy to use deep learning framework and for offering a numerous amount of code examples.
+* [Fastai](https://www.fast.ai/): Also a huge thanks to Jeremy Howard and the whole fast.ai team for creating this great deep learning library and also for offering wonderful, very practical orientated free lectures giving insight to deep learning to a wide range of people including ml/dl beginners as well as advanced practitioners.
+* [VSCode](https://code.visualstudio.com/): My personal favorite text editor and I'm grateful for all the options they are offering, like a huge amount of language support, extensions, integrated terminal, debugger etc..
