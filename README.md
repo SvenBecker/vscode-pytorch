@@ -4,7 +4,7 @@
 [![Installs](https://vsmarketplacebadge.apphb.com/installs/SBSnippets.pytorch-snippets.svg)](https://marketplace.visualstudio.com/items?itemName=SBSnippets.pytorch-snippets)
 [![Rating](https://vsmarketplacebadge.apphb.com/rating-short/SBSnippets.pytorch-snippets.svg)](https://marketplace.visualstudio.com/items?itemName=SBSnippets.pytorch-snippets)
 [![The MIT License](https://img.shields.io/badge/license-MIT-orange.svg)](LICENSE.md)
-[![GitHub](https://img.shields.io/badge/github-v0.1.0-blue.svg)](https://github.com/SvenBecker/vscode-pytorch/releases)
+[![GitHub](https://img.shields.io/badge/github-v0.1.1-blue.svg)](https://github.com/SvenBecker/vscode-pytorch/releases)
 
 This project aims to provide a faster workflow when using the [PyTorch](https://github.com/pytorch/pytorch) or [fastai](https://github.com/fastai/fastai) library in [Visual Studio Code](https://code.visualstudio.com/).
 This extension provides code snippets for often used coding blocks as well as code example provided by the libraries for common deep learning tasks.
@@ -64,7 +64,10 @@ On Windows for example you can normally find the extension folder at `C:\Users\Y
 
 ## <a name="changelog" > </a> Changelog
 
-There are not any changes yet but in case of any major changes I will post the most recent ones here.
+Version 0.1.1 Changes:
+
+- Added lots of Fastai Snippets (including NLP, Computer Vision, Tabular Data and Collaborative Filtering).
+  
 All of the past as well as the upcoming changes can further be viewed at [Changelog](CHANGELOG.md).
 
 ## <a name="involved" > </a> Get Involved

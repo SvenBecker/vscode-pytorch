@@ -25,6 +25,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - ...
 - -->
 
+## [0.1.1] - 2018-11-01
+
+### Added
+
+- Added lots of Fastai Snippets (including NLP, Computer Vision, Tabular Data and Collaborative Filtering)
+
 ## [0.1.0] - 2018-10-31
 
 - Initial release

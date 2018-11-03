@@ -1,8 +1,23 @@
 # Snippet Collection
 
-## PyTorch Snippets
+Full collection of supported code snippets for the PyTorch and Fastai library.
 
-### Pytorch Basics
+## Table of Contents
+
+1. [Pytorch Snippets](#pytorch)
+    1. [PyTorch Basics](#pytroch-basics)
+    2. [PyTorch Layer](#pytorch-layer)
+    3. [PyTorch Examples](#pytorch-example)
+2. [Fastai Snippets](#fastai)
+    1. [Fastai Basics](#fastai-basics)
+    2. [Fastai Vision](#fastai-vision)
+    3. [Fastai Text](#fastai-text)
+    4. [Fastai Tabular](#fastai-tabular)
+    5. [Fastai Colababorative Filtering](#fastai-colab)
+
+## <a name="pytorch" > </a> PyTorch Snippets
+
+### <a name="pytorch-basics" > </a> Pytorch Basics
 
 | Trigger            | Content                                |
 | ------------------ | -------------------------------------- |
@@ -14,29 +29,30 @@
 | `pytorch:freeze`   | freezes all layers of the model        |
 | `pytorch:unfreeze` | unfreeze all layers of the model       |
 
-### Pytorch Layer Snippets
+### <a name="pytorch-layer" > </a> Pytorch Layer
 
 | Trigger              | Content                           |
 | -------------------- | --------------------------------- |
 | `pytorch:resblock`   | creates a basic Resnet Block      |
 | `pytorch:bottleneck` | creates a Resnet Bottleneck block |
 
-### PyTorch Code Examples
+### <a name="pytorch-example" > </a> PyTorch Code Examples
 
 | Trigger                   | Content                                  |
 | ------------------------- | ---------------------------------------- |
 | `pytorch:example:mnist`   | creates an image classifier for mnist    |
 | `pytorch:example:cifar10` | creates an image classifier for cifar 10 |
 
-## Fastai Snippets
+## <a name="fastai" > </a> Fastai Snippets
 
-## Fastai Basics
+## <a name="fastai-basics" > </a> Fastai Basics
 
-| Trigger        | Content                             |
-| -------------- | ----------------------------------- |
-| `fastai:train` | creates a two step training process |
+| Trigger         | Content                                |
+| --------------- | -------------------------------------- |
+| `fastai:train`  | creates a two step training process    |
+| `fastai:metric` | creates a template for a custom metric |
 
-## Fastai Vision
+## <a name="fastai-vision" > </a> Fastai Vision
 
 | Trigger                        | Content                                                  |
 | ------------------------------ | -------------------------------------------------------- |
@@ -46,9 +62,26 @@
 | `fastai:vision:interpreter`    | creates an ImageClassifierInterpreter                    |
 | `fastai:vision:classification` | creates a template for common image classification tasks |
 
-### Fastai Code Examples
+## <a name="fastai-text" > </a> Fastai Text
 
-| Trigger                  | Content                             |
-| ------------------------ | ----------------------------------- |
-| `fastai:example:mnist`   | creates a mnist image classifier    |
-| `fastai:example:cifar10` | creates a cifar 10 image classifier |
+| Trigger                 | Content                        |
+| ----------------------- | ------------------------------ |
+| `fastai:text:imports`   | inserts most important imports |
+| `fastai:text:dataset`   | creates a Dataset for NLP      |
+| `fastai:text:databunch` | creates a DataBunch for NLP    |
+| `fastai:text:learner`   | creates a Learner              |
+
+## <a name="fastai-tabular" > </a> Fastai Tabular
+
+| Trigger                    | Content                                    |
+| -------------------------- | ------------------------------------------ |
+| `fastai:tabular:imports`   | inserts most important imports             |
+| `fastai:tabular:databunch` | creates a DataBunch for tabular data tasks |
+| `fastai:tabular:learner`   | creates a Learner for tabular data tasks   |
+
+## <a name="fastai-colab" > </a> Fastai Collaborative Filtering
+
+| Trigger                | Content                               |
+| ---------------------- | ------------------------------------- |
+| `fastai:colab:dataset` | creates a colab filtering dataset     |
+| `fastai:colab:learner` | creates a learner for colab filtering |
