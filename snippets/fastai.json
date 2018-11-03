@@ -12,6 +12,14 @@
             "learn.save('stage-2')"
         ]
     },
+    "Metrics Template": {
+        "prefix": "fastai:metric",
+        "desription": "Creates a metric function template",
+        "body": [
+            "def ${1:metric}(y_pred: Tensor, y_true: Tensor):",
+            "\treturn"
+        ]
+    },
     "Vision Imports": {
         "prefix": "fastai:vision:imports",
         "description": "Imports the packages which are most required for computer vision tasks",
