@@ -49,14 +49,13 @@
         "description": "Creates an ImageClassifierInterpreter",
         "body": [
             "interp = ClassificationInterpretation${1|.from_learner(learn\\, tta=False),(data\\, probs\\, y_true\\, losses)|}",
-            "interp.${2|top_losses(k=None\\, largest=True),plot_top_losses(k\\, largest=True\\, figsize=(12\\,12)),confusion_matrix(),plot_confusion_matrix(normalize=False\\, title'Confusion matrix'\\, cmap:Any='Blues', norm_dec=2\\),most_confused(min_val=1)|}"
+            "interp.${2|top_losses(k=None\\, largest=True),plot_top_losses(k\\, largest=True\\, figsize=(12\\,12)),confusion_matrix(),plot_confusion_matrix(normalize=False\\, title'Confusion matrix'\\, cmap='Blues'\\, norm_dec=2\\),most_confused(min_val=1)|}"
         ]
     },
     "Image Classification": {
         "prefix": "fastai:vision:classification",
         "description": "Creates an image classification template",
         "body": [
-            "# import alll necessary packages",
             "from fastai import *",
             "from fastai.vision import *",
             "",
@@ -74,13 +73,18 @@
             "metrics = ${5|error_rate,accuracy,accuracy_thresh,dice|}",
             "learn = create_cnn(data, arch=arch, metrics=metrics,cut=None, pretrained=True, lin_ftrs=None, ps=0.5, custom_head=custom_head, split_on=None)",
             "",
-            "# train the image classifier",
-            "learn.fit_one_cycle(1)",
-            "# call learn rate finder to estimate an optimal learning rate",
-            "learn.lr_find()",
+            "learn.${6|fit(epochs\\, lr=default_lr\\, wd=None\\, callbacks=None),fit_one_cycle(cyc_len\\, max_lr=default_lr\\, moms=(0.95\\,0.85)\\, div_factor=25.\\, pct_start=0.3\\, wd=None\\, callbacks=None)|}",
+            "learn.save('stage-1')",
             "",
-            "interp = ClassificationInterpretation${6|.from_learner(learn\\, tta=False),(data\\, probs\\, y_true\\, losses)|}",
-            "interp.${7|top_losses(k=None\\, largest=True),plot_top_losses(k\\, largest=True\\, figsize=(12\\,12)),confusion_matrix(),plot_confusion_matrix(normalize=False\\, title'Confusion matrix'\\, cmap:Any='Blues', norm_dec=2\\),most_confused(min_val=1)|}"
+            "learn.lr_find()",
+            "learn.recorder.plot()",
+            "",
+            "learn.unfreeze()",
+            "learn.${7|fit(epochs\\, lr=default_lr\\, wd=None\\, callbacks=None),fit_one_cycle(cyc_len\\, max_lr=default_lr\\, moms=(0.95\\,0.85)\\, div_factor=25.\\, pct_start=0.3\\, wd=None\\, callbacks=None)|}",
+            "learn.save('stage-2')",
+            "",
+            "interp = ClassificationInterpretation${8|.from_learner(learn\\, tta=False),(data\\, probs\\, y_true\\, losses)|}",
+            "interp.${9|top_losses(k=None\\, largest=True),plot_top_losses(k\\, largest=True\\, figsize=(12\\,12)),confusion_matrix(),plot_confusion_matrix(normalize=False\\, title'Confusion matrix'\\, cmap'Blues'\\, norm_dec=2\\),most_confused(min_val=1)|}"
         ]
     },
     "Tabular Imports": {
@@ -95,7 +99,7 @@
         "prefix": "fastai:tabular:databunch",
         "description": "Creates a DataBuch for tabular data",
         "body": [
-            "path = Path(${TM_DIRECTORY} / ${1:'data'})",
+            "path = Path('${TM_DIRECTORY}' / '${1:data}')",
             "data = TabularDataBunch.from_df(path, ${2:train_df}, ${3:valid_df}, ${4:dep_var}, test_df=None, tfms=None, cat_names=None, cont_names=None, stats=None, log_output=False"
         ]
     },
@@ -103,7 +107,7 @@
         "prefix": "fastai:tabular:learner",
         "description": "Creates a learner for tabular data",
         "body": [
-            "metrics = ${1|'error_rate'\\,'accuracy'\\,'accuracy_thresh'\\,'dice'\\,'exp_rmspe'\\,'fbeta'|}",
+            "metrics = ${1|'error_rate','accuracy','accuracy_thresh','dice','exp_rmspe','fbeta'|}",
             "emb_szs = {}",
             "learn = create_tabular_learner(data, layers=${2:2}, emb_szs=emb_szs, metrics=metrics, ps=None, emb_drop=0., y_range=None, use_bn=True)"
         ]
@@ -116,19 +120,19 @@
             "from fastai.text import *"
         ]
     },
-    "Text DataSet": {
+    "Text Dataset": {
         "prefix": "fastai:text:dataset",
-        "description": "Creates a DataSet for NLP",
+        "description": "Creates a Dataset for NLP",
         "body": [
-            "path = Path(${TM_DIRECTORY} / ${1:'data'})",
-            "datasets = TextDataset${2|(df=None\\, create_mtd=TextMtd.DF\\, tokenizer=None,.from_ids(id_suff'_ids'\\, lbl_suff='_lbl'\\, itos='itos.pkl',from_tokens(tok_suff='_tok'\\, lbl_suff='_lbl',.from_df(df\\, tokenizer=None,.from_one_folder(classes\\, tokenizer=None\\, suffle=True,.from_folder(classes=None\\, tokenizer=None\\, suffle=True|}, path=path, name='train', vocab:Vocab=None, max_vocab=60000, chunksize=10000,  min_freq=2, n_labels=1, txt_cols=None, label_cols=None, classes=None, clear_cache=False)"
+            "path = Path('${TM_DIRECTORY}' / '${1:data}')",
+            "datasets = TextDataset${2|(df=None\\, create_mtd=TextMtd.DF\\, tokenizer=None,.from_ids(id_suff'_ids'\\, lbl_suff='_lbl'\\, itos='itos.pkl',.from_tokens(tok_suff='_tok'\\, lbl_suff='_lbl',.from_df(df\\, tokenizer=None,.from_one_folder(classes\\, tokenizer=None\\, suffle=True,.from_folder(classes=None\\, tokenizer=None\\, suffle=True|}, path=path, name='train', vocab:Vocab=None, max_vocab=60000, chunksize=10000,  min_freq=2, n_labels=1, txt_cols=None, label_cols=None, classes=None, clear_cache=False)"
         ]
     },
     "Text DataBunch": {
         "prefix": "fastai:text:databunch",
         "description": "Creates a DataBuch for NLP",
         "body": [
-            "path = Path(${TM_DIRECTORY} / ${1:'data'})",
+            "path = Path('${TM_DIRECTORY}' / '${1:data'})",
             "data = ${2|TextDataBunch,TextLMDataBunch,TextClasDataBunch|}.${3|create(datasets,from_ids(trn_ids\\, trn_lbls\\, val_ids\\, val_lbls\\, vocab_size\\, tst_ids=None\\, classes=None,from_id_files(train='train'\\, valid='valid'\\, test=None\\, itos='itos.pkl',from_tokens(train='train'\\, valid='valid'\\, test=None\\, vocab=None,from_df(train_df\\, valid_df\\, test_df=None\\, tokenizer=None\\, vocab=None,from_csv(train='train'\\, valid='valid'\\, tokenizer=None\\, test=None\\, vocab=None,from_folder(train'train'\\, valid='valid'\\, tokenizer=None\\, test=None\\, shuffle=True\\, vocab=None|}, path=path)"
         ]
     },
@@ -136,8 +140,22 @@
         "prefix": "fastai:text:learner",
         "description": "Creates a learner for NLP",
         "body": [
-            "metrics = ${1|'error_rate'\\,'accuracy'\\,'accuracy_thresh'\\,'dice'\\,'exp_rmspe'\\,'fbeta'|}",
+            "metrics = ${1|'error_rate','accuracy','accuracy_thresh','dice','exp_rmspe','fbeta'|}",
             "learn = RNNLearner${2|(model\\, split_func=None\\, clip=None\\, adjust=False\\, alpha=2.\\, beta=1.,.language_model(emb_sz=400\\, nh=1150\\, nl=3\\, pad_token=1\\, drop_mult=1.\\, tie_weights=True\\, bias=True\\, qrnn=False\\, pretrained_model=None\\, pretrained_fnames=None,.classifier(max_len=70*20\\, emb_sz=400\\, nh=1150\\, nl=3\\, lin_ftrs=None\\, ps=None\\, pad_token=1\\, drop_mult=1.\\, qrnn=False|}, data=data, bptt=70)"
+        ]
+    },
+    "Collaborative Filtering Dataset": {
+        "prefix": "fastai:colab:dataset",
+        "description": "Creates a dataset for collaborative filtering",
+        "body": [
+            "datasets = CollabFilteringDataset${|(user\\, item\\, ratings),.from_df(rating_df\\, pct_valt=0.2\\, user_name=None\\, item_name=None\\, rating_name=None),.from_csv(csv_name)|}"
+        ]
+    },
+    "Collaborative Filtering Learner": {
+        "prefix": "fastai:colab:learner",
+        "description": "Creates a learner for collaborative filtering",
+        "body": [
+            "learn = get_collab_learner(${1:ratings}, ${2:n_factors}, pct_val=0.2, user_name=${3:None}, item_name=${4:None}, rating_name=${5:None}, test=None, metrics=None, min_score=None, max_score=None"
         ]
     }
 }
