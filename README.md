@@ -34,7 +34,7 @@ For a full overview please take a look at the [Snippet Collection](COLLECTIONS.m
 
 ![PyTorch Preview](images/preview.gif)
 
-### <a name="fastai" > </a> Fastai Preview (not ready yet)
+### <a name="fastai" > </a> Fastai Preview
 
 ![Fastai Preview](images/preview.gif)
 
