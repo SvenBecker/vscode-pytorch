@@ -36,7 +36,7 @@ For a full overview please take a look at the [Snippet Collection](COLLECTIONS.m
 
 ### <a name="fastai" > </a> Fastai Preview
 
-![Fastai Preview](images/preview.gif)
+![Fastai Preview](images/preview_fastai.gif)
 
 ## <a name="installation" > </a> Installation
 
