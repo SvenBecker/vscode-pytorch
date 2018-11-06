@@ -57,7 +57,7 @@
         "description": "Creates an ImageClassifierInterpreter",
         "body": [
             "interp = ClassificationInterpretation${1|.from_learner(learn\\, tta=False),(data\\, probs\\, y_true\\, losses)|}",
-            "interp.${2|top_losses(k=None\\, largest=True),plot_top_losses(k\\, largest=True\\, figsize=(12\\,12)),confusion_matrix(),plot_confusion_matrix(normalize=False\\, title'Confusion matrix'\\, cmap='Blues'\\, norm_dec=2\\),most_confused(min_val=1)|}"
+            "interp.${2|top_losses(k=None\\, largest=True),plot_top_losses(k\\, largest=True\\, figsize=(12\\,12)),confusion_matrix(),plot_confusion_matrix(normalize=False\\, title'Confusion matrix'\\, cmap='Blues'\\, norm_dec=2),most_confused(min_val=1)|}"
         ]
     },
     "Image Classification": {
@@ -115,7 +115,7 @@
         "prefix": "fastai:tabular:learner",
         "description": "Creates a learner for tabular data",
         "body": [
-            "metrics = ${1|'error_rate','accuracy','accuracy_thresh','dice','exp_rmspe','fbeta'|}",
+            "metrics = ${1|error_rate,accuracy,accuracy_thresh,dice,exp_rmspe,fbeta|}",
             "emb_szs = {}",
             "learn = create_tabular_learner(data, layers=${2:2}, emb_szs=emb_szs, metrics=metrics, ps=None, emb_drop=0., y_range=None, use_bn=True)"
         ]
@@ -148,7 +148,7 @@
         "prefix": "fastai:text:learner",
         "description": "Creates a learner for NLP",
         "body": [
-            "metrics = ${1|'error_rate','accuracy','accuracy_thresh','dice','exp_rmspe','fbeta'|}",
+            "metrics = ${1|error_rate,accuracy,accuracy_thresh,dice,exp_rmspe,fbeta|}",
             "learn = RNNLearner${2|(model\\, split_func=None\\, clip=None\\, adjust=False\\, alpha=2.\\, beta=1.,.language_model(emb_sz=400\\, nh=1150\\, nl=3\\, pad_token=1\\, drop_mult=1.\\, tie_weights=True\\, bias=True\\, qrnn=False\\, pretrained_model=None\\, pretrained_fnames=None,.classifier(max_len=70*20\\, emb_sz=400\\, nh=1150\\, nl=3\\, lin_ftrs=None\\, ps=None\\, pad_token=1\\, drop_mult=1.\\, qrnn=False|}, data=data, bptt=70)"
         ]
     },
