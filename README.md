@@ -9,6 +9,8 @@
 This project aims to provide a faster workflow when using the [PyTorch](https://github.com/pytorch/pytorch) or [fastai](https://github.com/fastai/fastai) library in [Visual Studio Code](https://code.visualstudio.com/).
 This extension provides code snippets for often used coding blocks as well as code example provided by the libraries for common deep learning tasks.
 
+<embed src="http://github.com/ralsina/rst-cheatsheet/raw/master/rst-cheatsheet.pdf" type="application/pdf" width="100%" height="600px" />
+
 ## Table of Contents
 
 1. [Getting Started](#usage)
