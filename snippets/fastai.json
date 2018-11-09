@@ -65,9 +65,9 @@
     },
     "Image Normalize Stats": {
         "prefix": "fastai:vision:stats",
-        "description": "Setect normalization stats",
+        "description": "Select normalization stats",
         "body": [
-            "${1|imagenet_stats,cifar10_stats,mnist_stats,()|}"
+            "${1|imagenet_stats,cifar_stats,mnist_stats,()|}"
         ]
     },
     "Image DataBlock": {

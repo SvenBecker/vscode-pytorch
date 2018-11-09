@@ -25,13 +25,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - ...
 - -->
 
-## [0.1.2] - 2018-11-09
+## [0.2.0] - 2018-11-09
 
 ### Added
 
-- Added code snippets for fast metrics or loss selection (PyTorch and Fastai)
+- Added code snippets for fast metrics or loss selection (PyTorch and fastai)
+- Added easy selection of neural network layers in PyTorch based on their type (conv, recurrent, etc.)
 - Added some more PyTorch snippets like for example optimizer selection, weight initialization etc.
-- Added DataBlock API Snippet for Fastai
+- Added DataBlock API snippet for fastai
 
 ### Changed
 

@@ -14,21 +14,19 @@ This extension provides code snippets for often used coding blocks as well as co
 1. [Getting Started](#usage)
     1. [PyTorch Preview](#pytroch)
     2. [Fastai Preview](#fastai)
-2. [Installation](#installation)
-3. [Changelog](#changelog)
-4. [Get Involved](#involved)
+2. [Dependencies](#dependencies)
+3. [Installation](#installation)
+4. [Changelog](#changelog)
+5. [Get Involved](#involved)
     1. [Contributing](#contributing)
     2. [Future Plans](#plans)
     3. [Contact](#contact)
-5. [Credits](#credits)
+6. [Credits](#credits)
 
 ## <a name="usage" > </a> Getting Started
 
-If this extension is installed and activated you might notice by start typing `pytorch` or `fastai` in your python file a dropdown
-list appears. Entries starting with `pytorch:` or `fastai:` represent code snippets refering to those libraries offered by this extension.
-Snippets appear in the same way as code completion by using `Ctrl+Space`. I defined variables inside the code snippets so you can jump from one
-variable to another by pressing `Tab`. Examples on how to use this extension are shown below.
-For a full overview please take a look at the [Snippet Collection](COLLECTIONS.md).
+If this extension is installed and activated you might notice by start typing `pytorch` or `fastai` in your python file a dropdown list appears. Entries starting with `pytorch:` or `fastai:` represent code snippets refering to those libraries offered by this extension.
+Snippets appear in the same way as code completion by using `Ctrl+Space`. There are _placeholders_, _variables_ and _choices_ defined inside the code snippets so you can jump from one to another just by pressing `Tab`. Examples on how to use this extension are shown below. For a full overview please take a look at the [Snippet Collection](COLLECTIONS.md).
 
 ### <a name="pytorch" > </a> PyTorch Preview
 
@@ -38,7 +36,7 @@ For a full overview please take a look at the [Snippet Collection](COLLECTIONS.m
 
 ![Fastai Preview](images/preview_fastai.gif)
 
-### <a name="installation" > </a> Dependencies
+## <a name="dependencies" > </a> Dependencies
 
 Currently the snippets are working for the latest releases of the supported libraries:
 
@@ -47,19 +45,14 @@ Currently the snippets are working for the latest releases of the supported libr
 
 >__Info__:
 >Be aware that at the time the fastai library is changing rapidly, so I can not guarantee that every snippet is actually working.
->I will try to keep the snippets in line with the latest fastai library developments (as well as the latest pytroch releases), so it might not work for you in case you are using an _outdated_ version.
-
-<div class="alert alert-success">
-Be aware that at the time the fastai library is changing rapidly, so I can not guarantee that every snippet is actually working.
-I will try to keep the snippets in line with the latest fastai library developments (as well as the latest pytroch releases), so it might not work for you in case you are using an _outdated_ version.
-</div>
+>I will try to keep the snippets in line with the latest fastai library developments (as well as the latest PyTorch releases), so it might not work for you in case you are using an _outdated_ version.
 
 ## <a name="installation" > </a> Installation
 
-The installation process is very straightforward. The most recommend way is shown below.
+The installation process is very straightforward. The recommend, stable way is as follows:
 
 1. Launch Visual Studio Code
-2. From the command palette `Ctrl-Shift-P` (Windows, Linux) or `Cmd-Shift-P` (MacOS) select Install Extension or just simply go to the VS Marketplace
+2. From the command palette `Ctrl-Shift-P` (Windows, Linux) or `Cmd-Shift-P` (MacOS) select `Install Extension` or just simply go to the `Extensions` tab (most likely the fifth entry on the left sidebar). You can also use the hotkey `Ctrl-Shift-X` respectifely `Cmd-Shift-X`
 3. Type `PyTorch Snippets`
 4. Choose and install extension
 5. Restart/reload Visual Studio Code
@@ -80,9 +73,18 @@ On Windows for example you can normally find the extension folder at `C:\Users\Y
 
 ## <a name="changelog" > </a> Changelog
 
-Version 0.1.1 Changes:
+#### Version 0.2.0:
 
-- Added lots of Fastai Snippets (including NLP, Computer Vision, Tabular Data and Collaborative Filtering).
+##### Added
+
+- Added code snippets for fast metrics or loss selection (PyTorch and fastai)
+- Added easy selection of neural network layers in PyTorch based on their type (conv, recurrent, etc.)
+- Added some more PyTorch snippets like for example optimizer selection, weight initialization etc.
+- Added DataBlock API snippet for fastai
+
+##### Changes
+
+- Changed some code examples for common problems to be inline with the official examples provided by PyTorch
   
 All of the past as well as the upcoming changes can further be viewed at [Changelog](CHANGELOG.md).
 
