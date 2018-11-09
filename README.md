@@ -4,7 +4,7 @@
 [![Installs](https://vsmarketplacebadge.apphb.com/installs/SBSnippets.pytorch-snippets.svg)](https://marketplace.visualstudio.com/items?itemName=SBSnippets.pytorch-snippets)
 [![Rating](https://vsmarketplacebadge.apphb.com/rating-short/SBSnippets.pytorch-snippets.svg)](https://marketplace.visualstudio.com/items?itemName=SBSnippets.pytorch-snippets)
 [![The MIT License](https://img.shields.io/badge/license-MIT-orange.svg)](LICENSE.md)
-[![GitHub](https://img.shields.io/badge/github-v0.1.1-blue.svg)](https://github.com/SvenBecker/vscode-pytorch/releases)
+[![GitHub](https://img.shields.io/badge/github-v0.2.0-blue.svg)](https://github.com/SvenBecker/vscode-pytorch/releases)
 
 This project aims to provide a faster workflow when using the [PyTorch](https://github.com/pytorch/pytorch) or [fastai](https://github.com/fastai/fastai) library in [Visual Studio Code](https://code.visualstudio.com/).
 This extension provides code snippets for often used coding blocks as well as code example provided by the libraries for common deep learning tasks.
@@ -38,6 +38,22 @@ For a full overview please take a look at the [Snippet Collection](COLLECTIONS.m
 
 ![Fastai Preview](images/preview_fastai.gif)
 
+### <a name="installation" > </a> Dependencies
+
+Currently the snippets are working for the latest releases of the supported libraries:
+
+* fastai >= 1.0.21
+* pytorch >= 0.4.1
+
+>__Info__:
+>Be aware that at the time the fastai library is changing rapidly, so I can not guarantee that every snippet is actually working.
+>I will try to keep the snippets in line with the latest fastai library developments (as well as the latest pytroch releases), so it might not work for you in case you are using an _outdated_ version.
+
+<div class="alert alert-success">
+Be aware that at the time the fastai library is changing rapidly, so I can not guarantee that every snippet is actually working.
+I will try to keep the snippets in line with the latest fastai library developments (as well as the latest pytroch releases), so it might not work for you in case you are using an _outdated_ version.
+</div>
+
 ## <a name="installation" > </a> Installation
 
 The installation process is very straightforward. The most recommend way is shown below.
@@ -59,7 +75,7 @@ mv vscode-pytorch /path/to/your/VSCodeExtensionFolder/
 
 On Windows for example you can normally find the extension folder at `C:\Users\YourName\.vscode\extensions`. On MacOS and Linux it should be located at `~/.vscode/extensions`.
 
-> The second method will give you the overall most recent version because I won't update the VS Marketplace version as often
+> __Info__: The second method will give you the overall most recent version because I won't update the VS Marketplace version as often
 > as the GitHub version but the VS Marketplace version will probably be the more stable one.
 
 ## <a name="changelog" > </a> Changelog

@@ -16,6 +16,41 @@
             "device = torch.device('cuda:0' if torch.cuda.is_available() else 'cpu')"
         ]
     },
+    "Optimizer": {
+        "prefix": "pytorch:optim",
+        "description": "Creates an optimizer",
+        "body":[
+            "optimizer = torch.optim.${1|Adadelta(,Adagrad(,Adam(,SparseAdam(,Adamax(,ASGD(,LBFGS(,RMSprop(,Rprop(,SGD(|lr=${2:1e-2})}"
+        ]
+    },
+    "Classification Loss": {
+        "prefix": "pytorch:loss_class",
+        "description": "Loads a loss function for classification provided by pytorch",
+        "body":[
+            "criterion = nn.${1|CrossEntropyLoss,NLLLoss,PoissonNLLLoss,BCELoss,BCEWithLogitsLoss,MarginRankingLoss,HingeEmbeddingLoss,MultiLabelMarginLoss,SoftMarginLoss,MultiLabelSoftMarginLoss,CosineEmbeddingLoss,MultiMarginLoss,TripletMarginLoss|()}"
+        ]
+    },
+    "Regression Loss": {
+        "prefix": "pytorch:loss_reg",
+        "description": "Loads a loss function for regression provided by pytorch",
+        "body":[
+            "criterion = nn.${1|L1Loss,MSELoss,KLDivLoss,SmoothL1Loss|}()"
+        ]
+    },
+    "Classification Metric": {
+        "prefix": "pytorch:metric_class",
+        "description": "Loads a metric for classification problems provided by pytorch",
+        "body":[
+            "metrics = [${1|'accuracy'|}]"
+        ]
+    },
+    "Regression Metric": {
+        "prefix": "pytorch:metric_reg",
+        "description": "Loads a metric for regression problems provided by pytorch",
+        "body":[
+            "metrics = [${1|'accuracy'|}]"
+        ]
+    },
     "PyTorch Module": {
         "prefix": "pytorch:module",
         "description": "Creates a custom class template which inherits from torch.nn.Module",
@@ -46,6 +81,38 @@
             "\t\tgrad_input = grad_output.clone()",
             "",
             "\t\treturn grad_input"
+        ]
+    },
+    "Initialize": {
+        "prefix": "pytorch:init",
+        "description": "Creates an initializer function and applies it to the neural network",
+        "body": [
+            "def init_weights(m):",
+            "\tclassname = m.__class__.__name__",
+            "\tif classname.find('Linear') != -1:",
+            "\t\tnn.init.${1|xavier_uniform_(gain=1\\, ,xavier_normal_(gain=1\\, ,kaiming_uniform_(a=0\\, mode='fan_in'\\, nonlinearity='leaky_relu'\\, ,kaiming_normal_(a=0\\, mode='fan_in'\\, nonlinearity='leaky_relu'\\, ,eye_(,orthogonal_(gain=1\\, ,normal_(mean=0\\, std=1\\, ,uniform_(a=0\\, b=1\\, ,sparse_(sparsity=0.1\\ std=0.01\\, ,constant_(val=0.1\\, ,zeros_(,ones_(|}tensor=m.weight)",
+            "\t\tnn.init.${2|normal_(mean=0\\, std=1\\, ,uniform_(a=0\\, b=1\\, ,ones_(,zeros(,(,constant_(val=0.01\\, |}tensor=m.bias)",
+            "",
+            "\telif classname.find('Conv') != -1:",
+            "\t\tnn.init.${3|xavier_uniform_(gain=1\\, ,xavier_normal_(gain=1\\, ,kaiming_uniform_(a=0\\, mode='fan_in'\\, nonlinearity='leaky_relu'\\, ,kaiming_normal_(a=0\\, mode='fan_in'\\, nonlinearity='leaky_relu'\\, ,dirac_(,orthogonal_(gain=1\\, ,normal_(mean=0\\, std=1\\, ,uniform_(a=0\\, b=1\\, ,sparse_(sparsity=0.1\\ std=0.01\\, ,constant_(val=0.1\\, ,zeros_(,ones_(|}tensor=m.weight)",
+            "\t\tnn.init.${4|normal_(mean=0\\, std=1\\, ,uniform_(a=0\\, b=1\\, ,ones_(,zeros(,(,constant_(val=0.01\\, |}tensor=m.bias)",
+            "\telif classname.find('BatchNorm') != -1:",
+            "\t\tnn.init.${5|kaiming_uniform,|}(m.weight)",
+            "\t\tnn.init.${6|xavier_uniform_,xavier_normal_,kaiming_uniform_,kaiming_normal_|}(m.bias)",
+            "",
+            "\telif classname.find('Cell') != -1:",
+            "\t\tnn.init.${7|xavier_uniform_(gain=1\\, ,xavier_normal_(gain=1\\, ,kaiming_uniform_(a=0\\, mode='fan_in'\\, nonlinearity='leaky_relu'\\, ,kaiming_normal_(a=0\\, mode='fan_in'\\, nonlinearity='leaky_relu'\\, ,eye_(,orthogonal_(gain=1\\, ,normal_(mean=0\\, std=1\\, ,uniform_(a=0\\, b=1\\, ,sparse_(sparsity=0.1\\ std=0.01\\, ,constant_(val=0.1\\, ,zeros_(,ones_(|}tensor=m.weight_hh)",
+            "\t\tnn.init.${8|xavier_uniform_(gain=1\\, ,xavier_normal_(gain=1\\, ,kaiming_uniform_(a=0\\, mode='fan_in'\\, nonlinearity='leaky_relu'\\, ,kaiming_normal_(a=0\\, mode='fan_in'\\, nonlinearity='leaky_relu'\\, ,eye_(,orthogonal_(gain=1\\, ,normal_(mean=0\\, std=1\\, ,uniform_(a=0\\, b=1\\, ,sparse_(sparsity=0.1\\ std=0.01\\, ,constant_(val=0.1\\, ,zeros_(,ones_(|}tensor=m.weight_ih)",
+            "\t\tnn.init.${9|normal_(mean=0\\, std=1\\, ,uniform_(a=0\\, b=1\\, ,ones_(,zeros(,(,constant_(val=0.01\\, |}tensor=m.bias_hh)",
+            "\t\tnn.init.${10|normal_(mean=0\\, std=1\\, ,uniform_(a=0\\, b=1\\, ,ones_(,zeros(,(,constant_(val=0.01\\, |}tensor=m.bias_ih)",
+            "",
+            "\telif classname.find('RNN') != -1 or classname.find('LSTM') != -1 or classname.find('GRU') != -1:",
+            "\t\tnn.init.${11|xavier_uniform_(gain=1\\, ,xavier_normal_(gain=1\\, ,kaiming_uniform_(a=0\\, mode='fan_in'\\, nonlinearity='leaky_relu'\\, ,kaiming_normal_(a=0\\, mode='fan_in'\\, nonlinearity='leaky_relu'\\, ,eye_(,orthogonal_(gain=1\\, ,normal_(mean=0\\, std=1\\, ,uniform_(a=0\\, b=1\\, ,sparse_(sparsity=0.1\\ std=0.01\\, ,constant_(val=0.1\\, ,zeros_(,ones_(|}tensor=m.weight_hh_l0)",
+            "\t\tnn.init.${12|xavier_uniform_(gain=1\\, ,xavier_normal_(gain=1\\, ,kaiming_uniform_(a=0\\, mode='fan_in'\\, nonlinearity='leaky_relu'\\, ,kaiming_normal_(a=0\\, mode='fan_in'\\, nonlinearity='leaky_relu'\\, ,eye_(,orthogonal_(gain=1\\, ,normal_(mean=0\\, std=1\\, ,uniform_(a=0\\, b=1\\, ,sparse_(sparsity=0.1\\ std=0.01\\, ,constant_(val=0.1\\, ,zeros_(,ones_(|}tensor=m.weight_ih_l0)",
+            "\t\tnn.init.${13|normal_(mean=0\\, std=1\\, ,uniform_(a=0\\, b=1\\, ,ones_(,zeros(,(,constant_(val=0.01\\, |}tensor=m.bias_hh_l0)",
+            "\t\tnn.init.${14|normal_(mean=0\\, std=1\\, ,uniform_(a=0\\, b=1\\, ,ones_(,zeros(,(,constant_(val=0.01\\, |}tensor=m.bias_ih_l0)",
+            "",
+            "${15:net}.apply(init_weights)"
         ]
     },
     "Train Loop": {
@@ -79,7 +146,7 @@
         "prefix": "pytorch:freeze",
         "desription": "Freeze all layers of the network",
         "body": [
-            "for params in ${1:model}.parameters():",
+            "for params in ${1:net}.parameters():",
             "\tparams.require_grad = False"
         ]
     },
@@ -87,16 +154,84 @@
         "prefix": "pytorch:unfreeze",
         "desription": "Unfreeze all layers of the network",
         "body": [
-            "for params in ${1:model}.parameters():",
+            "for params in ${1:net}.parameters():",
             "\tparams.require_grad = True"
         ]
     },
+    "Activation":{
+        "prefix": "pytorch:activation",
+        "description": "Adds a non-linear activation",
+        "body": [
+            "${1:nonlin} = nn.{2|ELU(alpha=1.\\, inplace=False),Hardshrink(lambd=0.5),Hardtanh(min_val=-1\\, max_val=1\\, inplace=False\\, min_value=None\\, max_value=None),LeakyReLU(negative_slope=0.01\\, inplace=False),LogSigmoid,PReLU(num_parameters=1\\, init=0.25),ReLU(inplace=False),ReLU6(inplace=False),RReLU(lower=0.125\\, upper=0.3333333333333333\\, inplace=False),SELU(inplace=False),Sigmoid,Softplus(beta=1\\, threshold=20),Softshrink(lambd=0.5),Softsign,Tanh,Tanhshrink,Threshold(threshold\\, value\\, inplace=False),Softmin(dim=None),Softmax(dim=None),Softmax2d,LogSoftmax(dim=None),AdaptiveLogSoftmaxWithLogits(in_features\\, n_classes\\, cutoffs\\, div_value=4.0\\, head_bias=True)|}"
+        ]
+    },
+    "Convolution Layer":{
+        "prefix": "pytorch:layer:conv",
+        "description": "Creates a convolutional layer",
+        "body": [
+            "${1:conv} = nn.{2|Conv1d(in_channel\\, out_channel\\, groups=1\\, bias=True\\, ,Conv2d(in_channel\\, out_channel\\, groups=1\\, bias=True\\, ,Conv3d(in_channel\\, out_channel\\, groups=1\\, bias=True\\, ,ConvTranspose1d(in_channel\\, out_channel\\, groups=1\\, bias=True\\, out_padding=0\\, dilation=1\\, ,ConvTranspose2d/in_channel\\, out_channel\\, groups=1\\, bias=True\\, out_padding=0\\, dilation=1\\, ,ConvTranspose3d(in_channel\\, out_channel\\, groups=1\\, bias=True\\, out_padding=0\\, dilation=1\\, ,Unfold(dilation=1\\, ,Fold(outputsize\\, |}(kernel_size=2, padding=0, stride=1)"
+        ]
+    },
+    "Pooling Layer":{
+        "prefix": "pytorch:layer:pooling",
+        "description": "Creates a pooling layer",
+        "body": [
+            "${1:pool} = nn.{2|MaxPool1d(kernel_size\\ stride=None\\, padding=0\\, dilation=1\\, return_indices=False\\, ceil_mode=False),MaxPool2d(kernel_size\\ stride=None\\, padding=0\\, dilation=1\\, return_indices=False\\, ceil_mode=False),MaxPool3d(kernel_size\\ stride=None\\, padding=0\\, dilation=1\\, return_indices=False\\, ceil_mode=False),MaxUnpool1d(kernel_size\\, stride=None\\, padding=0),MaxUnpool2d(kernel_size\\, stride=None\\, padding=0),MaxUnpool3d(kernel_size\\, stride=None\\, padding=0),AvgPool1d(kernel_size\\, stride=None\\, padding=0\\, ceil_mode=False\\, count_include_pad=True),AvgPool2d(kernel_size\\, stride=None\\, padding=0\\, ceil_mode=False\\, count_include_pad=True),AvgPool3d(kernel_size\\, stride=None\\, padding=0\\, ceil_mode=False\\, count_include_pad=True),FractionalMaxPool2d(kernel_size\\, output_size=None\\, output_ratio=None\\, return_indices=False\\, random_samples=None),LPPool1d(norm_type\\, kernel_size\\, stride=None\\, ceil_mode=False),LPPool2d(norm_type\\, kernel_size\\, stride=None\\, ceil_mode=False),AdaptiveMaxPool1d(output_size\\, return_indices=False),AdaptiveMaxPool2d(output_size\\, return_indices=False),AdaptiveMaxPool3d(output_size\\, return_indices=False),AdaptiveAvgPool1d(output_size),AdaptiveAvgPool2d(output_size),AdaptiveAvgPool3d(output_size)|}"
+        ]
+    },
+    "Padding Layer":{
+        "prefix": "pytorch:layer:padding",
+        "description": "Creates a padding layer",
+        "body": [
+            "${1:padding} = nn.{2|ReflectionPad1d(,ReflectionPad2d(,ReplicationPad1d(,ReplicationPad2d(,ReplicationPad3d(,ZeroPad2d(,ConstantPad1d(value=3.5\\, ,ConstantPad2d(value=3.5\\, ,ConstantPad3d(value=3.5\\, |}padding={3:()}"
+        ]
+    },
+    "Recurrent Layer":{
+        "prefix": "pytorch:layer:recurrent",
+        "description": "Creates a recurrent layer",
+        "body": [
+            "${1:recurrent} = nn.{2|RNN,LSTM,GRU,RNNCell,LSTMCell,GRUCell|}({3:input_size}, {4:hidden_size}, bias={5:True})"
+        ]
+    },
+    "Normalization Layer":{
+        "prefix": "pytorch:layer:norm",
+        "description": "Creates a normalization layer",
+        "body": [
+            "${1:norm} = nn.{2|BatchNorm1d(num_features\\, eps=1e-5\\, momentum=0.1\\, affine=True\\, track_running_stats=True),BatchNorm2d(num_features\\, eps=1e-5\\, momentum=0.1\\, affine=True\\, track_running_stats=True),BatchNorm3d(num_features\\, eps=1e-5\\, momentum=0.1\\, affine=True\\, track_running_stats=True),GroupNorm(num_groups\\, num_channels\\, eps=1e-5\\, affine=True),InstanceNorm1d(num_features\\, eps=1e-5\\, momentum=0.1\\, affine=False\\, track_running_stats=False),InstanceNorm2d(num_features\\, eps=1e-5\\, momentum=0.1\\, affine=False\\, track_running_stats=False),InstanceNorm3d(num_features\\, eps=1e-5\\, momentum=0.1\\, affine=False\\, track_running_stats=False),LayerNorm(normalized_shape\\, eps=1e-5\\, elementwise_affine=True),LocalResponseNorm(size\\, alpha=1e-4\\, beta=0.75\\, k=1)|}"
+        ]
+    },
+    "Linear Layer":{
+        "prefix": "pytorch:layer:linear",
+        "description": "Creates a linear layer",
+        "body": [
+            "${1:linear} = nn.{2|Linear(in_feature\\, ,Bilinear(in_features1\\, in_features2\\, |}out_features, bias=True)"
+        ]
+    },
+    "Dropout":{
+        "prefix": "pytorch:layer:dropout",
+        "description": "Adds dropout",
+        "body": [
+            "${1:drop} = nn.{2|Dropout,Dropout2d,Dropout3d,AlphaDropout|}(p={3:0.5}, inplace={4:False})"
+        ]
+    },
+    "Sparse Layer":{
+        "prefix": "pytorch:layer:sparse",
+        "description": "Creates a sparse layer",
+        "body": [
+            "${1:sparse} = nn.{2|Embedding,EmbeddingBag|}({3:num_embeddings}, {4:embedding_dim})"
+        ]
+    },
+    "Vision Layer":{
+        "prefix": "pytorch:layer:vision",
+        "description": "Creates a vision layer",
+        "body": [
+            "${1:vision} = nn.{2|PixelShuffle(upscale_factor),Upsample(size=None\\, scale_factor=None\\, mode='nearest'\\, align_corners=None),UpsamplingNearest2d(size=None\\, scale_factor=None),UpsamplingBilinear2d(size=None\\, scale_factor=None)|}"
+        ]
+    },
     "Resnet Basic Block":{
-        "prefix": "pytorch:layer:resblock",
+        "prefix": "pytorch:layer:resnet:block",
         "description": "Creates a Resnet basic block",
         "body": [
-            "import torch.nn as nn",
-            "",
             "class BasicBlock(nn.Module):",
             "\t# see https://pytorch.org/docs/0.4.0/_modules/torchvision/models/resnet.html",
             "\tdef __init__(self, inplanes, planes, stride=1):",
@@ -120,11 +255,9 @@
         ]
     },
     "Resnet Bottleneck Block":{
-        "prefix": "pytorch:layer:resbottleneck",
+        "prefix": "pytorch:layer:resnet:bottleneck",
         "description": "Creates a Resnet bottleneck block",
         "body": [
-            "import torch.nn as nn",
-            "",
             "class Bottleneck(nn.Module):",
             "\t# see https://pytorch.org/docs/0.4.0/_modules/torchvision/models/resnet.html ",
             "\tdef __init__(self, inplanes, planes, stride=1, downsample=None):",
