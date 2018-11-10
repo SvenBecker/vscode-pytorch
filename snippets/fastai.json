@@ -48,6 +48,13 @@
             "${1:learn}.loss = ${2|MSELossFlat,nn.L1Loss,nn.MSELoss,nn.KLDivLoss,nn.SmoothL1Loss|}()"
         ]
     },
+    "Optimizer": {
+        "prefix": "fastai:optim",
+        "desription": "Select an optimizer",
+        "body":[
+            "optimizer = optim.${1|Adadelta(,Adagrad(,Adam(,SparseAdam(,Adamax(,ASGD(,LBFGS(,RMSprop(,Rprop(,SGD(|}lr=${2:1e-2})"
+        ]
+    },
     "Vision Imports": {
         "prefix": "fastai:vision:imports",
         "description": "Imports the packages which are most required for computer vision tasks",
@@ -60,7 +67,7 @@
         "prefix": "fastai:vision:transform",
         "description": "Image transformation pipline",
         "body": [
-            "tfms = get_transforms(do_flip=${1:True}, flip_vert=${2:False}, max_rotate=${3:10.}, max_zoom=${4:1.1}, max_lightning=${5:0.2}, max_warp=${6:0.2}, p_affine=${7:0.75}, p_lightning=${8:0.75})"
+            "tfms = get_transforms(do_flip=${1|True,False|}, flip_vert=${2|False,True|}, max_rotate=${3:10.}, max_zoom=${4:1.1}, max_lightning=${5:0.2}, max_warp=${6:0.2}, p_affine=${7:0.75}, p_lightning=${8:0.75})"
         ]
     },
     "Image Normalize Stats": {
@@ -77,10 +84,10 @@
             "path = Path('${TM_DIRECTORY}') / '${1:data'}",
             "size = ${2:128}",
             "bs=${3:32}",
-            "src = (${4|ImageFileList.from_folder(path),ImageSplitDatasets(path)|",
-            "\t.${5|label_from_folder(),label_from_df(df, fn_col, label_col),label_from_func(get_y_fn),label_from_re(pat)|}",
+            "src = (${4|ImageFileList.from_folder(path),ImageSplitDatasets(path)|}",
+            "\t.${5|label_from_folder(),label_from_df(df\\, fn_col\\, label_col),label_from_func(get_y_fn),label_from_re(pat)|}",
             "\t.${6|split_by_folder(train='train'\\, valid='valid'),random_split_by_pct(valid_pct=0.2),split_by_files(valid_names),split_by_fname_file(fname),split_by_idx(valid_idx),split_by_valid_func(func)|}",
-            "data = (src.datasets(${7|None,ImageClassificationDataset,ImageMultiDataset,SegmentationDataset,PointsDataset,ObjectDataset|})",
+            "data = (src.datasets(${7|ImageClassificationDataset,ImageMultiDataset,SegmentationDataset,PointsDataset,ObjectDataset|})",
             "\t.transform(tfms, size=size, tfm_y=False)",
             "\t.databunch(bs=bs).normalize(imagenet_stats))"
         ]
@@ -212,13 +219,13 @@
             "\t.datasets()",
             "\t.tokenize()",
             "\t.numericalize()",
-            "\t.databunch(TextLMDataBunch, bs=bs),data_clas = TextFileList.from_folder(path)}",
+            "\t.databunch(TextLMDataBunch, bs=bs),data_clas = TextFileList.from_folder(path)",
             "\t.label_from_folder(classes=['neg'\\, 'pos'])",
             "\t.split_by_folder(valid='test')",
             "\t.datasets()",
             "\t.tokenize()",
             "\t.numericalize(vocab=data_lm.vocab)",
-            "\t.databunch(TextClasDataBunch, bs=bs)"
+            "\t.databunch(TextClasDataBunch, bs=bs)|}"
         ]
     },
     "Text Learner": {
@@ -240,6 +247,125 @@
         "description": "Creates a learner for collaborative filtering",
         "body": [
             "learn = get_collab_learner(${1:ratings}, ${2:n_factors}, pct_val=0.2, user_name=${3:None}, item_name=${4:None}, rating_name=${5:None}, test=None, metrics=None, min_score=None, max_score=None"
+        ]
+    },
+    "Cifar Example": {
+        "prefix": "fastai:examples:cifar",
+        "description": "Cifar code example",
+        "body": [
+            "from fastai import *",
+            "from fastai.vision import *",
+            "from fastai.vision.models.wrn import wrn_22",
+            "",
+            "torch.backends.cudnn.benchmark = True",
+            "",
+            "path = untar_data(URLs.CIFAR)",
+            "ds_tfms = ([*rand_pad(4, 32), flip_lr(p=0.5)], [])",
+            "data = ImageDataBunch.from_folder(path, valid='test', ds_tfms=ds_tfms, bs=512).normalize(cifar_stats)",
+            "",
+            "learn = Learner(data, wrn_22(), metrics=accuracy).to_fp16()",
+            "learn.fit_one_cycle(30, 3e-3, wd=0.4, div_factor=10, pct_start=0.5)",
+            "",
+            "# with mixup",
+            "learn = Learner(data, wrn_22(), metrics=accuracy).to_fp16().mixup()",
+            "learn.fit_one_cycle(24, 3e-3, wd=0.2, div_factor=10, pct_start=0.5)"
+        ]
+    },
+    "Colab Example": {
+        "prefix": "fastai:examples:colab",
+        "description": "Colaborative filtering code example",
+        "body": [
+            "from fastai import *          # Quick access to most common functionality",
+            "from fastai.collab import *   # Quick access to collab filtering functionality",
+            "",
+            "path = untar_data(URLs.ML_SAMPLE)",
+            "ratings = pd.read_csv(path/'ratings.csv')",
+            "series2cat(ratings, 'userId', 'movieId')",
+            "",
+            "learn = get_collab_learner(ratings, n_factors=50, min_score=0., max_score=5.)",
+            "learn.fit_one_cycle(4, 5e-3)"
+        ]
+    },
+    "Dogs-Cats Example": {
+        "prefix": "fastai:examples:dogs-cats",
+        "description": "Dogs-cats code example",
+        "body": [
+            "from fastai import *",
+            "from fastai.vision import *",
+            "",
+            "path = untar_data(URLs.DOGS)",
+            "data = ImageDataBunch.from_folder(path, ds_tfms=get_transforms(), size=224).normalize(imagenet_stats)",
+            "",
+            "learn = create_cnn(data, models.resnet34, metrics=accuracy)",
+            "learn.fit_one_cycle(1)",
+            "",
+            "learn.unfreeze()",
+            "learn.fit_one_cycle(6, slice(1e-5,3e-4), pct_start=0.05)",
+            "",
+            "accuracy(*learn.TTA())"
+        ]
+    },
+    "Adult Example": {
+        "prefix": "fastai:examples:adult",
+        "description": "Adult code example",
+        "body": [
+            "from fastai import *          # Quick access to most common functionality",
+            "from fastai.tabular import *  # Quick access to tabular functionality",
+            "",
+            "path = untar_data(URLs.ADULT_SAMPLE)",
+            "df = pd.read_csv(path/'adult.csv')",
+            "train_df, valid_df = df[:-2000].copy(),df[-2000:].copy()",
+            "",
+            "dep_var = '>=50k'",
+            "cat_names = ['workclass', 'education', 'marital-status', 'occupation', 'relationship', 'race', 'sex', 'native-country']",
+            "data = TabularDataBunch.from_df(path, train_df, valid_df, dep_var,",
+            "\t\t\t\t\t\t\t\ttfms=[FillMissing, Categorify], cat_names=cat_names)",
+            "",
+            "learn = get_tabular_learner(data, layers=[200,100], metrics=accuracy)",
+            "learn.fit(1, 1e-2)"
+        ]
+    },
+    "Imdb Example": {
+        "prefix": "fastai:examples:imdb",
+        "description": "Imdb code example",
+        "body": [
+            "from fastai import *        # Quick access to most common functionality",
+            "from fastai.text import *   # Quick access to NLP functionality",
+            "",
+            "path = untar_data(URLs.IMDB_SAMPLE)",
+            "df = pd.read_csv(path/'texts.csv', header=None)",
+            "",
+            "data_lm = TextLMDataBunch.from_csv(path, 'texts.csv')",
+            "data_clas = TextClasDataBunch.from_csv(path, 'texts.csv', vocab=data_lm.train_ds.vocab, bs=42)",
+            "",
+            "learn = language_model_learner(data_lm, pretrained_model=URLs.WT103)",
+            "learn.unfreeze()",
+            "learn.fit(2, slice(1e-4,1e-2))",
+            "",
+            "learn.save_encoder('enc')",
+            "",
+            "learn = text_classifier_learner(data_clas)",
+            "learn.load_encoder('enc')",
+            "learn.fit(3, 1e-3)"
+        ]
+    },
+    "Mnist Example": {
+        "prefix": "fastai:examples:mnist",
+        "description": "Mnist code example",
+        "body": [
+            "",
+            "import fastai",
+            "from fastai import *          # Quick access to most common functionality",
+            "from fastai.vision import *   # Quick access to computer vision functionality",
+            "",
+            "path = untar_data(URLs.MNIST_SAMPLE)",
+            "data = ImageDataBunch.from_folder(path, ds_tfms=(rand_pad(2, 28), []), bs=64)",
+            "data.normalize(imagenet_stats)",
+            "",
+            "learn = create_cnn(data, models.resnet18, metrics=accuracy)",
+            "learn.fit_one_cycle(1, 0.01)",
+            "",
+            "accuracy(*learn.get_preds())"
         ]
     }
 }
