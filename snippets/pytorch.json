@@ -165,28 +165,28 @@
         "prefix": "pytorch:layer:conv",
         "description": "Creates a convolutional layer",
         "body": [
-            "${1:conv} = nn.${2|Conv1d(in_channel\\, out_channel\\, groups=1\\, bias=True\\, ,Conv2d(in_channel\\, out_channel\\, groups=1\\, bias=True\\, ,Conv3d(in_channel\\, out_channel\\, groups=1\\, bias=True\\, ,ConvTranspose1d(in_channel\\, out_channel\\, groups=1\\, bias=True\\, out_padding=0\\, dilation=1\\, ,ConvTranspose2d/in_channel\\, out_channel\\, groups=1\\, bias=True\\, out_padding=0\\, dilation=1\\, ,ConvTranspose3d(in_channel\\, out_channel\\, groups=1\\, bias=True\\, out_padding=0\\, dilation=1\\, ,Unfold(dilation=1\\, ,Fold(outputsize\\, |}(kernel_size=2, padding=0, stride=1)"
+            "${1:conv} = nn.${2|Conv1d(in_channel\\, out_channel\\, groups=1\\, bias=True\\, ,Conv2d(in_channel\\, out_channel\\, groups=1\\, bias=True\\, ,Conv3d(in_channel\\, out_channel\\, groups=1\\, bias=True\\, ,ConvTranspose1d(in_channel\\, out_channel\\, groups=1\\, bias=True\\, out_padding=0\\, dilation=1\\, ,ConvTranspose2d/in_channel\\, out_channel\\, groups=1\\, bias=True\\, out_padding=0\\, dilation=1\\, ,ConvTranspose3d(in_channel\\, out_channel\\, groups=1\\, bias=True\\, out_padding=0\\, dilation=1\\, ,Unfold(dilation=1\\, ,Fold(outputsize\\, |}kernel_size=2, padding=0, stride=1)"
         ]
     },
     "Pooling Layer":{
         "prefix": "pytorch:layer:pooling",
         "description": "Creates a pooling layer",
         "body": [
-            "${1:pool} = nn.${2|MaxPool1d(kernel_size\\ stride=None\\, padding=0\\, dilation=1\\, return_indices=False\\, ceil_mode=False),MaxPool2d(kernel_size\\ stride=None\\, padding=0\\, dilation=1\\, return_indices=False\\, ceil_mode=False),MaxPool3d(kernel_size\\ stride=None\\, padding=0\\, dilation=1\\, return_indices=False\\, ceil_mode=False),MaxUnpool1d(kernel_size\\, stride=None\\, padding=0),MaxUnpool2d(kernel_size\\, stride=None\\, padding=0),MaxUnpool3d(kernel_size\\, stride=None\\, padding=0),AvgPool1d(kernel_size\\, stride=None\\, padding=0\\, ceil_mode=False\\, count_include_pad=True),AvgPool2d(kernel_size\\, stride=None\\, padding=0\\, ceil_mode=False\\, count_include_pad=True),AvgPool3d(kernel_size\\, stride=None\\, padding=0\\, ceil_mode=False\\, count_include_pad=True),FractionalMaxPool2d(kernel_size\\, output_size=None\\, output_ratio=None\\, return_indices=False\\, random_samples=None),LPPool1d(norm_type\\, kernel_size\\, stride=None\\, ceil_mode=False),LPPool2d(norm_type\\, kernel_size\\, stride=None\\, ceil_mode=False),AdaptiveMaxPool1d(output_size\\, return_indices=False),AdaptiveMaxPool2d(output_size\\, return_indices=False),AdaptiveMaxPool3d(output_size\\, return_indices=False),AdaptiveAvgPool1d(output_size),AdaptiveAvgPool2d(output_size),AdaptiveAvgPool3d(output_size)|}"
+            "${1:pool} = nn.${2|MaxPool1d(kernel_size\\, stride=None\\, padding=0\\, dilation=1\\, return_indices=False\\, ceil_mode=False),MaxPool2d(kernel_size\\, stride=None\\, padding=0\\, dilation=1\\, return_indices=False\\, ceil_mode=False),MaxPool3d(kernel_size\\, stride=None\\, padding=0\\, dilation=1\\, return_indices=False\\, ceil_mode=False),MaxUnpool1d(kernel_size\\, stride=None\\, padding=0),MaxUnpool2d(kernel_size\\, stride=None\\, padding=0),MaxUnpool3d(kernel_size\\, stride=None\\, padding=0),AvgPool1d(kernel_size\\, stride=None\\, padding=0\\, ceil_mode=False\\, count_include_pad=True),AvgPool2d(kernel_size\\, stride=None\\, padding=0\\, ceil_mode=False\\, count_include_pad=True),AvgPool3d(kernel_size\\, stride=None\\, padding=0\\, ceil_mode=False\\, count_include_pad=True),FractionalMaxPool2d(kernel_size\\, output_size=None\\, output_ratio=None\\, return_indices=False\\, random_samples=None),LPPool1d(norm_type\\, kernel_size\\, stride=None\\, ceil_mode=False),LPPool2d(norm_type\\, kernel_size\\, stride=None\\, ceil_mode=False),AdaptiveMaxPool1d(output_size\\, return_indices=False),AdaptiveMaxPool2d(output_size\\, return_indices=False),AdaptiveMaxPool3d(output_size\\, return_indices=False),AdaptiveAvgPool1d(output_size),AdaptiveAvgPool2d(output_size),AdaptiveAvgPool3d(output_size)|}"
         ]
     },
     "Padding Layer":{
         "prefix": "pytorch:layer:padding",
         "description": "Creates a padding layer",
         "body": [
-            "${1:padding} = nn.${2|ReflectionPad1d(,ReflectionPad2d(,ReplicationPad1d(,ReplicationPad2d(,ReplicationPad3d(,ZeroPad2d(,ConstantPad1d(value=3.5\\, ,ConstantPad2d(value=3.5\\, ,ConstantPad3d(value=3.5\\, |}padding={3:(2,2)}"
+            "${1:padding} = nn.${2|ReflectionPad1d(,ReflectionPad2d(,ReplicationPad1d(,ReplicationPad2d(,ReplicationPad3d(,ZeroPad2d(,ConstantPad1d(value=3.5\\, ,ConstantPad2d(value=3.5\\, ,ConstantPad3d(value=3.5\\, |}padding=${3:(2,2)}"
         ]
     },
     "Recurrent Layer":{
         "prefix": "pytorch:layer:recurrent",
         "description": "Creates a recurrent layer",
         "body": [
-            "${1:recurrent} = nn.${2|RNN,LSTM,GRU,RNNCell,LSTMCell,GRUCell|}({3:input_size}, {4:hidden_size}, bias={5:True})"
+            "${1:recurrent} = nn.${2|RNN,LSTM,GRU,RNNCell,LSTMCell,GRUCell|}(${3:input_size}, ${4:hidden_size}, bias=${5:True})"
         ]
     },
     "Normalization Layer":{
@@ -207,14 +207,14 @@
         "prefix": "pytorch:layer:dropout",
         "description": "Adds dropout",
         "body": [
-            "${1:drop} = nn.${2|Dropout,Dropout2d,Dropout3d,AlphaDropout|}(p={3:0.5}, inplace={4:False})"
+            "${1:drop} = nn.${2|Dropout,Dropout2d,Dropout3d,AlphaDropout|}(p=${3:0.5}, inplace=${4:False})"
         ]
     },
     "Sparse Layer":{
         "prefix": "pytorch:layer:sparse",
         "description": "Creates a sparse layer",
         "body": [
-            "${1:sparse} = nn.${2|Embedding,EmbeddingBag|}({3:num_embeddings}, {4:embedding_dim})"
+            "${1:sparse} = nn.${2|Embedding,EmbeddingBag|}(${3:num_embeddings}, ${4:embedding_dim})"
         ]
     },
     "Vision Layer":{
