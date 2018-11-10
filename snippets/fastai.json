@@ -49,7 +49,7 @@
         ]
     },
     "Optimizer": {
-        "prefix": "fastai:optim",
+        "prefix": "fastai:optimizer",
         "desription": "Select an optimizer",
         "body":[
             "optimizer = optim.${1|Adadelta(,Adagrad(,Adam(,SparseAdam(,Adamax(,ASGD(,LBFGS(,RMSprop(,Rprop(,SGD(|}lr=${2:1e-2})"
@@ -233,6 +233,20 @@
         "description": "Creates a learner for NLP",
         "body": [
             "learn = RNNLearner${2|(model\\, split_func=None\\, clip=None\\, adjust=False\\, alpha=2.\\, beta=1.,.language_model(emb_sz=400\\, nh=1150\\, nl=3\\, pad_token=1\\, drop_mult=1.\\, tie_weights=True\\, bias=True\\, qrnn=False\\, pretrained_model=None\\, pretrained_fnames=None,.classifier(max_len=70*20\\, emb_sz=400\\, nh=1150\\, nl=3\\, lin_ftrs=None\\, ps=None\\, pad_token=1\\, drop_mult=1.\\, qrnn=False|}, data=data, bptt=70)"
+        ]
+    },
+    "Language Model": {
+        "prefix": "fastai:text:lm-learner",
+        "description": "Creates a language learner",
+        "body": [
+            "learn = language_model_learner(${1:data}, bptt=${2:70}, emb_sz=${3:400}, nh=${4:1150}, nl=${5:3})"
+        ]
+    },
+    "Text Classifier": {
+        "prefix": "fastai:text:clas-learner",
+        "description": "Creates a text classifier",
+        "body": [
+            "learn = text_classifier_learner(${1:data}, bptt=${2:70}, emb_sz=${3:400}, nh=${4:1150}, nl=${5:3})"
         ]
     },
     "Collaborative Filtering Dataset": {
