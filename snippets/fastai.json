@@ -1,12 +1,14 @@
 {
     "Train Model": {
         "prefix": "fastai:train",
-        "description": "Suggested training sequence by fast.ai",
+        "description": "Two stage training",
         "body": [
             "learn.${1|fit(epochs\\, lr=default_lr\\, wd=None\\, callbacks=None),fit_one_cycle(cyc_len\\, max_lr=default_lr\\, moms=(0.95\\,0.85)\\, div_factor=25.\\, pct_start=0.3\\, wd=None\\, callbacks=None)|}",
             "learn.save('stage-1')",
+            "",
             "learn.lr_find()",
             "learn.recorder.plot()",
+            "",
             "learn.unfreeze()",
             "learn.${2|fit(epochs\\, lr=default_lr\\, wd=None\\, callbacks=None),fit_one_cycle(cyc_len\\, max_lr=default_lr\\, moms=(0.95\\,0.85)\\, div_factor=25.\\, pct_start=0.3\\, wd=None\\, callbacks=None)|}",
             "learn.save('stage-2')"
@@ -65,7 +67,7 @@
     },
     "Image Transform": {
         "prefix": "fastai:vision:transform",
-        "description": "Image transformation pipline",
+        "description": "Image transformation pipeline",
         "body": [
             "tfms = get_transforms(do_flip=${1|True,False|}, flip_vert=${2|False,True|}, max_rotate=${3:10.}, max_zoom=${4:1.1}, max_lightning=${5:0.2}, max_warp=${6:0.2}, p_affine=${7:0.75}, p_lightning=${8:0.75})"
         ]
@@ -81,29 +83,29 @@
         "prefix": "fastai:vision:datablock",
         "description": "Creates a DataBlock for image data",
         "body": [
-            "path = Path('${TM_DIRECTORY}') / '${1:data'}",
-            "size = ${2:128}",
-            "bs=${3:32}",
-            "src = (${4|ImageFileList.from_folder(path),ImageSplitDatasets(path)|}",
-            "\t.${5|label_from_folder(),label_from_df(df\\, fn_col\\, label_col),label_from_func(get_y_fn),label_from_re(pat)|}",
-            "\t.${6|split_by_folder(train='train'\\, valid='valid'),random_split_by_pct(valid_pct=0.2),split_by_files(valid_names),split_by_fname_file(fname),split_by_idx(valid_idx),split_by_valid_func(func)|})",
-            "data = (src.datasets(${7|ImageClassificationDataset,ImageMultiDataset,SegmentationDataset,PointsDataset,ObjectDataset|})",
-            "\t.transform(tfms, size=size, tfm_y=False)",
-            "\t.databunch(bs=bs).normalize(imagenet_stats))"
+            "tfms = get_transforms(do_flip=${1|True,False|}, flip_vert=${2|False,True|}, max_rotate=${3:10.}, max_zoom=${4:1.1}, max_lightning=${5:0.2}, max_warp=${6:0.2}, p_affine=${7:0.75}, p_lightning=${8:0.75})",
+            "path = Path('${TM_DIRECTORY}') / '${9:data'}",
+            "size = ${10:128}",
+            "bs=${11:32}",
+            "src = (${12|ImageFileList.from_folder(path),ImageSplitDatasets(path)|}",
+            "\t.${13|label_from_folder(),label_from_df(df\\, fn_col\\, label_col),label_from_func(get_y_fn),label_from_re(pat)|}",
+            "\t.${14|split_by_folder(train='train'\\, valid='valid'),random_split_by_pct(valid_pct=0.2),split_by_files(valid_names),split_by_fname_file(fname),split_by_idx(valid_idx),split_by_valid_func(func)|})",
+            "data = (src.datasets(${15|ImageClassificationDataset,ImageMultiDataset,SegmentationDataset,PointsDataset,ObjectDataset|})",
+            "\t.transform(tfms, size=size, tfm_y=${16|False,True|})",
+            "\t.databunch(bs=bs).normalize(${17|imagenet_stats,cifar_stats,mnist_stats,()|}))"
         ]
     },
     "Image DataBunch": {
         "prefix": "fastai:vision:databunch",
         "description": "Creates a DataBunch for image data",
         "body": [
-            "img_path = Path('${TM_DIRECTORY}')",
-            "bs=64",
-            "size=224",
-            "tfms=None",
-            "ds_tfms=None",
+            "img_path = Path('${TM_DIRECTORY}') / ${1:'images'}",
+            "bs=${2:64}",
+            "size=${3:224}",
+            "tfms=get_transforms(do_flip=${4|True,False|}, flip_vert=${5|False,True|}, max_rotate=${6:10.}, max_zoom=${7:1.1}, max_lightning=${8:0.2}, max_warp=${9:0.2}, p_affine=${10:0.75}, p_lightning=${11:0.75})",
             "",
-            "data = ImageDataBunch.${1|create(path=img_path\\, train_ds=train_ds\\, valid_ds=valid_ds\\, test_ds=None\\, size=size\\, bs=bs\\, ds_tfms=ds_tfms\\, tfms=tfms\\, num_workers=defaults.cpus\\, device=None),from_folder(path_img\\, train='train'\\, valid='valid'\\, test=None\\, size=size\\, bs=bs\\, ds_tfms=ds_tfms\\, tfms=tfms\\, num_workers=defaults.cpus\\, device=None),from_df(path=img_path\\, df=df\\, folder='.'\\, sep=None\\, valid_pct=0.2\\, fn_col=0\\, label_col=1\\, test=None\\, suffix=None\\, size=size\\, bs=bs\\, ds_tfms=ds_tfms\\, tfms=tfms\\, num_workers=defaults.cpus\\, device=None),from_csv(path:img_path\\, folder='.'\\, sep=None\\, csv_labels='labels.csv'\\, valid_pct=0.2\\, fn_col=0\\, label_col=1\\, test=None\\, suffix=None\\, header='infer'\\, size=size\\, bs=bs\\, ds_tfms=ds_tfms\\, tfms=tfms\\, num_workers=defaults.cpus\\, device=None),from_lists(path=img_path\\, fnames=fnmaes\\, labels=labels\\, valid_pct=0.2\\, test=None\\, size=size\\, bs=bs\\, ds_tfms=ds_tfms\\, tfms=tfms\\, num_workers=defaults.cpus\\, device=None),from_name_func(path=img_path\\, fnames=fnames\\, label_func=label_func\\, valid_pct=0.2\\, test=None\\, size=size\\, bs=bs\\, ds_tfms=ds_tfms\\, tfms=tfms\\, num_workers=defaults.cpus\\, device=None),from_name_re(path=path_img\\, fnames=fnames\\, pat=pattern\\, valid_pct=0.2\\, test=None\\, size=size\\, bs=bs\\, ds_tfms=ds_tfms\\, tfms=tfms\\, num_workers=defaults.cpus\\, device=None)|}",
-            "data.normalize(stats=${2|None,imagenet_stats,cifar_stats,mnist_stats,()|})"
+            "data = ImageDataBunch.${12|create(path=img_path\\, train_ds=train_ds\\, valid_ds=valid_ds\\, test_ds=None\\, size=size\\, bs=bs\\, tfms=tfms),from_folder(path_img\\, train='train'\\, valid='valid'\\, test=None\\, size=size\\, bs=bs\\, tfms=tfms),from_df(path=img_path\\, df=df\\, folder='.'\\, sep=None\\, valid_pct=0.2\\, fn_col=0\\, label_col=1\\, test=None\\, suffix=None\\, size=size\\, bs=bs\\,  tfms=tfms),from_csv(path:img_path\\, folder='.'\\, sep=None\\, csv_labels='labels.csv'\\, valid_pct=0.2\\, fn_col=0\\, label_col=1\\, test=None\\, suffix=None\\, header='infer'\\, size=size\\, bs=bs\\, tfms=tfms),from_lists(path=img_path\\, fnames=fnmaes\\, labels=labels\\, valid_pct=0.2\\, test=None\\, size=size\\, bs=bs\\, tfms=tfms),from_name_func(path=img_path\\, fnames=fnames\\, label_func=label_func\\, valid_pct=0.2\\, test=None\\, size=size\\, bs=bs\\, tfms=tfms),from_name_re(path=path_img\\, fnames=fnames\\, pat=pattern\\, valid_pct=0.2\\, test=None\\, size=size\\, bs=bs\\, tfms=tfms)|}",
+            "data.normalize(stats=${13|None,imagenet_stats,cifar_stats,mnist_stats,()|})"
         ]
     },
     "Image Classifier": {
@@ -122,41 +124,6 @@
         "body": [
             "interp = ClassificationInterpretation${1|.from_learner(learn\\, tta=False),(data\\, probs\\, y_true\\, losses)|}",
             "interp.${2|top_losses(k=None\\, largest=True),plot_top_losses(k\\, largest=True\\, figsize=(12\\,12)),confusion_matrix(),plot_confusion_matrix(normalize=False\\, title'Confusion matrix'\\, cmap='Blues'\\, norm_dec=2),most_confused(min_val=1)|}"
-        ]
-    },
-    "Image Classification": {
-        "prefix": "fastai:vision:classification",
-        "description": "Creates an image classification template",
-        "body": [
-            "from fastai import *",
-            "from fastai.vision import *",
-            "",
-            "img_path = Path('${TM_DIRECTORY}')",
-            "bs=64              # batch size",
-            "size=224           # image size",
-            "tfms=None          # transformations",
-            "ds_tfms=None       # dataset transformations",
-            "",
-            "data = ImageDataBunch.${1|create(path=img_path\\, train_ds=train_ds\\, valid_ds=valid_ds\\, test_ds=None\\, size=size\\, bs=bs\\, ds_tfms=ds_tfms\\, tfms=tfms\\, num_workers=defaults.cpus\\, device=None),from_folder(path_img\\, train='train'\\, valid='valid'\\, test=None\\, size=size\\, bs=bs\\, ds_tfms=ds_tfms\\, tfms=tfms\\, num_workers=defaults.cpus\\, device=None),from_df(path=img_path\\, df=df\\, folder='.'\\, sep=None\\, valid_pct=0.2\\, fn_col=0\\, label_col=1\\, test=None\\, suffix=None\\, size=size\\, bs=bs\\, ds_tfms=ds_tfms\\, tfms=tfms\\, num_workers=defaults.cpus\\, device=None),from_csv(path:img_path\\, folder='.'\\, sep=None\\, csv_labels='labels.csv'\\, valid_pct=0.2\\, fn_col=0\\, label_col=1\\, test=None\\, suffix=None\\, header='infer'\\, size=size\\, bs=bs\\, ds_tfms=ds_tfms\\, tfms=tfms\\, num_workers=defaults.cpus\\, device=None),from_lists(path=img_path\\, fnames=fnmaes\\, labels=labels\\, valid_pct=0.2\\, test=None\\, size=size\\, bs=bs\\, ds_tfms=ds_tfms\\, tfms=tfms\\, num_workers=defaults.cpus\\, device=None),from_name_func(path=img_path\\, fnames=fnames\\, label_func=label_func\\, valid_pct=0.2\\, test=None\\, size=size\\, bs=bs\\, ds_tfms=ds_tfms\\, tfms=tfms\\, num_workers=defaults.cpus\\, device=None),from_name_re(path=path_img\\, fnames=fnames\\, pat=pattern\\, valid_pct=0.2\\, test=None\\, size=size\\, bs=bs\\, ds_tfms=ds_tfms\\, tfms=tfms\\, num_workers=defaults.cpus\\, device=None)|}",
-            "data.normalize(stats=${2|None,imagenet_stats,cifar_stats,mnist_stats,()|})",
-            "",
-            "arch = ${3|None,models.resnet18,models.resnet34,models.resnet50,models.resnet101,models.resnet152,models.wrn_22|}",
-            "custom_head = ${4|None,create_head(num_features\\, num_classes\\, lin_ftrs=None\\, ps=0.5)|}",
-            "metrics = ${5|error_rate,accuracy,accuracy_thresh,dice|}",
-            "learn = create_cnn(data, arch=arch, metrics=metrics,cut=None, pretrained=True, lin_ftrs=None, ps=0.5, custom_head=custom_head, split_on=None)",
-            "",
-            "learn.${6|fit(epochs\\, lr=default_lr\\, wd=None\\, callbacks=None),fit_one_cycle(cyc_len\\, max_lr=default_lr\\, moms=(0.95\\,0.85)\\, div_factor=25.\\, pct_start=0.3\\, wd=None\\, callbacks=None)|}",
-            "learn.save('stage-1')",
-            "",
-            "learn.lr_find()",
-            "learn.recorder.plot()",
-            "",
-            "learn.unfreeze()",
-            "learn.${7|fit(epochs\\, lr=default_lr\\, wd=None\\, callbacks=None),fit_one_cycle(cyc_len\\, max_lr=default_lr\\, moms=(0.95\\,0.85)\\, div_factor=25.\\, pct_start=0.3\\, wd=None\\, callbacks=None)|}",
-            "learn.save('stage-2')",
-            "",
-            "interp = ClassificationInterpretation${8|.from_learner(learn\\, tta=False),(data\\, probs\\, y_true\\, losses)|}",
-            "interp.${9|top_losses(k=None\\, largest=True),plot_top_losses(k\\, largest=True\\, figsize=(12\\,12)),confusion_matrix(),plot_confusion_matrix(normalize=False\\, title'Confusion matrix'\\, cmap'Blues'\\, norm_dec=2\\),most_confused(min_val=1)|}"
         ]
     },
     "Tabular Imports": {
@@ -179,8 +146,7 @@
         "prefix": "fastai:tabular:learner",
         "description": "Creates a learner for tabular data",
         "body": [
-            "metrics = ${1|error_rate,accuracy,accuracy_thresh,dice,exp_rmspe,fbeta|}",
-            "learn = create_tabular_learner(${3:data}, layers=${4:2}, emb_szs=${5:emb_szs}, metrics=metrics, ps=None, emb_drop=0., y_range=None, use_bn=True)"
+            "learn = create_tabular_learner(${1:data}, layers=${2:2}, emb_szs=${5:emb_szs}, metrics=${3|error_rate,accuracy,accuracy_thresh,dice,exp_rmspe,fbeta|})"
         ]
     },
     "Text Imports": {

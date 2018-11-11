@@ -72,7 +72,6 @@ Full collection of supported code snippets for the PyTorch and Fastai library. `
 | `pytorch:F:loss→`       | applies a loss function          |
 | `pytorch:F:distance→`   | applies a distance function      |
 
-
 ### <a name="pytorch-example" > </a> PyTorch Code Examples
 
 | Trigger                     | Content                                                        |
@@ -110,7 +109,6 @@ Full collection of supported code snippets for the PyTorch and Fastai library. `
 | `fastai:vision:datablock→`      | utilization of the DataBlock for computer vision         |
 | `fastai:vision:classifier→`     | creates an ImageClassifier                               |
 | `fastai:vision:interpreter→`    | creates an ImageClassifierInterpreter                    |
-| `fastai:vision:classification→` | creates a template for common image classification tasks |
 
 ### <a name="fastai-text" > </a> Fastai Text
 
