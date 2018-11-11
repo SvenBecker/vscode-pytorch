@@ -26,7 +26,7 @@
         "prefix": "pytorch:loss_class",
         "description": "Loads a loss function for classification provided by pytorch",
         "body":[
-            "criterion = nn.${1|CrossEntropyLoss,NLLLoss,PoissonNLLLoss,BCELoss,BCEWithLogitsLoss,MarginRankingLoss,HingeEmbeddingLoss,MultiLabelMarginLoss,SoftMarginLoss,MultiLabelSoftMarginLoss,CosineEmbeddingLoss,MultiMarginLoss,TripletMarginLoss|()}"
+            "criterion = nn.${1|CrossEntropyLoss,NLLLoss,PoissonNLLLoss,BCELoss,BCEWithLogitsLoss,MarginRankingLoss,HingeEmbeddingLoss,MultiLabelMarginLoss,SoftMarginLoss,MultiLabelSoftMarginLoss,CosineEmbeddingLoss,MultiMarginLoss,TripletMarginLoss|}()"
         ]
     },
     "Regression Loss": {
@@ -54,7 +54,7 @@
         "prefix": "pytorch:sequential",
         "description": "Builds a sequential model",
         "body": [
-            "net = nn.Sequential(${1| ,*[],OrderedDict(\\{\\})|}).to(${2:device})"
+            "net = nn.Sequential(${1| ,*[]|}).to(${2:device})"
         ]
     },
     "PyTorch Autograd Function": {
@@ -222,6 +222,83 @@
         "description": "Creates a vision layer",
         "body": [
             "${1:vision} = nn.${2|PixelShuffle(upscale_factor),Upsample(size=None\\, scale_factor=None\\, mode='nearest'\\, align_corners=None),UpsamplingNearest2d(size=None\\, scale_factor=None),UpsamplingBilinear2d(size=None\\, scale_factor=None)|}"
+        ]
+    },
+    "Distance Layer": {
+        "prefix": "pytorch:layer:distance",
+        "description": "Creates a distance layer",
+        "body": [
+            "${1:distance} = nn.${2|CosineSimilarity,PairwiseDistance|}()"
+        ]
+    },
+    "Activation Function":{
+        "prefix": "pytorch:F:activation",
+        "description": "Adds a non-linear activation function",
+        "body": [
+            "F.${1|threshold(input\\, threshold\\, value\\, inplace=False),relu(input\\, inplace=False),relu6(input\\, inplace=False),hardtanh(input\\, min_val=-1.\\, max_val=1.\\, inplace=False),elu(input\\, alpha=1.0\\, inplace=False),selu(input\\, inplace=False),leaky_relu(input\\, negative_slope=0.01\\, inplace=False),prelu(input\\, weight),rrelu(input\\, lower=1./8\\, upper=1./3\\, training=False\\, inplace=False),glu(input\\, dim=-1),logsigmoid(input),hardshrink(input\\, lambd=0.5),tanhshrink(input),softsign(input),softplus(input\\, beta=1\\, threshold=20),softmin(input\\, dim=None\\, _stacklevel=3),softmax(input\\, dim=None\\, _stacklevel=3),softshrink(input\\, lambd=0.5),gumbel_softmax(logits\\, tau=1\\, hard=False\\, eps=1e-10),log_softmax(input\\, dim=None\\, _stacklevel=3),tanh(input),sigmoid(input)|}"
+        ]
+    },
+    "Convolution Function":{
+        "prefix": "pytorch:F:conv",
+        "description": "Applies a convolution function",
+        "body": [
+            "F.${1|conv1d,conv2d,conv3d,conv_transpose1d,conv_transpose2d,conv_transpose3d|}(${2:input}, ${3:weight}, bias=None, stride=1, padding=0)"
+        ]
+    },
+    "Pooling Function":{
+        "prefix": "pytorch:F:pooling",
+        "description": "Applies a pooling function",
+        "body": [
+            "F.${1|avg_pool1d(input\\, kernel_size\\, stride=None\\, padding=0),avg_pool2d(input\\, kernel_size\\, stride=None\\, padding=0),avg_pool3d(input\\, kernel_size\\, stride=None\\, padding=0),max_pool1d(input\\, kernel_size\\, stride=None\\, padding=0),max_pool2d(input\\, kernel_size\\, stride=None\\, padding=0,max_pool3d(input\\, kernel_size\\, stride=None\\, padding=0),max_unpool1d(input\\, indices\\, kernel_size\\, stride=None\\, padding=0),max_unpool2d(input\\, indices\\, kernel_size\\, stride=None\\, padding=0),max_unpool3d(input\\, indices\\, kernel_size\\, stride=None\\, padding=0),lp_pool1d(input\\, norm_type\\, kernel_size\\, stride=None),lp_pool2d(input\\, norm_type\\, kernel_size\\, stride=None),adaptive_max_pool1d(input\\, output_size),adaptive_max_pool2d(input\\, output_size),adaptive_max_pool3d(input\\, output_size),adaptive_avg_pool1d(input\\, output_size),adaptive_avg_pool2d(input\\, output_size),adaptive_avg_pool3d(input\\, output_size)|}"
+        ]
+    },
+    "Normalization Function":{
+        "prefix": "pytorch:F:norm",
+        "description": "Applies a normalization function",
+        "body": [
+            "F.${1|batch_norm(input\\, running_mean\\, running_var),instance_norm(input\\, running_mean=None\\, running_var=None),layer_norm(input\\, normalized_shape),local_response_norm(input\\, size),normalize(input)|}"
+        ]
+    },
+    "Linear Function":{
+        "prefix": "pytorch:F:linear",
+        "description": "Applies a linear function",
+        "body": [
+            "F.${1|linear(input\\, weight),bilinear(input1\\, input2\\, weight)|}"
+        ]
+    },
+    "Dropout Function":{
+        "prefix": "pytorch:F:dropout",
+        "description": "Applies a dropout function",
+        "body": [
+            "F.${1|dropout,dropout2d,dropout3d,alpha_dropout|}(${2:input}, p=${3:0.5})"
+        ]
+    },
+    "Sparse Function":{
+        "prefix": "pytorch:F:sparse",
+        "description": "Applies an embedding function",
+        "body": [
+            "F.${1|embedding,embedding_bag|}(${2:input}, ${3:weight})"
+        ]
+    },
+    "Distance Function":{
+        "prefix": "pytorch:F:distance",
+        "description": "Applies a distance function",
+        "body": [
+            "F.${1|pairwise_distance,cosine_similarity|}(${2:x1}, ${3:x2})"
+        ]
+    },
+    "Vision Function": {
+        "prefix": "pytorch:F:vision",
+        "description": "Applies a vision function",
+        "body": [
+            "F.${1|pixel_shuffle(input\\, upscale_factor),pad(input\\, pad),interpolate(input\\, size=None\\, scale_factor=None),upsample(input\\, size=None\\, scale_factor=None),upsample_nearest(input\\, size=None\\, scale_factor=None),upsample_bilinear(input\\, size=None\\, scale_factor=None),grid_sample(input\\, grid),affine_grid(theta\\, size)|}"
+        ]
+    },
+    "Loss Function": {
+        "prefix": "pytorch:F:loss",
+        "description": "Applies a loss function",
+        "body": [
+            "F.${1|cross_entropy,binary_cross_entropy,binary_cross_entropy_with_logits,poisson_nll_loss,hinge_embedding_loss,kl_div,l1_loss,smooth_l1_loss,mse_loss,multilabel_margin_loss,multilabel_soft_margin_loss,multi_margin_loss,nll_loss,soft_margin_loss|}(${2:input}, ${3:target})"
         ]
     },
     "Resnet Basic Block":{

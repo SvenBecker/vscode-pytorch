@@ -180,8 +180,7 @@
         "description": "Creates a learner for tabular data",
         "body": [
             "metrics = ${1|error_rate,accuracy,accuracy_thresh,dice,exp_rmspe,fbeta|}",
-            "emb_szs = ${2:\\{\\}}",
-            "learn = create_tabular_learner(${3:data}, layers=${4:2}, emb_szs=emb_szs, metrics=metrics, ps=None, emb_drop=0., y_range=None, use_bn=True)"
+            "learn = create_tabular_learner(${3:data}, layers=${4:2}, emb_szs=${5:emb_szs}, metrics=metrics, ps=None, emb_drop=0., y_range=None, use_bn=True)"
         ]
     },
     "Text Imports": {
@@ -197,7 +196,7 @@
         "description": "Creates a Dataset for NLP",
         "body": [
             "path = Path('${TM_DIRECTORY}') / '${1:data}'",
-            "datasets = TextDataset${2|(df=None\\, create_mtd=TextMtd.DF\\, tokenizer=None,.from_ids(id_suff'_ids'\\, lbl_suff='_lbl'\\, itos='itos.pkl',.from_tokens(tok_suff='_tok'\\, lbl_suff='_lbl',.from_df(df\\, tokenizer=None,.from_one_folder(classes\\, tokenizer=None\\, suffle=True,.from_folder(classes=None\\, tokenizer=None\\, suffle=True|}, path=path, name='train', vocab:Vocab=None, max_vocab=60000, chunksize=10000,  min_freq=2, n_labels=1, txt_cols=None, label_cols=None, classes=None, clear_cache=False)"
+            "datasets = TextDataset${2|(df=None\\, create_mtd=TextMtd.DF\\, tokenizer=None,.from_ids(id_suff'_ids'\\, lbl_suff='_lbl'\\, itos='itos.pkl',.from_tokens(tok_suff='_tok'\\, lbl_suff='_lbl',.from_df(df\\, tokenizer=None,.from_one_folder(classes\\, tokenizer=None\\, suffle=True,.from_folder(classes=None\\, tokenizer=None\\, suffle=True|}, path=path, name='train', vocab=None, max_vocab=60000, chunksize=10000,  min_freq=2, n_labels=1, txt_cols=None, label_cols=None, classes=None, clear_cache=False)"
         ]
     },
     "Text DataBunch": {
@@ -219,7 +218,8 @@
             "\t.datasets()",
             "\t.tokenize()",
             "\t.numericalize()",
-            "\t.databunch(TextLMDataBunch\\, bs=bs),data_clas = TextFileList.from_folder(path)",
+            "\t.databunch(TextLMDataBunch\\, bs=bs),",
+            "data_clas = TextFileList.from_folder(path)",
             "\t.label_from_folder(classes=['neg'\\, 'pos'])",
             "\t.split_by_folder(valid='test')",
             "\t.datasets()",
