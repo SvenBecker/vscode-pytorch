@@ -2,7 +2,7 @@
     "name": "pytorch-snippets",
     "displayName": "PyTorch Snippets",
     "description": "PyTorch and Fastai Snippets for Visual Studio Code",
-    "version": "0.2.0",
+    "version": "0.2.1",
     "publisher": "SBSnippets",
     "author": {
         "name": "Sven Becker",

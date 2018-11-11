@@ -7,7 +7,8 @@ Full collection of supported code snippets for the PyTorch and Fastai library. `
 1. [Pytorch Snippets](#pytorch)
     1. [PyTorch Basics](#pytroch-basics)
     2. [PyTorch Layer](#pytorch-layer)
-    3. [PyTorch Examples](#pytorch-example)
+    3. [PyTorch Functional](#pytroch-functional)
+    4. [PyTorch Examples](#pytorch-example)
 2. [Fastai Snippets](#fastai)
     1. [Fastai Basics](#fastai-basics)
     2. [Fastai Vision](#fastai-vision)
@@ -20,7 +21,7 @@ Full collection of supported code snippets for the PyTorch and Fastai library. `
 
 ## <a name="pytorch" > </a> PyTorch Snippets
 
-### <a name="pytorch-basics" > </a> Pytorch Basics
+### <a name="pytorch-basics" > </a> PyTorch Basics
 
 | Trigger               | Content                                                                       |
 | --------------------- | ----------------------------------------------------------------------------- |
@@ -38,7 +39,7 @@ Full collection of supported code snippets for the PyTorch and Fastai library. `
 | `pytorch:freeze→`     | freezes all layers of the model                                               |
 | `pytorch:unfreeze→`   | unfreeze all layers of the model                                              |
 
-### <a name="pytorch-layer" > </a> Pytorch Layer
+### <a name="pytorch-layer" > </a> PyTorch Layer
 
 | Trigger                            | Content                            |
 | ---------------------------------- | ---------------------------------- |
@@ -47,13 +48,30 @@ Full collection of supported code snippets for the PyTorch and Fastai library. `
 | `pytorch:layer:conv→`              | selection of a convolutional layer |
 | `pytorch:layer:recurrent→`         | selection of a recurrent layer     |
 | `pytorch:layer:norm→`              | selection of a normalization layer |
-| `pytorch:layer:sparse→`            | selection of a embedding layer     |
+| `pytorch:layer:sparse→`            | selection of an embedding layer    |
 | `pytorch:layer:pooling→`           | selection of a pooling layer       |
 | `pytorch:layer:padding→`           | selection of a padding layer       |
 | `pytorch:layer:dropout→`           | selection of a dropout layer       |
 | `pytorch:layer:vision→`            | selection of a vision layer        |
+| `pytorch:layer:distance→`          | selection of a distance layer      |
 | `pytorch:layer:resnet:block→`      | creates a Resnet BasicBlock        |
 | `pytorch:layer:resnet:bottleneck→` | creates a Resnet BottleneckBlock   |
+
+### <a name="pytorch-functional" > </a> PyTorch Functional
+
+| Trigger                 | Content                          |
+| ----------------------- | -------------------------------- |
+| `pytorch:F:activation→` | applies a nonlinearity function  |
+| `pytorch:F:linear→`     | applies a linear function        |
+| `pytorch:F:conv→`       | applies a convolutional function |
+| `pytorch:F:norm→`       | applies a normalization function |
+| `pytorch:F:sparse→`     | applies an embedding function    |
+| `pytorch:F:pooling→`    | applies a pooling function       |
+| `pytorch:F:dropout→`    | applies dropout                  |
+| `pytorch:F:vision→`     | applies a vision function        |
+| `pytorch:F:loss→`       | applies a loss function          |
+| `pytorch:F:distance→`   | applies a distance function      |
+
 
 ### <a name="pytorch-example" > </a> PyTorch Code Examples
 
@@ -68,7 +86,7 @@ Full collection of supported code snippets for the PyTorch and Fastai library. `
 
 ## <a name="fastai" > </a> Fastai Snippets
 
-## <a name="fastai-basics" > </a> Fastai Basics
+### <a name="fastai-basics" > </a> Fastai Basics
 
 | Trigger                | Content                                        |
 | ---------------------- | ---------------------------------------------- |
@@ -81,7 +99,7 @@ Full collection of supported code snippets for the PyTorch and Fastai library. `
 | `fastai:loss_class→`   | selection of a classification loss function    |
 | `fastai:metric→`       | creates a template for a custom metric         |
 
-## <a name="fastai-vision" > </a> Fastai Vision
+### <a name="fastai-vision" > </a> Fastai Vision
 
 | Trigger                         | Content                                                  |
 | ------------------------------- | -------------------------------------------------------- |
@@ -94,7 +112,7 @@ Full collection of supported code snippets for the PyTorch and Fastai library. `
 | `fastai:vision:interpreter→`    | creates an ImageClassifierInterpreter                    |
 | `fastai:vision:classification→` | creates a template for common image classification tasks |
 
-## <a name="fastai-text" > </a> Fastai Text
+### <a name="fastai-text" > </a> Fastai Text
 
 | Trigger                  | Content                              |
 | ------------------------ | ------------------------------------ |
@@ -106,7 +124,7 @@ Full collection of supported code snippets for the PyTorch and Fastai library. `
 | `fastai:text:learner→`   | creates a Learner                    |
 | `fastai:text:learner→`   | creates a Learner                    |
 
-## <a name="fastai-tabular" > </a> Fastai Tabular
+### <a name="fastai-tabular" > </a> Fastai Tabular
 
 | Trigger                     | Content                                    |
 | --------------------------- | ------------------------------------------ |
@@ -114,14 +132,14 @@ Full collection of supported code snippets for the PyTorch and Fastai library. `
 | `fastai:tabular:databunch→` | creates a DataBunch for tabular data tasks |
 | `fastai:tabular:learner→`   | creates a Learner for tabular data tasks   |
 
-## <a name="fastai-colab" > </a> Fastai Collaborative Filtering
+### <a name="fastai-colab" > </a> Fastai Collaborative Filtering
 
 | Trigger                 | Content                                      |
 | ----------------------- | -------------------------------------------- |
 | `fastai:colab:dataset→` | creates a colaborative filtering dataset     |
 | `fastai:colab:learner→` | creates a learner for colaborative filtering |
 
-## <a name="fastai-examples" > </a> Fastai Examples
+### <a name="fastai-examples" > </a> Fastai Examples
 
 | Trigger                     | Content                                       |
 | --------------------------- | --------------------------------------------- |
