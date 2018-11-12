@@ -86,7 +86,7 @@ On Windows for example you can normally find the extension folder at `C:\Users\Y
 - Added code snippets for fast metrics or loss selection (PyTorch and fastai)
 - Added easy selection of neural network layers in PyTorch based on their type `pytorch:layer:` (conv, recurrent, etc.)
 - Added some more PyTorch snippets like for example optimizer selection, weight initialization etc.
-- Added DataBlock API snippet for fastai
+- Added DataBlock API snippets for fastai
 
 ##### Changes
 

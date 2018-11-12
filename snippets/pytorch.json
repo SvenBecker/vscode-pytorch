@@ -207,7 +207,7 @@
         "prefix": "pytorch:layer:dropout",
         "description": "Adds dropout",
         "body": [
-            "${1:drop} = nn.${2|Dropout,Dropout2d,Dropout3d,AlphaDropout|}(p=${3:0.5}, inplace=${4:False})"
+            "${1:drop} = nn.${2|Dropout,Dropout2d,Dropout3d,AlphaDropout|}(p=${3:0.5}, inplace=${4|False,True|})"
         ]
     },
     "Sparse Layer":{
