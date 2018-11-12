@@ -41,4 +41,3 @@ if __name__ == "__main__":
     parser.add_argument("-d", "--description", default="Short description", type=str, help="Adds a description to the snippet")
     args = parser.parse_args()
     build_json_file(args.prefix, args.description)
- 
