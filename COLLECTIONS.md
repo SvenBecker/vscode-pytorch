@@ -87,40 +87,43 @@ Full collection of supported code snippets for the PyTorch and Fastai library. `
 
 ### <a name="fastai-basics" > </a> Fastai Basics
 
-| Trigger                | Content                                        |
-| ---------------------- | ---------------------------------------------- |
-| `fastai:train→`        | creates a two step training process            |
-| `fastai:optimizer→`    | selection of an optimizer (same as in pytorch) |
-| `fastai:metric→`       | creates a template for a custom metric         |
-| `fastai:metric_reg→`   | selection of a regression metrics              |
-| `fastai:metric_class→` | selection of a classification metrics          |
-| `fastai:loss_reg→`     | selection of a regression loss function        |
-| `fastai:loss_class→`   | selection of a classification loss function    |
-| `fastai:metric→`       | creates a template for a custom metric         |
+| Trigger                    | Content                                                                            |
+| -------------------------- | ---------------------------------------------------------------------------------- |
+| `fastai:train→`            | creates a two step training process                                                |
+| `fastai:optimizer→`        | selection of an optimizer (same as in pytorch)                                     |
+| `fastai:metric→`           | creates a template for a custom metric                                             |
+| `fastai:metric_reg→`       | selection of a regression metrics                                                  |
+| `fastai:metric_class→`     | selection of a classification metrics                                              |
+| `fastai:loss_reg→`         | selection of a regression loss function                                            |
+| `fastai:loss_class→`       | selection of a classification loss function                                        |
+| `fastai:metric→`           | creates a template for a custom metric                                             |
+| `fastai:download-dataset→` | select a data set, load it if not already available and set a path to the data set |
 
 ### <a name="fastai-vision" > </a> Fastai Vision
 
-| Trigger                         | Content                                                  |
-| ------------------------------- | -------------------------------------------------------- |
-| `fastai:vision:imports→`        | inserts most important imports                           |
-| `fastai:vision:stats→`          | normalization type selection                             |
-| `fastai:vision:transform→`      | selection of image transformations                       |
-| `fastai:vision:databunch→`      | creates an ImageDataBunch                                |
-| `fastai:vision:datablock→`      | utilization of the DataBlock for computer vision         |
-| `fastai:vision:classifier→`     | creates an ImageClassifier                               |
-| `fastai:vision:interpreter→`    | creates an ImageClassifierInterpreter                    |
+| Trigger                      | Content                                          |
+| ---------------------------- | ------------------------------------------------ |
+| `fastai:vision:imports→`     | inserts most important imports                   |
+| `fastai:vision:stats→`       | normalization type selection                     |
+| `fastai:vision:transform→`   | selection of image transformations               |
+| `fastai:vision:databunch→`   | creates an ImageDataBunch                        |
+| `fastai:vision:datablock→`   | utilization of the DataBlock for computer vision |
+| `fastai:vision:classifier→`  | creates an ImageClassifier                       |
+| `fastai:vision:interpreter→` | creates an ImageClassifierInterpreter            |
 
 ### <a name="fastai-text" > </a> Fastai Text
 
-| Trigger                  | Content                              |
-| ------------------------ | ------------------------------------ |
-| `fastai:text:imports→`   | inserts most important imports       |
-| `fastai:text:dataset→`   | creates a Dataset for NLP            |
-| `fastai:text:databunch→` | creates a DataBunch for NLP          |
-| `fastai:text:datablock→` | utilization of the DataBlock for NLP |
-| `fastai:text:learner→`   | creates a Learner                    |
-| `fastai:text:learner→`   | creates a Learner                    |
-| `fastai:text:learner→`   | creates a Learner                    |
+| Trigger                       | Content                                              |
+| ----------------------------- | ---------------------------------------------------- |
+| `fastai:text:imports→`        | inserts most important imports                       |
+| `fastai:text:dataset→`        | creates a Dataset for NLP                            |
+| `fastai:text:databunch→`      | creates a DataBunch for NLP                          |
+| `fastai:text:datablock→`      | utilization of the DataBlock for NLP                 |
+| `fastai:text:datablock-lm→`   | utilization of the DataBlock for language model      |
+| `fastai:text:datablock-clas→` | utilization of the DataBlock for language classifier |
+| `fastai:text:learner→`        | creates a learner                                    |
+| `fastai:text:lm-learner→`     | creates a language model learner                     |
+| `fastai:text:clas-learner→`   | creates a language classifier                        |
 
 ### <a name="fastai-tabular" > </a> Fastai Tabular
 
