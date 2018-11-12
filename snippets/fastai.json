@@ -57,6 +57,13 @@
             "optimizer = optim.${1|Adadelta(,Adagrad(,Adam(,SparseAdam(,Adamax(,ASGD(,LBFGS(,RMSprop(,Rprop(,SGD(|}lr=${2:1e-2})"
         ]
     },
+    "Download Dataset": {
+        "prefix": "fastai:download-dataset",
+        "desription": "Select a data set to download or to import, if it is already available",
+        "body":[
+            "path = untar_data(URLS.${1|LOCAL_PATH,S3,S3_IMAGE,S3_IMAGELOC,S3_NLP,S3_COCO,S3_MODEL,COCO_SAMPLE,COCO_TINY,MNIST_SAMPLE,MNIST_TINY,IMDB,IMDB_SAMPLE,HUMAN_NUMBERS,ADULT_SAMPLE,ML_SAMPLE,PLANET_SAMPLE,PLANET_TINY,CIFAR,WT103,DOGS,PETS,MNIST,CAMVID,CAMVID_TINY|}, fname=${2:None}, dest=${3:None}, data=${4|True,False|})"
+        ]
+    },
     "Vision Imports": {
         "prefix": "fastai:vision:imports",
         "description": "Imports the packages which are most required for computer vision tasks",
@@ -86,13 +93,15 @@
             "tfms = get_transforms(do_flip=${1|True,False|}, flip_vert=${2|False,True|}, max_rotate=${3:10.}, max_zoom=${4:1.1}, max_lightning=${5:0.2}, max_warp=${6:0.2}, p_affine=${7:0.75}, p_lightning=${8:0.75})",
             "path = Path('${TM_DIRECTORY}') / '${9:data'}",
             "size = ${10:128}",
-            "bs=${11:32}",
-            "src = (${12|ImageFileList.from_folder(path),ImageSplitDatasets(path)|}",
-            "\t.${13|label_from_folder(),label_from_df(df\\, fn_col\\, label_col),label_from_func(get_y_fn),label_from_re(pat)|}",
-            "\t.${14|split_by_folder(train='train'\\, valid='valid'),random_split_by_pct(valid_pct=0.2),split_by_files(valid_names),split_by_fname_file(fname),split_by_idx(valid_idx),split_by_valid_func(func)|})",
-            "data = (src.datasets(${15|ImageClassificationDataset,ImageMultiDataset,SegmentationDataset,PointsDataset,ObjectDataset|})",
+            "src = (${11|ImageFileList.from_folder(path),ImageSplitDatasets(path)|}\t# grab all files from path",
+            "\t.${12|label_const(const=0)\t# label every item with const,label_from_csv(csv_fnames\\, fn_col=0\\, label_col=1\\, header='infer')\t# look in self.path/csv_fname for a csv loaded with an optional header containing the filenames in fn_col to get the corresponding label in label_col,label_from_folder(classes=None)\t# give a label to each filename depending on its folder,label_from_df(df\\, fn_col=0\\, label_col=1)\t# look in df for the filenames in fn_col to get the corresponding label in label_col,label_from_func(get_y_fn)\t# apply func to every input to get its label,label_from_re(pat\\, full_path=False)\t# apply the re in pat to determine the label of every filename|}",
+            "\t.${13|split_by_folder(train='train'\\, valid='valid')\t# split the data depending on the folder (train or valid) in which the filenames are,random_split_by_pct(valid_pct=0.2)\t# split the items randomly by putting valid_pct in the validation set,split_by_files(valid_names)\t# split the data by using the names in valid_names for validation,split_by_fname_file(fname)\t# split the data by using the file names in fname for the validation set,split_by_idx(valid_idx)\t# split the data according to the indexes in valid_idx,split_by_valid_func(func)\t# split the data by result of func (which returns True for validation set)|})",
+            "${14| ,.add_test(test\\, label=None)\t# add test set containing items from test and an arbitrary label|}",
+            "data = (src.datasets(${15|ImageClassificationDataset,ImageMultiDataset,SegmentationDataset,PointsDataset,ObjectDataset|})\t# create datasets from the underlying data using dataset_cls and passing along the kwargs",
             "\t.transform(tfms, size=size, tfm_y=${16|False,True|})",
-            "\t.databunch(bs=bs).normalize(${17|imagenet_stats,cifar_stats,mnist_stats,()|}))"
+            "\t.databunch(bs=${16:32})",
+            "\t.normalize(${17|imagenet_stats,cifar_stats,mnist_stats,()|}))",
+            "data.save('tmp_data')"
         ]
     },
     "Image DataBunch": {
@@ -178,20 +187,50 @@
         "description": "Creates a DataBlock for NLP",
         "body": [
             "path = Path('${TM_DIRECTORY}') / '${1:data'}",
-            "bs=${2:50}",
-            "${3|data_lm = TextFileList.from_folder(path)",
-            "\t.label_const(0)",
-            "\t.datasets()",
-            "\t.tokenize()",
-            "\t.numericalize()",
-            "\t.databunch(TextLMDataBunch\\, bs=bs),",
-            "data_clas = TextFileList.from_folder(path)",
-            "\t.label_from_folder(classes=['neg'\\, 'pos'])",
-            "\t.split_by_folder(valid='test')",
-            "\t.datasets()",
-            "\t.tokenize()",
-            "\t.numericalize(vocab=data_lm.vocab)",
-            "\t.databunch(TextClasDataBunch\\, bs=bs)|}"
+            "data = (TextFileList.from_folder(path)\t# grap all the text files in path",
+            "\t.${2|label_const(const=0)\t# label every item with const,label_from_csv(csv_fnames\\, fn_col=0\\, label_col=1\\, header='infer')\t# look in self.path/csv_fname for a csv loaded with an optional header containing the filenames in fn_col to get the corresponding label in label_col,label_from_folder(classes=None)\t# give a label to each filename depending on its folder,label_from_df(df\\, fn_col=0\\, label_col=1)\t# look in df for the filenames in fn_col to get the corresponding label in label_col,label_from_func(get_y_fn)\t# apply func to every input to get its label,label_from_re(pat\\, full_path=False)\t# apply the re in pat to determine the label of every filename|}",
+            "\t.${3|split_by_folder(train='train'\\, valid='valid')\t# split the data depending on the folder (train or valid) in which the filenames are,random_split_by_pct(valid_pct=0.2)\t# split the items randomly by putting valid_pct in the validation set,split_by_files(valid_names)\t# split the data by using the names in valid_names for validation,split_by_fname_file(fname)\t# split the data by using the file names in fname for the validation set,split_by_idx(valid_idx)\t# split the data according to the indexes in valid_idx,split_by_valid_func(func)\t# split the data by result of func (which returns True for validation set)|})",
+            "${4| ,.add_test_folder(test_folder='test'\\, label=None)\t# add test set containing items from test and an arbitrary label|}",
+            "\t.datasets()\t# use TextDataset",
+            "\t.tokenize(tokenizer=${5:None})\t# if None tokenize with defaults from fastai",
+            "\t.numericalize(vocab=${6:None})\t# if None numericalize with defaults from fastai",
+            "\t.databunch(${7|TextDataBunch\t# use a TextDataBunch,TextLMDataBunch\t# use a TextLMDataBunch,TextClasDataBunch\t# use a TextClasDataBunch|))",
+            "",
+            "data.save('tmp_data')"
+        ]
+    },
+    "Text DataBlock Language Model": {
+        "prefix": "fastai:text:datablock-lm",
+        "description": "Creates a DataBlock for NLP",
+        "body": [
+            "path = Path('${TM_DIRECTORY}') / '${1:data'}",
+            "data_lm = (TextFileList.from_folder(path)\t# grap all the text files in path",
+            "\t.${2|label_const(const=0)\t# label every item with const,label_from_csv(csv_fnames\\, fn_col=0\\, label_col=1\\, header='infer')\t# look in self.path/csv_fname for a csv loaded with an optional header containing the filenames in fn_col to get the corresponding label in label_col,label_from_folder(classes=None)\t# give a label to each filename depending on its folder,label_from_df(df\\, fn_col=0\\, label_col=1)\t# look in df for the filenames in fn_col to get the corresponding label in label_col,label_from_func(get_y_fn)\t# apply func to every input to get its label,label_from_re(pat\\, full_path=False)\t# apply the re in pat to determine the label of every filename|}",
+            "\t.${3|split_by_folder(train='train'\\, valid='valid')\t# split the data depending on the folder (train or valid) in which the filenames are,random_split_by_pct(valid_pct=0.2)\t# split the items randomly by putting valid_pct in the validation set,split_by_files(valid_names)\t# split the data by using the names in valid_names for validation,split_by_fname_file(fname)\t# split the data by using the file names in fname for the validation set,split_by_idx(valid_idx)\t# split the data according to the indexes in valid_idx,split_by_valid_func(func)\t# split the data by result of func (which returns True for validation set)|})",
+            "${4| ,.add_test_folder(test_folder='test'\\, label=None)\t# add test set containing items from test and an arbitrary label|}",
+            "\t.datasets()\t# use TextDataset",
+            "\t.tokenize(tokenizer=${5:None})\t# if None tokenize with defaults from fastai",
+            "\t.numericalize(vocab=${6:None})\t# if None numericalize with defaults from fastai",
+            "\t.databunch(TextLMDataBunch))\t# use a TextLMDataBunch",
+            "",
+            "data_lm.save('tmp_lm')"
+        ]
+    },
+    "Text DataBlock Classifier": {
+        "prefix": "fastai:text:datablock-clas",
+        "description": "Creates a DataBlock for NLP",
+        "body": [
+            "path = Path('${TM_DIRECTORY}') / '${1:data'}",
+            "data_clas = (TextFileList.from_folder(path)\t# grap all the text files in path",
+            "\t.${2|label_from_folder(classes=['neg','pos'])\t# label them all with their folder, only keep 'neg' and 'pos'",
+            "\t.${3|split_by_folder(valid='test')\t# split by folder between train and validation set",
+            "${4| ,.add_test_folder(test_folder='test'\\, label=None)\t# add test set containing items from test and an arbitrary label|}",
+            "\t.datasets()\t# use TextDataset",
+            "\t.tokenize(tokenizer=${5:None})\t# if None tokenize with defaults from fastai",
+            "\t.numericalize(vocab=${6:vocab=data_lm.vocab})\t# if None numericalize with defaults from fastai",
+            "\t.databunch(TextClasDataBunch, bs=${7:50}))\t# use a TextClasDataBunch",
+            "",
+            "data_clas.save('tmp_clas')"
         ]
     },
     "Text Learner": {
