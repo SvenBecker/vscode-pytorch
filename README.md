@@ -73,6 +73,20 @@ On Windows for example you can normally find the extension folder at `C:\Users\Y
 
 ## <a name="changelog" > </a> Changelog
 
+#### Version 0.2.2:
+
+##### Added
+
+- Added DataBlock API support for tabular data `fastai:tabular:datablock`
+
+##### Changed
+
+- Changed `train` snippets for pytorch and fastai
+
+##### Fixed
+
+- Fixed bugs in optimizer selection
+
 #### Version 0.2.1:
 
 ##### Added
