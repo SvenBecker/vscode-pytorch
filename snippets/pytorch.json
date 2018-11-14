@@ -19,7 +19,7 @@
         "prefix": "pytorch:optimizer",
         "description": "Select an optimizer",
         "body":[
-            "optimizer = torch.optim.${1|Adadelta,Adagrad,Adam,SparseAdam,Adamax,ASGD,LBFGS,RMSprop,Rprop,SGD|}${2:net}.parameters(), lr=${3:1e-2})"
+            "optimizer = torch.optim.${1|Adadelta,Adagrad,Adam,SparseAdam,Adamax,ASGD,LBFGS,RMSprop,Rprop,SGD|}(${2:net}.parameters(), lr=${3:1e-2})"
         ]
     },
     "Classification Loss": {
