@@ -109,8 +109,8 @@
             "\t${14|),.add_test(test\\, label=None))\t# add test set containing items from test and an arbitrary label|}",
             "data = (src.datasets(${15|ImageClassificationDataset,ImageMultiDataset,SegmentationDataset,PointsDataset,ObjectDataset|})\t# create datasets from the underlying data using dataset_cls and passing along the kwargs",
             "\t.transform(tfms, size=size, tfm_y=${16|False,True|})",
-            "\t.databunch(bs=${16:32})",
-            "\t.normalize(${17|imagenet_stats,cifar_stats,mnist_stats,()|}))",
+            "\t.databunch(bs=${17:32})",
+            "\t.normalize(${18|imagenet_stats,cifar_stats,mnist_stats,()|}))",
             "data.save('tmp_data')"
         ]
     },
@@ -164,10 +164,10 @@
             "procs = [FillMissing, Categorify, Normalize]",
             "",
             "data = (TabularList.from_df(${4:df}, path=path, cat_names=cat_names, cont_names=cont_names, procs=procs)",
-            "\t.${4|split_by_folder(train='train'\\, valid='valid')\t# split the data depending on the folder in which the filenames are,random_split_by_pct(valid_pct=0.2)\t# split the items randomly by putting valid_pct in the validation set,split_by_files(valid_names)\t# split the data by using the names in valid_names for validation,split_by_fname_file(fname)\t# split the data by using the file names in fname for the validation set,split_by_idx(valid_idx)\t# split the data according to the indexes in valid_idx,split_by_valid_func(func)\t# split the data by result of func (which returns True for validation set)|}",
+            "\t.${5|split_by_folder(train='train'\\, valid='valid')\t# split the data depending on the folder in which the filenames are,random_split_by_pct(valid_pct=0.2)\t# split the items randomly by putting valid_pct in the validation set,split_by_files(valid_names)\t# split the data by using the names in valid_names for validation,split_by_fname_file(fname)\t# split the data by using the file names in fname for the validation set,split_by_idx(valid_idx)\t# split the data according to the indexes in valid_idx,split_by_valid_func(func)\t# split the data by result of func (which returns True for validation set)|}",
             "\t.label_from(cols=dep_var)",
-            "\t${5| ,.add_test(test\\, label=0))\t# add test set containing items from test and an arbitrary label|}",
-            "\t.databunch(bs=$6:32})",
+            "\t${6| ,.add_test(test\\, label=0))\t# add test set containing items from test and an arbitrary label|}",
+            "\t.databunch(bs=${7:32})",
             "data.save('tmp_data')"
         ]
     },
