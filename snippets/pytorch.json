@@ -43,7 +43,7 @@
             "class ${1:MyModule}(nn.Module):",            
             "\t\"\"\"Some Information about ${1:MyModule}\"\"\"",
             "\tdef __init__(self):",
-            "\t\tsuper(${1:MyModule}, self)__init__()",
+            "\t\tsuper(${1:MyModule}, self).__init__()",
             "",
             "\tdef forward(self, x):",
             "",
