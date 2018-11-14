@@ -43,8 +43,8 @@ Currently the snippets are working for the latest releases of the supported libr
 * fastai >= 1.0.21
 * pytorch >= 0.4.1
 
->__Info__:
->Be aware that at the time the fastai library is changing rapidly, so I can not guarantee that every snippet is actually working.
+>__Note__:
+>Be aware that at the time the fastai library is changing rapidly, so I can not guarantee that every snippet is actually working the way it is intended.
 >I will try to keep the snippets in line with the latest fastai library developments (as well as the latest PyTorch releases), so it might not work for you in case you are using an _outdated_ version.
 
 ## <a name="installation" > </a> Installation
@@ -55,7 +55,7 @@ The installation process is very straightforward. The recommend, stable way is a
 2. From the command palette `Ctrl-Shift-P` (Windows, Linux) or `Cmd-Shift-P` (MacOS) select `Install Extension` or just simply go to the `Extensions` tab (most likely the fifth entry on the left sidebar). You can also use the hotkey `Ctrl-Shift-X` respectifely `Cmd-Shift-X`
 3. Type `PyTorch Snippets`
 4. Choose and install extension
-5. Restart/reload Visual Studio Code
+5. Restart/Reload Visual Studio Code
 
 This will give you the most recent version you can find on the [VS Marketplace](https://marketplace.visualstudio.com/vscode).
 Alternatively you can also clone this repository and move it manually into your VS Code extension folder which will give you
@@ -68,7 +68,7 @@ mv vscode-pytorch /path/to/your/VSCodeExtensionFolder/
 
 On Windows for example you can normally find the extension folder at `C:\Users\YourName\.vscode\extensions`. On MacOS and Linux it should be located at `~/.vscode/extensions`.
 
-> __Info__: The second method will give you the overall most recent version because I won't update the VS Marketplace version as often
+> __Note__: The second method will give you the overall most recent version because I won't update the VS Marketplace version as often
 > as the GitHub version but the VS Marketplace version will probably be the more stable one.
 
 ## <a name="changelog" > </a> Changelog

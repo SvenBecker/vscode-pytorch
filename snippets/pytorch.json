@@ -19,7 +19,7 @@
         "prefix": "pytorch:optimizer",
         "description": "Select an optimizer",
         "body":[
-            "optimizer = torch.optim.${1|Adadelta(,Adagrad(,Adam(,SparseAdam(,Adamax(,ASGD(,LBFGS(,RMSprop(,Rprop(,SGD(|}lr=${2:1e-2})"
+            "optimizer = torch.optim.${1|Adadelta,Adagrad,Adam,SparseAdam,Adamax,ASGD,LBFGS,RMSprop,Rprop,SGD|}${2:net}.parameters(), lr=${3:1e-2})"
         ]
     },
     "Classification Loss": {
@@ -43,7 +43,7 @@
             "class ${1:MyModule}(nn.Module):",            
             "\t\"\"\"Some Information about ${1:MyModule}\"\"\"",
             "\tdef __init__(self):",
-            "\t\tsuper(${1:MyModule}, self)__init__()",
+            "\t\tsuper(${1:MyModule}, self).__init__()",
             "",
             "\tdef forward(self, x):",
             "",
@@ -63,6 +63,7 @@
         "body": [
             "class ${1:MyFunction}(torch.autograd.Function):",            
             "\t\"\"\"Some Information about ${1:MyFunction}\"\"\"",
+            "",
             "\t@staticmethod",
             "\tdef forward(ctx, input):",
             "",
@@ -120,20 +121,20 @@
             "\trunning_loss = 0.0",
             "\tfor i, data in enumerate(${2:trainloader}, 0):",
             "\t\tinputs, labels = data",
+            "\t\tinputs, labels = inputs.to(${3:device}), labels.to(${3:device})",
             "",
             "\t\t# zero the parameter gradients",
-            "\t\t${3:optimizer}.zero_grad()",
+            "\t\t${4:optimizer}.zero_grad()",
             "",
             "\t\t# forward + backward + optimize",
-            "\t\toutputs = ${4:net}(inputs)",
-            "\t\tloss = ${5:criterion}(outputs, labels)",
+            "\t\toutputs = ${5:net}(inputs)",
+            "\t\tloss = ${6:criterion}(outputs, labels)",
             "\t\tloss.backward()",
-            "\t\t${3:optimizer}.step()",
+            "\t\t${4:optimizer}.step()",
             "",
             "\t\trunning_loss += loss.item()",
-            "\t\tif i % ${6:2000} == ${6:2000} -1    # print every 2000 mini-batches",
-            "\t\t\tprint('[%d, %5d] loss: %.3f' % (epoch + 1, i + 1, running_loss / ${6:2000}))",
-            "\t\t\trunning_loss = 0.0",
+            "",
+            "\tprint('Loss: {}'.format(running_loss)",
             "",
             "print('Finished Training')"
         ]

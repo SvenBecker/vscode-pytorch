@@ -12,7 +12,7 @@ For contribution, here are the guidelines I would like you to follow:
 ## <a name="issue" > </a> You found an Issue or a Bug?
 
 If you find a bug or an issue in the source code or a mistake in the documentation, you can help me by
-[submitting an issue](#submit-issue) to my [GitHub Repository](https://github.com/SvenBecker/vscode-pytorch). Even better, you can [submit a Pull Request](#submit-pr) with a fix or a suggestion for a fix.
+[submitting an issue](#submit-issue) to my [GitHub Repository](https://github.com/SvenBecker/vscode-pytorch). Even better, you can submit a [Pull Request](#submit-pr) with a fix or a suggestion for a fix.
 
 ## <a name="feature" > </a> You want a certain Feature?
 

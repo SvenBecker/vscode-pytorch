@@ -90,6 +90,7 @@ Full collection of supported code snippets for the PyTorch and Fastai library. `
 | Trigger                    | Content                                                                            |
 | -------------------------- | ---------------------------------------------------------------------------------- |
 | `fastai:train→`            | creates a two step training process                                                |
+| `fastai:train_2s→`         | creates a two step model training template                                         |
 | `fastai:optimizer→`        | selection of an optimizer (same as in pytorch)                                     |
 | `fastai:metric→`           | creates a template for a custom metric                                             |
 | `fastai:metric_reg→`       | selection of a regression metrics                                                  |
@@ -131,6 +132,7 @@ Full collection of supported code snippets for the PyTorch and Fastai library. `
 | --------------------------- | ------------------------------------------ |
 | `fastai:tabular:imports→`   | inserts most important imports             |
 | `fastai:tabular:databunch→` | creates a DataBunch for tabular data tasks |
+| `fastai:tabular:datablock→` | creates a DataBlock for tabular data tasks |
 | `fastai:tabular:learner→`   | creates a Learner for tabular data tasks   |
 
 ### <a name="fastai-colab" > </a> Fastai Collaborative Filtering

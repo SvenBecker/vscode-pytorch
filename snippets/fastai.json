@@ -1,24 +1,32 @@
 {
-    "Train Model": {
-        "prefix": "fastai:train",
-        "description": "Two stage training",
+    "Train Template": {
+        "prefix": "fastai:train_2s",
+        "description": "Two stage training template",
         "body": [
-            "learn.${1|fit(epochs\\, lr=default_lr\\, wd=None\\, callbacks=None),fit_one_cycle(cyc_len\\, max_lr=default_lr\\, moms=(0.95\\,0.85)\\, div_factor=25.\\, pct_start=0.3\\, wd=None\\, callbacks=None)|}",
+            "learn.${1|fit,fit_one_cycle|}(${2:5}, ${3:1e-3})",
             "learn.save('stage-1')",
             "",
             "learn.lr_find()",
             "learn.recorder.plot()",
             "",
             "learn.unfreeze()",
-            "learn.${2|fit(epochs\\, lr=default_lr\\, wd=None\\, callbacks=None),fit_one_cycle(cyc_len\\, max_lr=default_lr\\, moms=(0.95\\,0.85)\\, div_factor=25.\\, pct_start=0.3\\, wd=None\\, callbacks=None)|}",
+            "learn.${4|fit,fit_one_cycle|}(${5:5}, ${6:1e-3})",
             "learn.save('stage-2')"
+        ]
+    },
+    "Train": {
+        "prefix": "fastai:train",
+        "description": "Fit function",
+        "body": [
+            "learn.${1|fit,fit_one_cycle|}(${2:5}, ${3:1e-3})"
         ]
     },
     "Metric Template": {
         "prefix": "fastai:metric",
         "desription": "Creates a metric function template",
         "body": [
-            "def ${1:metric}(y_pred: Tensor, y_true: Tensor):",
+            "def ${1:metric}(pred: Tensor, targ: Tensor):",
+            "\t# Computes the ${1:metric} between `pred` an `targ`",
             "\treturn"
         ]
     },
@@ -54,7 +62,7 @@
         "prefix": "fastai:optimizer",
         "desription": "Select an optimizer",
         "body":[
-            "optimizer = optim.${1|Adadelta(,Adagrad(,Adam(,SparseAdam(,Adamax(,ASGD(,LBFGS(,RMSprop(,Rprop(,SGD(|}lr=${2:1e-2})"
+            "optimizer = optim.${1|Adadelta,Adagrad,Adam,SparseAdam,Adamax,ASGD,LBFGS,RMSprop,Rprop,SGD|}"
         ]
     },
     "Download Dataset": {
@@ -146,6 +154,23 @@
             "from fastai.tabular import *"
         ]
     },
+    "Tabular DataBlock": {
+        "prefix": "fastai:tabular:datablock",
+        "description": "Creates a DataBlock for image data",
+        "body": [
+            "path = Path('${TM_DIRECTORY}') / '${1:data'}",
+            "cat_names = [$2]",
+            "cont_names = [$3]",
+            "procs = [FillMissing, Categorify, Normalize]",
+            "",
+            "data = (TabularList.from_df(${4:df}, path=path, cat_names=cat_names, cont_names=cont_names, procs=procs)",
+            "\t.${4|split_by_folder(train='train'\\, valid='valid')\t# split the data depending on the folder in which the filenames are,random_split_by_pct(valid_pct=0.2)\t# split the items randomly by putting valid_pct in the validation set,split_by_files(valid_names)\t# split the data by using the names in valid_names for validation,split_by_fname_file(fname)\t# split the data by using the file names in fname for the validation set,split_by_idx(valid_idx)\t# split the data according to the indexes in valid_idx,split_by_valid_func(func)\t# split the data by result of func (which returns True for validation set)|}",
+            "\t.label_from(cols=dep_var)",
+            "\t${5| ,.add_test(test\\, label=0))\t# add test set containing items from test and an arbitrary label|}",
+            "\t.databunch(bs=$6:32})",
+            "data.save('tmp_data')"
+        ]
+    },
     "Tabular DataBunch": {
         "prefix": "fastai:tabular:databunch",
         "description": "Creates a DataBuch for tabular data",
@@ -158,7 +183,7 @@
         "prefix": "fastai:tabular:learner",
         "description": "Creates a learner for tabular data",
         "body": [
-            "learn = create_tabular_learner(${1:data}, layers=${2:2}, emb_szs=${5:emb_szs}, metrics=${3|error_rate,accuracy,accuracy_thresh,dice,exp_rmspe,fbeta|})"
+            "learn = get_tabular_learner(${1:data}, layers=${2:2}, metrics=${3|error_rate,accuracy,accuracy_thresh,dice,exp_rmspe,fbeta|})"
         ]
     },
     "Text Imports": {
@@ -268,7 +293,7 @@
         "prefix": "fastai:colab:learner",
         "description": "Creates a learner for collaborative filtering",
         "body": [
-            "learn = get_collab_learner(${1:ratings}, ${2:n_factors}, user_name=${3:None}, item_name=${4:None}, rating_name=${5:None}, pct_val=0.2, test=None, metrics=None, min_score=None, max_score=None)"
+            "learn = get_collab_learner(${1:ratings}, n_factors=${2:n_factors}, user_name=${3:None}, item_name=${4:None}, rating_name=${5:None}, pct_val=0.2, test=None, metrics=None, min_score=None, max_score=None)"
         ]
     },
     "Cifar Example": {
