@@ -4,7 +4,7 @@
 [![Installs](https://vsmarketplacebadge.apphb.com/installs/SBSnippets.pytorch-snippets.svg)](https://marketplace.visualstudio.com/items?itemName=SBSnippets.pytorch-snippets)
 [![Rating](https://vsmarketplacebadge.apphb.com/rating-short/SBSnippets.pytorch-snippets.svg)](https://marketplace.visualstudio.com/items?itemName=SBSnippets.pytorch-snippets)
 [![The MIT License](https://img.shields.io/badge/license-MIT-orange.svg)](LICENSE.md)
-[![GitHub](https://img.shields.io/badge/github-v0.2.2-blue.svg)](https://github.com/SvenBecker/vscode-pytorch/releases)
+[![GitHub](https://img.shields.io/badge/github-v0.2.3-blue.svg)](https://github.com/SvenBecker/vscode-pytorch/releases)
 
 This project aims to provide a faster workflow when using the [PyTorch](https://github.com/pytorch/pytorch) or [fastai](https://github.com/fastai/fastai) library in [Visual Studio Code](https://code.visualstudio.com/).
 This extension provides code snippets for often used coding blocks as well as code example provided by the libraries for common deep learning tasks.
@@ -73,6 +73,12 @@ On Windows for example you can normally find the extension folder at `C:\Users\Y
 
 ## <a name="changelog" > </a> Changelog
 
+#### Version 0.2.3:
+
+##### Added
+
+- Added two new snippets `pytorch:dataset` and `ignite_metrics`
+
 #### Version 0.2.2:
 
 ##### Added
@@ -81,7 +87,7 @@ On Windows for example you can normally find the extension folder at `C:\Users\Y
 
 ##### Changed
 
-- Changed `train` snippets for pytorch and fastai
+- Changed `train` snippets for PyTorch and fastai
 
 ##### Fixed
 

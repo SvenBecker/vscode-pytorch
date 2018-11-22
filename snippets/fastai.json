@@ -183,7 +183,7 @@
         "prefix": "fastai:tabular:learner",
         "description": "Creates a learner for tabular data",
         "body": [
-            "learn = get_tabular_learner(${1:data}, layers=${2:2}, metrics=${3|error_rate,accuracy,accuracy_thresh,dice,exp_rmspe,fbeta|})"
+            "learn = tabular_learner(${1:data}, layers=${2:2}, metrics=${3|error_rate,accuracy,accuracy_thresh,dice,exp_rmspe,fbeta|})"
         ]
     },
     "Text Imports": {

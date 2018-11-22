@@ -17,7 +17,8 @@ Full collection of supported code snippets for the PyTorch and Fastai library. `
     5. [Fastai Colab](#fastai-colab)
     6. [Fastai Examples](#fastai-examples)
 3. [Ignite Snippets](#ignite)
-    1. [Ignite Examples](#ignite-example)
+    1. [Ignite Basics](#ignite-basics)
+    2. [Ignite Examples](#ignite-example)
 
 ## <a name="pytorch" > </a> PyTorch Snippets
 
@@ -154,6 +155,13 @@ Full collection of supported code snippets for the PyTorch and Fastai library. `
 | `fastai:example:cifar→`     | classification example for cifar              |
 
 ## <a name="ignite" > </a> Ignite Snippets
+
+### <a name="ignite-basics" > </a> Ignite Basics
+
+| Trigger           | Content                 |
+| ----------------- | ----------------------- |
+| `ignite:metrics→` | create a custom metrics |
+
 
 ### <a name="ignite-example" > </a> Ignite Code Examples
 

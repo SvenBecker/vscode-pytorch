@@ -1,4 +1,30 @@
 {
+    "Custom Metrics": {
+        "prefix": "ignite:metrics",
+        "description": "Template for a custom metrics",
+        "body": [
+            "class ${1:MyMetrics}(ignite.metrics.Metrics):",
+            "\t\"\"\"Short discription for ${1:MyMetrics}\"\"\"",
+            "\tdef __init__(self):",
+            "\t\tsuper(${1:MyMetrics}, self).__init__()",
+            "",
+            "\tdef reset(self):",
+            "\t\tpass",
+            "",
+            "\tdef update(self, outputs):",
+            "\t\tpass",
+            "",
+            "\tdef compute(self):",
+            "\t\tpass"
+        ]
+    },
+    "Events": {
+        "prefix": "ignite:events",
+        "description": "Show available events",
+        "body": [
+            "${1|EPOCH.Start,|}"
+        ]
+    },
     "Mnist Example": {
         "prefix": "ignite:examples:mnist",
         "description": "Mnist code example",

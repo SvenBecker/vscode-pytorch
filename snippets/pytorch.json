@@ -5,7 +5,8 @@
         "body":[
             "import torch",
             "import torch.nn as nn",
-            "import torch.nn.functional as F"
+            "import torch.nn.functional as F",
+            "import torch.optim as optim"
         ]
     },
     "Check Device": {
@@ -20,6 +21,22 @@
         "description": "Select an optimizer",
         "body":[
             "optimizer = torch.optim.${1|Adadelta,Adagrad,Adam,SparseAdam,Adamax,ASGD,LBFGS,RMSprop,Rprop,SGD|}(${2:net}.parameters(), lr=${3:1e-2})"
+        ]
+    },
+    "Dataset": {
+        "prefix": "pytorch:dataset",
+        "description": "Template for a custom dataset",
+        "body": [
+            "class ${1:MyDataset}(torch.utils.data.Dataset):",
+            "\t\"\"\"Some Information about ${1:MyDataset}\"\"\"",
+            "\tdef __init__(self):",
+            "\t\tsuper(${1:MyDataset}, self).__init__()",
+            "",
+            "\tdef __getitem__(self, index):",
+            "\t\treturn $2",
+            "",
+            "\tdef __len__(self):",
+            "\t\treturn $3"
         ]
     },
     "Classification Loss": {
