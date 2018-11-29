@@ -156,7 +156,7 @@
     },
     "Tabular DataBlock": {
         "prefix": "fastai:tabular:datablock",
-        "description": "Creates a DataBlock for image data",
+        "description": "Creates a DataBlock for tabular/structured data",
         "body": [
             "path = Path('${TM_DIRECTORY}') / '${1:data'}",
             "cat_names = [$2]",
@@ -188,7 +188,7 @@
     },
     "Text Imports": {
         "prefix": "fastai:text:imports",
-        "description": "Adds most important imports for text data tasks",
+        "description": "Adds most important imports for the fastai NLP tasks",
         "body": [
             "from fastai import *",
             "from fastai.text import *"
