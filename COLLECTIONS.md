@@ -35,6 +35,7 @@ Full collection of supported code snippets for the PyTorch and Fastai library. `
 | `pytorch:sequential→` | builds a sequential network                                                   |
 | `pytorch:device→`     | check the available device (cpu/gpu)                                          |
 | `pytorch:module→`     | creates a pytorch module class                                                |
+| `pytorch:dataset`     | Template for a custom pytorch dataset                                         |
 | `pytorch:function→`   | creates a pytorch function class                                              |
 | `pytorch:train→`      | creates a training loop                                                       |
 | `pytorch:freeze→`     | freezes all layers of the model                                               |
