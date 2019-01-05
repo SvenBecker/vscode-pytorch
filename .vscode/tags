@@ -1,0 +1,16 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
+!_TAG_PROGRAM_NAME	Exuberant Ctags	//
+!_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
+!_TAG_PROGRAM_VERSION	5.8	//
+ArgumentParser	../snippet_maker.py	/^    from argparse import ArgumentParser$/;"	kind:namespace	line:38
+OrderedDict	../snippet_maker.py	/^from collections import OrderedDict$/;"	kind:namespace	line:3
+add_tab_symbol	../snippet_maker.py	/^def add_tab_symbol(line):$/;"	kind:function	line:10
+args	../snippet_maker.py	/^    args = parser.parse_args()$/;"	kind:variable	line:42
+build_json_file	../snippet_maker.py	/^def build_json_file(prefix: str, description: str):$/;"	kind:function	line:18
+json	../snippet_maker.py	/^import json$/;"	kind:namespace	line:2
+parser	../snippet_maker.py	/^    parser = ArgumentParser()$/;"	kind:variable	line:39
+re	../snippet_maker.py	/^import re $/;"	kind:namespace	line:1
+remove_new_line_marker	../snippet_maker.py	/^def remove_new_line_marker(line):$/;"	kind:function	line:6
+snippet_maker.py	../snippet_maker.py	1;"	kind:file	line:1
