@@ -1,8 +1,8 @@
 {
     "name": "pytorch-snippets",
     "displayName": "PyTorch Snippets",
-    "description": "PyTorch and Fastai Snippets for Visual Studio Code",
-    "version": "0.2.3",
+    "description": "PyTorch Snippets for Visual Studio Code",
+    "version": "1.0.0",
     "publisher": "SBSnippets",
     "author": {
         "name": "Sven Becker",
@@ -14,7 +14,7 @@
         "theme": "light"
     },
     "keywords": [
-        "fastai",
+        "torchvision",
         "pytorch",
         "python",
         "examples",
@@ -43,11 +43,7 @@
             },
             {
                 "language": "python",
-                "path": "./snippets/fastai.json"
-            },
-            {
-                "language": "python",
-                "path": "./snippets/ignite.json"
+                "path": "./snippets/torchvision.json"
             }
         ]
     }

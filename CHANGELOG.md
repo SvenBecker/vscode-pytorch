@@ -24,6 +24,21 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - ...
 - -->
+## [1.0.0] - 2019-07-25
+
+### Added
+
+- Added `pytorch:scheduler` snippets for learning rate scheduling.
+- Added torchvision dataset and model snippets `pytorch:torchvision:...`.
+- Added model loading from checkpoint or github repo `pytorch:checkpoint`, `pytorch:github`.
+- Added sampler snippets `pytorch:sampler`
+
+### Changed
+
+- Snippets for Ignite and Fastai have been moved to seperate projects. Soo you can find them at github.com/svenbecker/vscode_fastai and github.com/svenbecker/vscode_ignite. This war primarily done to reduce the snippet overload.
+- `pytorch:sequential` has been moved to `pytorch:container`
+- Updated official `pytorch:examples`
+
 ## [0.2.3] - 2018-11-23
 
 ### Added
