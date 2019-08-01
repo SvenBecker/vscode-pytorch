@@ -27,7 +27,7 @@
         "prefix": "pytorch:scheduler",
         "description": "Select a scheduler method to adjust the learning rate",
         "body":[
-            "scheduler = torch.optim.lr_scheduler.{1|LambdaLR,StepLR,MultiStepLR,ExponentialLR,CosineAnnealingLR,ReduceLROnPlateau,CyclicLR|}(${2:optimizer})"
+            "scheduler = torch.optim.lr_scheduler.${1|LambdaLR,StepLR,MultiStepLR,ExponentialLR,CosineAnnealingLR,ReduceLROnPlateau,CyclicLR|}(${2:optimizer})"
         ]
     },
     "Dataset": {
@@ -174,7 +174,7 @@
         "prefix": "pytorch:checkpoint",
         "desription": "Load model from checkpoint",
         "body": [
-            "${1:model}.load_state_dict(${1|'path/to/model',torch.hub.load_state_dict_from_url('url')|)"
+            "${1:model}.load_state_dict(${1|'path/to/model',torch.hub.load_state_dict_from_url('url')|})"
         ]
     },
     "GitHub Checkpoint": {
@@ -218,7 +218,7 @@
         "prefix": "pytorch:layer:attention",
         "description": "Adds an attention layer",
         "body": [
-            "${1:attention} = nn.{2|MultiheadAttention|}(embed_dim, num_heads)"
+            "${1:mutli_attention} = nn.MultiheadAttention(embed_dim=$2, num_heads=$3)"
         ]
     },
     "Convolution Layer":{
