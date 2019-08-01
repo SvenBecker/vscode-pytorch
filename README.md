@@ -26,8 +26,6 @@ This extension provides code snippets for often used coding blocks as well as co
 If this extension is installed and activated you might notice by start typing `pytorch` in your python file a dropdown list appears. Entries starting with `pytorch:` represent code snippets refering to those libraries offered by this extension.
 Snippets appear in the same way as code completion by using `Ctrl+Space`. There are _placeholders_, _variables_ and _choices_ defined inside the code snippets so you can jump from one to another just by pressing `Tab`. Examples on how to use this extension are shown below. For a full overview please take a look at the [Snippet Collection](COLLECTIONS.md).
 
-### <a name="pytorch" > </a> PyTorch Preview
-
 ![PyTorch Preview](images/preview.gif)
 
 ## <a name="dependencies" > </a> Dependencies
