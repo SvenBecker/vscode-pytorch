@@ -4,7 +4,7 @@
 [![Installs](https://vsmarketplacebadge.apphb.com/installs/SBSnippets.pytorch-snippets.svg)](https://marketplace.visualstudio.com/items?itemName=SBSnippets.pytorch-snippets)
 [![Rating](https://vsmarketplacebadge.apphb.com/rating-short/SBSnippets.pytorch-snippets.svg)](https://marketplace.visualstudio.com/items?itemName=SBSnippets.pytorch-snippets)
 [![The MIT License](https://img.shields.io/badge/license-MIT-orange.svg)](LICENSE.md)
-[![GitHub](https://img.shields.io/badge/github-v0.2.3-blue.svg)](https://github.com/SvenBecker/vscode-pytorch/releases)
+[![GitHub](https://img.shields.io/badge/github-v1.0.0-blue.svg)](https://github.com/SvenBecker/vscode-pytorch/releases)
 
 This project aims to provide a faster workflow when using the [PyTorch](https://github.com/pytorch/pytorch) or [torchvision](https://github.com/pytorch/vision) library in [Visual Studio Code](https://code.visualstudio.com/).
 This extension provides code snippets for often used coding blocks as well as code example provided by the libraries for common deep learning tasks.
