@@ -2,7 +2,7 @@
     "name": "pytorch-snippets",
     "displayName": "PyTorch Snippets",
     "description": "PyTorch Snippets for Visual Studio Code",
-    "version": "1.0.0",
+    "version": "1.0.1",
     "publisher": "SBSnippets",
     "author": {
         "name": "Sven Becker",
