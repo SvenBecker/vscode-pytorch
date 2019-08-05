@@ -3,7 +3,7 @@
         "prefix": "pytorch:torchvision:load_dataset_1",
         "description": "Load (download) specified dataset",
         "body":[
-            "dataset = torchvision.datasets.${1|MNIST,FashionMNIST,KMNIST,CIFAR10,CIFAR100|}(${2:'path/to/root/'}, train=${3|True,False|, download=${4|False,True|})"
+            "dataset = torchvision.datasets.${1|MNIST,FashionMNIST,KMNIST,CIFAR10,CIFAR100|}(${2:'path/to/root/'}, train=${3|True,False|}, download=${4|False,True|})"
         ]
     },
     "Torchvision Datasets 2": {

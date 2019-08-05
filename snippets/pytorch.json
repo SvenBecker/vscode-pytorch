@@ -174,7 +174,7 @@
         "prefix": "pytorch:checkpoint",
         "desription": "Load model from checkpoint",
         "body": [
-            "${1:model}.load_state_dict(${1|'path/to/model',torch.hub.load_state_dict_from_url('url')|})"
+            "${1:model}.load_state_dict(${2|'path/to/model',torch.hub.load_state_dict_from_url('url')|})"
         ]
     },
     "GitHub Checkpoint": {
