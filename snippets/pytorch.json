@@ -50,7 +50,7 @@
         "prefix": "pytorch:dataloader",
         "description": "Template for a dataloader",
         "body": [
-            "dataloader = torch.utils.DataLoader(${1:dataset}, batch_size=${2:1}, suffle=${3|False,True|})"
+            "dataloader = torch.utils.data.DataLoader(${1:dataset}, batch_size=${2:1}, shuffle=${3|False,True|})"
         ]
     },
     "Classification Loss": {
