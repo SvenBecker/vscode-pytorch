@@ -165,7 +165,7 @@
             "",
             "\t\trunning_loss += loss.item()",
             "",
-            "\tprint('Loss: {}'.format(running_loss)",
+            "\tprint('Loss: {}'.format(running_loss))",
             "",
             "print('Finished Training')"
         ]
