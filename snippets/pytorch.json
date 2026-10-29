@@ -27,7 +27,7 @@
         "prefix": "pytorch:scheduler",
         "description": "Select a scheduler method to adjust the learning rate",
         "body":[
-            "scheduler = torch.optim.lr_scheduler.${1|LambdaLR,StepLR,MultiStepLR,ExponentialLR,CosineAnnealingLR,ReduceLROnPlateau,CyclicLR|}(${2:optimizer})"
+            "scheduler = torch.optim.lr_scheduler.${1|LambdaLR(optimizer\\, lr_lambda=lambda epoch: 0.95 ** epoch),StepLR(optimizer\\, step_size=30\\, gamma=0.1),MultiStepLR(optimizer\\, milestones=[30\\, 80]\\, gamma=0.1),ExponentialLR(optimizer\\, gamma=0.9),CosineAnnealingLR(optimizer\\, T_max=100),ReduceLROnPlateau(optimizer\\, mode='min'),CyclicLR(optimizer\\, base_lr=1e-4\\, max_lr=1e-2)|}"
         ]
     },
     "Dataset": {
@@ -37,7 +37,7 @@
             "class ${1:MyDataset}(torch.utils.data.Dataset):",
             "\t\"\"\"Some Information about ${1:MyDataset}\"\"\"",
             "\tdef __init__(self):",
-            "\t\tsuper(${1:MyDataset}, self).__init__()",
+            "\t\tsuper().__init__()",
             "",
             "\tdef __getitem__(self, index):",
             "\t\treturn $2",
@@ -74,7 +74,7 @@
             "class ${1:MyModule}(nn.Module):",            
             "\t\"\"\"Some Information about ${1:MyModule}\"\"\"",
             "\tdef __init__(self):",
-            "\t\tsuper(${1:MyModule}, self).__init__()",
+            "\t\tsuper().__init__()",
             "",
             "\tdef forward(self, x):",
             "",
@@ -101,7 +101,7 @@
             "\t\treturn",
             "",
             "\t@staticmethod",
-            "\tdef backward(ctx, grad_output)",
+            "\tdef backward(ctx, grad_output):",
             "",
             "\t\treturn"
         ]
@@ -114,39 +114,44 @@
             "\tclassname = m.__class__.__name__",
             "\tif classname.find('Linear') != -1 or classname.find('Bilinear') != -1:",
             "\t\tnn.init.${1|kaiming_uniform_(a=2\\, mode='fan_in'\\, nonlinearity='leaky_relu'\\, ,kaiming_normal_(a=0\\, mode='fan_in'\\, nonlinearity='leaky_relu'\\, ,xavier_uniform_(gain=1\\, ,xavier_normal_(gain=1\\, ,eye_(,orthogonal_(gain=1\\, ,normal_(mean=0\\, std=1\\, ,uniform_(a=0\\, b=1\\, ,sparse_(sparsity=0.1\\, std=0.01\\, ,constant_(val=0.1\\, ,zeros_(,ones_(|}tensor=m.weight)",
-            "\t\tif m.bias: nn.init.${2|zeros(,uniform_(a=0\\, b=1\\, ,normal_(mean=0\\, std=1\\, ,ones_(,constant_(val=0.01\\, |}tensor=m.bias)",
+            "\t\tif m.bias is not None: nn.init.${2|zeros_(,uniform_(a=0\\, b=1\\, ,normal_(mean=0\\, std=1\\, ,ones_(,constant_(val=0.01\\, |}tensor=m.bias)",
             "",
             "\telif classname.find('Conv') != -1:",
-            "\t\tnn.init.${3|kaiming_uniform_(a=2\\, mode='fan_in'\\, nonlinearity='leaky_relu'\\, ,kaiming_normal_(a=0\\, mode='fan_in'\\, nonlinearity='leaky_relu'\\, ,xavier_uniform_(gain=1\\, ,xavier_normal_(gain=1\\, ,dirac_(,orthogonal_(gain=1\\, ,normal_(mean=0\\, std=1\\, ,uniform_(a=0\\, b=1\\, ,sparse_(sparsity=0.1\\, std=0.01\\, ,constant_(val=0.1\\, ,zeros_(,ones_(|}tensor=m.weight)",
-            "\t\tif m.bias: nn.init.${4|zeros(,normal_(mean=0\\, std=1\\, ,uniform_(a=0\\, b=1\\, ,ones_(,constant_(val=0.01\\, |}tensor=m.bias)",
+            "\t\tnn.init.${3|kaiming_uniform_(a=2\\, mode='fan_in'\\, nonlinearity='leaky_relu'\\, ,kaiming_normal_(a=0\\, mode='fan_in'\\, nonlinearity='leaky_relu'\\, ,xavier_uniform_(gain=1\\, ,xavier_normal_(gain=1\\, ,dirac_(,orthogonal_(gain=1\\, ,normal_(mean=0\\, std=1\\, ,uniform_(a=0\\, b=1\\, ,constant_(val=0.1\\, ,zeros_(,ones_(|}tensor=m.weight)",
+            "\t\tif m.bias is not None: nn.init.${4|zeros_(,normal_(mean=0\\, std=1\\, ,uniform_(a=0\\, b=1\\, ,ones_(,constant_(val=0.01\\, |}tensor=m.bias)",
             "",
             "\telif classname.find('BatchNorm') != -1 or classname.find('GroupNorm') != -1 or classname.find('LayerNorm') != -1:",
-            "\t\tnn.init.${5|uniform_(a=0\\, b=1\\, ,normal_(mean=0\\, std=1\\, ,constant_(val=0.1\\, ,zeros_(,ones_(|}tensor=m.weight)",
-            "\t\tnn.init.${6|zeros(,normal_(mean=0\\, std=1\\, ,uniform_(a=0\\, b=1\\, ,ones_(,constant_(val=0.01\\, |}tensor=m.bias)",
+            "\t\tif m.weight is not None: nn.init.${5|uniform_(a=0\\, b=1\\, ,normal_(mean=0\\, std=1\\, ,constant_(val=0.1\\, ,zeros_(,ones_(|}tensor=m.weight)",
+            "\t\tif m.bias is not None: nn.init.${6|zeros_(,normal_(mean=0\\, std=1\\, ,uniform_(a=0\\, b=1\\, ,ones_(,constant_(val=0.01\\, |}tensor=m.bias)",
             "",
             "\telif classname.find('Cell') != -1:",
             "\t\tnn.init.${7|xavier_uniform_(gain=1\\, ,xavier_normal_(gain=1\\, ,kaiming_uniform_(a=0\\, mode='fan_in'\\, nonlinearity='leaky_relu'\\, ,kaiming_normal_(a=0\\, mode='fan_in'\\, nonlinearity='leaky_relu'\\, ,eye_(,orthogonal_(gain=1\\, ,normal_(mean=0\\, std=1\\, ,uniform_(a=0\\, b=1\\, ,sparse_(sparsity=0.1\\, std=0.01\\, ,constant_(val=0.1\\, ,zeros_(,ones_(|}tensor=m.weight_hh)",
             "\t\tnn.init.${8|xavier_uniform_(gain=1\\, ,xavier_normal_(gain=1\\, ,kaiming_uniform_(a=0\\, mode='fan_in'\\, nonlinearity='leaky_relu'\\, ,kaiming_normal_(a=0\\, mode='fan_in'\\, nonlinearity='leaky_relu'\\, ,eye_(,orthogonal_(gain=1\\, ,normal_(mean=0\\, std=1\\, ,uniform_(a=0\\, b=1\\, ,sparse_(sparsity=0.1\\, std=0.01\\, ,constant_(val=0.1\\, ,zeros_(,ones_(|}tensor=m.weight_ih)",
-            "\t\tnn.init.${9|ones_(,normal_(mean=0\\, std=1\\, ,uniform_(a=0\\, b=1\\, ,zeros(,constant_(val=0.01\\, |}tensor=m.bias_hh)",
-            "\t\tnn.init.${10|ones_(,normal_(mean=0\\, std=1\\, ,uniform_(a=0\\, b=1\\, ,zeros(,constant_(val=0.01\\, |}tensor=m.bias_ih)",
+            "\t\tif m.bias_hh is not None: nn.init.${9|ones_(,normal_(mean=0\\, std=1\\, ,uniform_(a=0\\, b=1\\, ,zeros_(,constant_(val=0.01\\, |}tensor=m.bias_hh)",
+            "\t\tif m.bias_ih is not None: nn.init.${10|ones_(,normal_(mean=0\\, std=1\\, ,uniform_(a=0\\, b=1\\, ,zeros_(,constant_(val=0.01\\, |}tensor=m.bias_ih)",
             "",
             "\telif classname.find('RNN') != -1 or classname.find('LSTM') != -1 or classname.find('GRU') != -1:",
-            "\t\tfor w in m.all_weights:",
-            "\t\t\tnn.init.${11|xavier_uniform_(gain=1\\, ,xavier_normal_(gain=1\\, ,kaiming_uniform_(a=0\\, mode='fan_in'\\, nonlinearity='leaky_relu'\\, ,kaiming_normal_(a=0\\, mode='fan_in'\\, nonlinearity='leaky_relu'\\, ,eye_(,orthogonal_(gain=1\\, ,normal_(mean=0\\, std=1\\, ,uniform_(a=0\\, b=1\\, ,sparse_(sparsity=0.1\\, std=0.01\\, ,constant_(val=0.1\\, ,zeros_(,ones_(|}tensor=w[2].data)",
-            "\t\t\tnn.init.${12|xavier_uniform_(gain=1\\, ,xavier_normal_(gain=1\\, ,kaiming_uniform_(a=0\\, mode='fan_in'\\, nonlinearity='leaky_relu'\\, ,kaiming_normal_(a=0\\, mode='fan_in'\\, nonlinearity='leaky_relu'\\, ,eye_(,orthogonal_(gain=1\\, ,normal_(mean=0\\, std=1\\, ,uniform_(a=0\\, b=1\\, ,sparse_(sparsity=0.1\\, std=0.01\\, ,constant_(val=0.1\\, ,zeros_(,ones_(|}tensor=w[3].data)",
-            "\t\t\tnn.init.${13|ones_(,normal_(mean=0\\, std=1\\, ,uniform_(a=0\\, b=1\\, ,zeros(,constant_(val=0.01\\, |}tensor=w[0].data)",
-            "\t\t\tnn.init.${14|ones_(,normal_(mean=0\\, std=1\\, ,uniform_(a=0\\, b=1\\, ,zeros(,constant_(val=0.01\\, |}tensor=w[1].data)",
+            "\t\tfor name, param in m.named_parameters():",
+            "\t\t\tif name.startswith('weight_hh'):",
+            "\t\t\t\tnn.init.${11|xavier_uniform_(gain=1\\, ,xavier_normal_(gain=1\\, ,kaiming_uniform_(a=0\\, mode='fan_in'\\, nonlinearity='leaky_relu'\\, ,kaiming_normal_(a=0\\, mode='fan_in'\\, nonlinearity='leaky_relu'\\, ,eye_(,orthogonal_(gain=1\\, ,normal_(mean=0\\, std=1\\, ,uniform_(a=0\\, b=1\\, ,sparse_(sparsity=0.1\\, std=0.01\\, ,constant_(val=0.1\\, ,zeros_(,ones_(|}tensor=param)",
+            "\t\t\telif name.startswith('weight_ih'):",
+            "\t\t\t\tnn.init.${12|xavier_uniform_(gain=1\\, ,xavier_normal_(gain=1\\, ,kaiming_uniform_(a=0\\, mode='fan_in'\\, nonlinearity='leaky_relu'\\, ,kaiming_normal_(a=0\\, mode='fan_in'\\, nonlinearity='leaky_relu'\\, ,eye_(,orthogonal_(gain=1\\, ,normal_(mean=0\\, std=1\\, ,uniform_(a=0\\, b=1\\, ,sparse_(sparsity=0.1\\, std=0.01\\, ,constant_(val=0.1\\, ,zeros_(,ones_(|}tensor=param)",
+            "\t\t\telif name.startswith('bias_hh'):",
+            "\t\t\t\tnn.init.${13|ones_(,normal_(mean=0\\, std=1\\, ,uniform_(a=0\\, b=1\\, ,zeros_(,constant_(val=0.01\\, |}tensor=param)",
+            "\t\t\telif name.startswith('bias_ih'):",
+            "\t\t\t\tnn.init.${14|ones_(,normal_(mean=0\\, std=1\\, ,uniform_(a=0\\, b=1\\, ,zeros_(,constant_(val=0.01\\, |}tensor=param)",
             "",
-            "\tif classname.find('Embedding') != -1:",
-            "\t\tnn.init.${1|normal_(mean=0\\, std=1\\, ,xavier_uniform_(gain=1\\, ,xavier_normal_(gain=1\\, ,kaiming_uniform_(a=0\\, mode='fan_in'\\, nonlinearity='leaky_relu'\\, ,kaiming_normal_(a=0\\, mode='fan_in'\\, nonlinearity='leaky_relu'\\, ,eye_(,orthogonal_(gain=1\\, ,uniform_(a=0\\, b=1\\, ,sparse_(sparsity=0.1\\, std=0.01\\, ,constant_(val=0.1\\, ,zeros_(,ones_(|}tensor=m.weight)",
+            "\telif classname.find('Embedding') != -1:",
+            "\t\tnn.init.${15|normal_(mean=0\\, std=1\\, ,xavier_uniform_(gain=1\\, ,xavier_normal_(gain=1\\, ,kaiming_uniform_(a=0\\, mode='fan_in'\\, nonlinearity='leaky_relu'\\, ,kaiming_normal_(a=0\\, mode='fan_in'\\, nonlinearity='leaky_relu'\\, ,eye_(,orthogonal_(gain=1\\, ,uniform_(a=0\\, b=1\\, ,sparse_(sparsity=0.1\\, std=0.01\\, ,constant_(val=0.1\\, ,zeros_(,ones_(|}tensor=m.weight)",
             "",
-            "${15:net}.apply(init_weights)"
+            "${16:net}.apply(init_weights)"
         ]
     },
     "Train Loop": {
         "prefix": "pytorch:train",
         "description": "Example for creating a simple training loop",
         "body":[
+            "${5:net}.train()",
             "# loop over the dataset multiple times",
             "for epoch in range(${1:5}):",
             "\trunning_loss = 0.0",
@@ -172,74 +177,74 @@
     },
     "Model Checkpoint": {
         "prefix": "pytorch:checkpoint",
-        "desription": "Load model from checkpoint",
+        "description": "Load model from checkpoint",
         "body": [
-            "${1:model}.load_state_dict(${2|'path/to/model',torch.hub.load_state_dict_from_url('url')|})"
+            "${1:model}.load_state_dict(${2|torch.load('path/to/model.pt'\\, weights_only=True),torch.hub.load_state_dict_from_url('url')|})"
         ]
     },
     "GitHub Checkpoint": {
         "prefix": "pytorch:github",
-        "desription": "Load model from github repository",
+        "description": "Load model from github repository",
         "body": [
-            "${1:model} = torch.hub.load(github=${2:'pytorch/vision'}, model=${3:'resnet50'}, pretrained=${4|False,True|})"
+            "${1:model} = torch.hub.load(${2:'pytorch/vision'}, ${3:'resnet50'}, weights=${4|None,'DEFAULT'|})"
         ]
     },
     "Freeze Layers": {
         "prefix": "pytorch:freeze",
-        "desription": "Freeze all layers of the network",
+        "description": "Freeze all layers of the network",
         "body": [
-            "for params in ${1:net}.parameters():",
-            "\tparams.require_grad = False"
+            "for param in ${1:net}.parameters():",
+            "\tparam.requires_grad = False"
         ]
     },
     "Sampler": {
         "prefix": "pytorch:sampler",
-        "desription": "Specifies an batch sampler",
+        "description": "Creates a sampler for a dataloader",
         "body": [
-            "sampler = torch.utils.data.${1|Sampler(data_source),SequantialSample(data_source),RandomSampler(data_source),SubsetRandomSampler(indicies),WeightedRandomSampler(weights\\, num_samples),BatchSampler(sampler\\, batch_size\\, drop_last),distributed.DistributedSampler(dataset)|}"
+            "sampler = torch.utils.data.${1|SequentialSampler(data_source),RandomSampler(data_source),SubsetRandomSampler(indices),WeightedRandomSampler(weights\\, num_samples),BatchSampler(sampler\\, batch_size\\, drop_last),distributed.DistributedSampler(dataset)|}"
         ]
     },
     "Unfreeze Layers":{
         "prefix": "pytorch:unfreeze",
-        "desription": "Unfreeze all layers of the network",
+        "description": "Unfreeze all layers of the network",
         "body": [
-            "for params in ${1:net}.parameters():",
-            "\tparams.require_grad = True"
+            "for param in ${1:net}.parameters():",
+            "\tparam.requires_grad = True"
         ]
     },
     "Activation":{
         "prefix": "pytorch:layer:activation",
         "description": "Adds a non-linear activation",
         "body": [
-            "${1:nonlin} = nn.${2|ELU(alpha=1.\\, inplace=False),Hardshrink(lambd=0.5),Hardtanh(min_val=-1\\, max_val=1\\, inplace=False\\, min_value=None\\, max_value=None),LeakyReLU(negative_slope=0.01\\, inplace=False),LogSigmoid,PReLU(num_parameters=1\\, init=0.25),ReLU(inplace=False),ReLU6(inplace=False),RReLU(lower=0.125\\, upper=0.3333333333333333\\, inplace=False),CELU(alpha=1.0\\, inplace=False),SELU(inplace=False),Sigmoid,Softplus(beta=1\\, threshold=20),Softshrink(lambd=0.5),Softsign,Tanh,Tanhshrink,Threshold(threshold\\, value\\, inplace=False),Softmin(dim=None),Softmax(dim=None),Softmax2d,LogSoftmax(dim=None),AdaptiveLogSoftmaxWithLogits(in_features\\, n_classes\\, cutoffs\\, div_value=4.0\\, head_bias=True)|}"
+            "${1:nonlin} = nn.${2|ELU(alpha=1.\\, inplace=False),Hardshrink(lambd=0.5),Hardtanh(min_val=-1\\, max_val=1\\, inplace=False),LeakyReLU(negative_slope=0.01\\, inplace=False),LogSigmoid(),PReLU(num_parameters=1\\, init=0.25),ReLU(inplace=False),ReLU6(inplace=False),RReLU(lower=0.125\\, upper=0.3333333333333333\\, inplace=False),CELU(alpha=1.0\\, inplace=False),SELU(inplace=False),GELU(),SiLU(),Sigmoid(),Softplus(beta=1\\, threshold=20),Softshrink(lambd=0.5),Softsign(),Tanh(),Tanhshrink(),Threshold(threshold\\, value\\, inplace=False),Softmin(dim=-1),Softmax(dim=-1),Softmax2d(),LogSoftmax(dim=-1),AdaptiveLogSoftmaxWithLoss(in_features\\, n_classes\\, cutoffs\\, div_value=4.0\\, head_bias=False)|}"
         ]
     },
     "Attention":{
         "prefix": "pytorch:layer:attention",
         "description": "Adds an attention layer",
         "body": [
-            "${1:mutli_attention} = nn.MultiheadAttention(embed_dim=$2, num_heads=$3)"
+            "${1:multihead_attn} = nn.MultiheadAttention(embed_dim=$2, num_heads=$3, batch_first=${4|True,False|})"
         ]
     },
     "Convolution Layer":{
         "prefix": "pytorch:layer:conv",
         "description": "Creates a convolutional layer",
         "body": [
-            "${1:conv} = nn.${2|Conv1d(in_channel\\, out_channel\\, groups=1\\, bias=True\\, ,Conv2d(in_channel\\, out_channel\\, groups=1\\, bias=True\\, ,Conv3d(in_channel\\, out_channel\\, groups=1\\, bias=True\\, ,ConvTranspose1d(in_channel\\, out_channel\\, groups=1\\, bias=True\\, out_padding=0\\, dilation=1\\, ,ConvTranspose2d/in_channel\\, out_channel\\, groups=1\\, bias=True\\, out_padding=0\\, dilation=1\\, ,ConvTranspose3d(in_channel\\, out_channel\\, groups=1\\, bias=True\\, out_padding=0\\, dilation=1\\, ,Unfold(dilation=1\\, ,Fold(output_size\\, |}kernel_size=2, padding=0, stride=1)"
+            "${1:conv} = nn.${2|Conv1d(in_channels\\, out_channels\\, groups=1\\, bias=True\\, ,Conv2d(in_channels\\, out_channels\\, groups=1\\, bias=True\\, ,Conv3d(in_channels\\, out_channels\\, groups=1\\, bias=True\\, ,ConvTranspose1d(in_channels\\, out_channels\\, groups=1\\, bias=True\\, output_padding=0\\, dilation=1\\, ,ConvTranspose2d(in_channels\\, out_channels\\, groups=1\\, bias=True\\, output_padding=0\\, dilation=1\\, ,ConvTranspose3d(in_channels\\, out_channels\\, groups=1\\, bias=True\\, output_padding=0\\, dilation=1\\, ,Unfold(dilation=1\\, ,Fold(output_size\\, |}kernel_size=2, padding=0, stride=1)"
         ]
     },
     "Pooling Layer":{
         "prefix": "pytorch:layer:pooling",
         "description": "Creates a pooling layer",
         "body": [
-            "${1:pool} = nn.${2|MaxPool1d(kernel_size\\, stride=None\\, padding=0\\, dilation=1\\, return_indices=False\\, ceil_mode=False),MaxPool2d(kernel_size\\, stride=None\\, padding=0\\, dilation=1\\, return_indices=False\\, ceil_mode=False),MaxPool3d(kernel_size\\, stride=None\\, padding=0\\, dilation=1\\, return_indices=False\\, ceil_mode=False),MaxUnpool1d(kernel_size\\, stride=None\\, padding=0),MaxUnpool2d(kernel_size\\, stride=None\\, padding=0),MaxUnpool3d(kernel_size\\, stride=None\\, padding=0),AvgPool1d(kernel_size\\, stride=None\\, padding=0\\, ceil_mode=False\\, count_include_pad=True),AvgPool2d(kernel_size\\, stride=None\\, padding=0\\, ceil_mode=False\\, count_include_pad=True),AvgPool3d(kernel_size\\, stride=None\\, padding=0\\, ceil_mode=False\\, count_include_pad=True),FractionalMaxPool2d(kernel_size\\, output_size=None\\, output_ratio=None\\, return_indices=False\\, random_samples=None),LPPool1d(norm_type\\, kernel_size\\, stride=None\\, ceil_mode=False),LPPool2d(norm_type\\, kernel_size\\, stride=None\\, ceil_mode=False),AdaptiveMaxPool1d(output_size\\, return_indices=False),AdaptiveMaxPool2d(output_size\\, return_indices=False),AdaptiveMaxPool3d(output_size\\, return_indices=False),AdaptiveAvgPool1d(output_size),AdaptiveAvgPool2d(output_size),AdaptiveAvgPool3d(output_size)|}"
+            "${1:pool} = nn.${2|MaxPool1d(kernel_size\\, stride=None\\, padding=0\\, dilation=1\\, return_indices=False\\, ceil_mode=False),MaxPool2d(kernel_size\\, stride=None\\, padding=0\\, dilation=1\\, return_indices=False\\, ceil_mode=False),MaxPool3d(kernel_size\\, stride=None\\, padding=0\\, dilation=1\\, return_indices=False\\, ceil_mode=False),MaxUnpool1d(kernel_size\\, stride=None\\, padding=0),MaxUnpool2d(kernel_size\\, stride=None\\, padding=0),MaxUnpool3d(kernel_size\\, stride=None\\, padding=0),AvgPool1d(kernel_size\\, stride=None\\, padding=0\\, ceil_mode=False\\, count_include_pad=True),AvgPool2d(kernel_size\\, stride=None\\, padding=0\\, ceil_mode=False\\, count_include_pad=True),AvgPool3d(kernel_size\\, stride=None\\, padding=0\\, ceil_mode=False\\, count_include_pad=True),FractionalMaxPool2d(kernel_size\\, output_ratio=0.5\\, return_indices=False),LPPool1d(norm_type\\, kernel_size\\, stride=None\\, ceil_mode=False),LPPool2d(norm_type\\, kernel_size\\, stride=None\\, ceil_mode=False),AdaptiveMaxPool1d(output_size\\, return_indices=False),AdaptiveMaxPool2d(output_size\\, return_indices=False),AdaptiveMaxPool3d(output_size\\, return_indices=False),AdaptiveAvgPool1d(output_size),AdaptiveAvgPool2d(output_size),AdaptiveAvgPool3d(output_size)|}"
         ]
     },
     "Padding Layer":{
         "prefix": "pytorch:layer:padding",
         "description": "Creates a padding layer",
         "body": [
-            "${1:padding} = nn.${2|ReflectionPad1d(,ReflectionPad2d(,ReplicationPad1d(,ReplicationPad2d(,ReplicationPad3d(,ZeroPad2d(,ConstantPad1d(value=3.5\\, ,ConstantPad2d(value=3.5\\, ,ConstantPad3d(value=3.5\\, |}padding=${3:(2,2)}"
+            "${1:padding} = nn.${2|ReflectionPad1d(,ReflectionPad2d(,ReplicationPad1d(,ReplicationPad2d(,ReplicationPad3d(,ZeroPad2d(,ConstantPad1d(value=3.5\\, ,ConstantPad2d(value=3.5\\, ,ConstantPad3d(value=3.5\\, |}padding=${3:2})"
         ]
     },
     "Recurrent Layer":{
@@ -260,7 +265,7 @@
         "prefix": "pytorch:layer:linear",
         "description": "Creates a linear layer",
         "body": [
-            "${1:linear} = nn.${2|Identity(,Linear(in_feature\\, ,Bilinear(in_features1\\, in_features2\\, |}out_features, bias=True)"
+            "${1:linear} = nn.${2|Linear(in_features\\, out_features\\, bias=True),Bilinear(in_features1\\, in_features2\\, out_features\\, bias=True),LazyLinear(out_features\\, bias=True),Identity()|}"
         ]
     },
     "Dropout":{
@@ -281,7 +286,7 @@
         "prefix": "pytorch:layer:vision",
         "description": "Creates a vision layer",
         "body": [
-            "${1:vision} = nn.${2|PixelShuffle(upscale_factor),Upsample(size=None\\, scale_factor=None\\, mode='nearest'\\, align_corners=None),UpsamplingNearest2d(size=None\\, scale_factor=None),UpsamplingBilinear2d(size=None\\, scale_factor=None)|}"
+            "${1:vision} = nn.${2|PixelShuffle(upscale_factor),Upsample(scale_factor=2\\, mode='nearest'),UpsamplingNearest2d(scale_factor=2),UpsamplingBilinear2d(scale_factor=2)|}"
         ]
     },
     "Distance Layer": {
@@ -295,7 +300,7 @@
         "prefix": "pytorch:F:activation",
         "description": "Applies a nonlinearity function",
         "body": [
-            "F.${1|threshold(input\\, threshold\\, value\\, inplace=False),relu(input\\, inplace=False),relu6(input\\, inplace=False),hardtanh(input\\, min_val=-1.\\, max_val=1.\\, inplace=False),elu(input\\, alpha=1.0\\, inplace=False),selu(input\\, inplace=False),celu(input\\, alpha=1.\\, inplace=False),leaky_relu(input\\, negative_slope=0.01\\, inplace=False),prelu(input\\, weight),rrelu(input\\, lower=1./8\\, upper=1./3\\, training=False\\, inplace=False),glu(input\\, dim=-1),logsigmoid(input),hardshrink(input\\, lambd=0.5),tanhshrink(input),softsign(input),softplus(input\\, beta=1\\, threshold=20),softmin(input\\, dim=None\\, _stacklevel=3),softmax(input\\, dim=None\\, _stacklevel=3),softshrink(input\\, lambd=0.5),gumbel_softmax(logits\\, tau=1\\, hard=False\\, eps=1e-10),log_softmax(input\\, dim=None\\, _stacklevel=3),tanh(input),sigmoid(input)|}"
+            "F.${1|threshold(input\\, threshold\\, value\\, inplace=False),relu(input\\, inplace=False),relu6(input\\, inplace=False),hardtanh(input\\, min_val=-1.\\, max_val=1.\\, inplace=False),elu(input\\, alpha=1.0\\, inplace=False),selu(input\\, inplace=False),celu(input\\, alpha=1.\\, inplace=False),leaky_relu(input\\, negative_slope=0.01\\, inplace=False),prelu(input\\, weight),rrelu(input\\, lower=1./8\\, upper=1./3\\, training=False\\, inplace=False),glu(input\\, dim=-1),logsigmoid(input),hardshrink(input\\, lambd=0.5),tanhshrink(input),softsign(input),softplus(input\\, beta=1\\, threshold=20),softmin(input\\, dim=-1),softmax(input\\, dim=-1),softshrink(input\\, lambd=0.5),gumbel_softmax(logits\\, tau=1\\, hard=False),log_softmax(input\\, dim=-1),gelu(input),silu(input\\, inplace=False),tanh(input),sigmoid(input)|}"
         ]
     },
     "Convolution Function":{
@@ -309,7 +314,7 @@
         "prefix": "pytorch:F:pooling",
         "description": "Applies a pooling function",
         "body": [
-            "F.${1|avg_pool1d(input\\, kernel_size\\, stride=None\\, padding=0),avg_pool2d(input\\, kernel_size\\, stride=None\\, padding=0),avg_pool3d(input\\, kernel_size\\, stride=None\\, padding=0),max_pool1d(input\\, kernel_size\\, stride=None\\, padding=0),max_pool2d(input\\, kernel_size\\, stride=None\\, padding=0,max_pool3d(input\\, kernel_size\\, stride=None\\, padding=0),max_unpool1d(input\\, indices\\, kernel_size\\, stride=None\\, padding=0),max_unpool2d(input\\, indices\\, kernel_size\\, stride=None\\, padding=0),max_unpool3d(input\\, indices\\, kernel_size\\, stride=None\\, padding=0),lp_pool1d(input\\, norm_type\\, kernel_size\\, stride=None),lp_pool2d(input\\, norm_type\\, kernel_size\\, stride=None),adaptive_max_pool1d(input\\, output_size),adaptive_max_pool2d(input\\, output_size),adaptive_max_pool3d(input\\, output_size),adaptive_avg_pool1d(input\\, output_size),adaptive_avg_pool2d(input\\, output_size),adaptive_avg_pool3d(input\\, output_size)|}"
+            "F.${1|avg_pool1d(input\\, kernel_size\\, stride=None\\, padding=0),avg_pool2d(input\\, kernel_size\\, stride=None\\, padding=0),avg_pool3d(input\\, kernel_size\\, stride=None\\, padding=0),max_pool1d(input\\, kernel_size\\, stride=None\\, padding=0),max_pool2d(input\\, kernel_size\\, stride=None\\, padding=0),max_pool3d(input\\, kernel_size\\, stride=None\\, padding=0),max_unpool1d(input\\, indices\\, kernel_size\\, stride=None\\, padding=0),max_unpool2d(input\\, indices\\, kernel_size\\, stride=None\\, padding=0),max_unpool3d(input\\, indices\\, kernel_size\\, stride=None\\, padding=0),lp_pool1d(input\\, norm_type\\, kernel_size\\, stride=None),lp_pool2d(input\\, norm_type\\, kernel_size\\, stride=None),adaptive_max_pool1d(input\\, output_size),adaptive_max_pool2d(input\\, output_size),adaptive_max_pool3d(input\\, output_size),adaptive_avg_pool1d(input\\, output_size),adaptive_avg_pool2d(input\\, output_size),adaptive_avg_pool3d(input\\, output_size)|}"
         ]
     },
     "Normalization Function":{
@@ -344,7 +349,7 @@
         "prefix": "pytorch:F:one_hot",
         "description": "Applies an one hot encoding function",
         "body": [
-            "F.one_hot(${1:tensor}, num_classes=${2:0})"
+            "F.one_hot(${1:tensor}, num_classes=${2:-1})"
         ]
     },
     "Distance Function":{
@@ -358,7 +363,7 @@
         "prefix": "pytorch:F:vision",
         "description": "Applies a vision function",
         "body": [
-            "F.${1|pixel_shuffle(input\\, upscale_factor),pad(input\\, pad),interpolate(input\\, size=None\\, scale_factor=None\\, mode='nearest'\\, align_corners=None),grid_sample(input\\, grid),affine_grid(theta\\, size)|}"
+            "F.${1|pixel_shuffle(input\\, upscale_factor),pad(input\\, pad),interpolate(input\\, scale_factor=2\\, mode='nearest'),grid_sample(input\\, grid),affine_grid(theta\\, size)|}"
         ]
     },
     "Loss Function": {
@@ -373,23 +378,29 @@
         "description": "Creates a Resnet basic block",
         "body": [
             "class BasicBlock(nn.Module):",
-            "\t# see https://pytorch.org/docs/0.4.0/_modules/torchvision/models/resnet.html",
-            "\tdef __init__(self, inplanes, planes, stride=1):",
-            "\t\tsuper(BasicBlock, self).__init__()",
+            "\t# see https://github.com/pytorch/vision/blob/main/torchvision/models/resnet.py",
+            "\texpansion = 1",
+            "",
+            "\tdef __init__(self, inplanes, planes, stride=1, downsample=None):",
+            "\t\tsuper().__init__()",
+            "\t\t# both conv1 and downsample reduce the spatial size when stride != 1",
             "\t\tself.conv1 = nn.Conv2d(inplanes, planes, kernel_size=3, stride=stride, padding=1, bias=False)",
             "\t\tself.bn1 = nn.BatchNorm2d(planes)",
             "\t\tself.relu = nn.ReLU(inplace=True)",
             "\t\tself.conv2 = nn.Conv2d(planes, planes, kernel_size=3, padding=1, bias=False)",
             "\t\tself.bn2 = nn.BatchNorm2d(planes)",
+            "\t\tself.downsample = downsample",
             "",
             "\tdef forward(self, x):",
-            "\t\tresidual = x",
+            "\t\tidentity = x",
             "\t\tout = self.conv1(x)",
             "\t\tout = self.bn1(out)",
             "\t\tout = self.relu(out)",
             "\t\tout = self.conv2(out)",
             "\t\tout = self.bn2(out)",
-            "\t\tout += residual",
+            "\t\tif self.downsample is not None:",
+            "\t\t\tidentity = self.downsample(x)",
+            "\t\tout += identity",
             "\t\tout = self.relu(out)",
             "\t\treturn out"
         ]
@@ -399,19 +410,23 @@
         "description": "Creates a Resnet bottleneck block",
         "body": [
             "class Bottleneck(nn.Module):",
-            "\t# see https://pytorch.org/docs/0.4.0/_modules/torchvision/models/resnet.html ",
+            "\t# see https://github.com/pytorch/vision/blob/main/torchvision/models/resnet.py",
+            "\t# the stride sits on the 3x3 conv (ResNet V1.5), as in torchvision",
+            "\texpansion = 4",
+            "",
             "\tdef __init__(self, inplanes, planes, stride=1, downsample=None):",
-            "\t\tsuper(Bottleneck, self).__init__()",
-            "\t\tself.conv1 = nn.Conv2d(inplanes, planes, kernel_size=1, stride=stride, bias=False)",
+            "\t\tsuper().__init__()",
+            "\t\tself.conv1 = nn.Conv2d(inplanes, planes, kernel_size=1, bias=False)",
             "\t\tself.bn1 = nn.BatchNorm2d(planes)",
-            "\t\tself.conv2 = nn.Conv2d(planes, planes, kernel_size=3, stride=1, padding=1, bias=False)",
+            "\t\tself.conv2 = nn.Conv2d(planes, planes, kernel_size=3, stride=stride, padding=1, bias=False)",
             "\t\tself.bn2 = nn.BatchNorm2d(planes)",
-            "\t\tself.conv3 = nn.Conv2d(planes, planes * 4, kernel_size=1, bias=False)",
-            "\t\tself.bn3 = nn.BatchNorm2d(planes * 4)",
+            "\t\tself.conv3 = nn.Conv2d(planes, planes * self.expansion, kernel_size=1, bias=False)",
+            "\t\tself.bn3 = nn.BatchNorm2d(planes * self.expansion)",
             "\t\tself.relu = nn.ReLU(inplace=True)",
+            "\t\tself.downsample = downsample",
             "",
             "\tdef forward(self, x):",
-            "\t\tresidual = x",
+            "\t\tidentity = x",
             "\t\tout = self.conv1(x)",
             "\t\tout = self.bn1(out)",
             "\t\tout = self.relu(out)",
@@ -420,7 +435,9 @@
             "\t\tout = self.relu(out)",
             "\t\tout = self.conv3(out)",
             "\t\tout = self.bn3(out)",
-            "\t\tout += residual",
+            "\t\tif self.downsample is not None:",
+            "\t\t\tidentity = self.downsample(x)",
+            "\t\tout += identity",
             "\t\tout = self.relu(out)",
             "\t\treturn out"
         ]
@@ -562,7 +579,7 @@
             "\t# create model",
             "\tif args.pretrained:",
             "\t\tprint(\"=> using pre-trained model '{}'\".format(args.arch))",
-            "\t\tmodel = models.__dict__[args.arch](pretrained=True)",
+            "\t\tmodel = models.__dict__[args.arch](weights='DEFAULT')",
             "\telse:",
             "\t\tprint(\"=> creating model '{}'\".format(args.arch))",
             "\t\tmodel = models.__dict__[args.arch]()",
@@ -978,7 +995,7 @@
         "description": "VPG code example",
         "body": [
             "import argparse",
-            "import gym",
+            "import gymnasium as gym",
             "import numpy as np",
             "from itertools import count",
             "",
@@ -1001,8 +1018,9 @@
             "args = parser.parse_args()",
             "",
             "",
-            "env = gym.make('CartPole-v1')",
-            "env.seed(args.seed)",
+            "render_mode = \"human\" if args.render else None",
+            "env = gym.make('CartPole-v1', render_mode=render_mode)",
+            "env.reset(seed=args.seed)",
             "torch.manual_seed(args.seed)",
             "",
             "",
@@ -1060,15 +1078,14 @@
             "def main():",
             "\trunning_reward = 10",
             "\tfor i_episode in count(1):",
-            "\t\tstate, ep_reward = env.reset(), 0",
+            "\t\tstate, _ = env.reset()",
+            "\t\tep_reward = 0",
             "\t\tfor t in range(1, 10000):  # Don't infinite loop while learning",
             "\t\t\taction = select_action(state)",
-            "\t\t\tstate, reward, done, _ = env.step(action)",
-            "\t\t\tif args.render:",
-            "\t\t\t\tenv.render()",
+            "\t\t\tstate, reward, terminated, truncated, _ = env.step(action)",
             "\t\t\tpolicy.rewards.append(reward)",
             "\t\t\tep_reward += reward",
-            "\t\t\tif done:",
+            "\t\t\tif terminated or truncated:",
             "\t\t\t\tbreak",
             "",
             "\t\trunning_reward = 0.05 * ep_reward + (1 - 0.05) * running_reward",
@@ -1091,7 +1108,7 @@
         "description": "Actor-Critic code example",
         "body": [
             "import argparse",
-            "import gym",
+            "import gymnasium as gym",
             "import numpy as np",
             "from itertools import count",
             "from collections import namedtuple",
@@ -1116,8 +1133,9 @@
             "args = parser.parse_args()",
             "",
             "",
-            "env = gym.make('CartPole-v0')",
-            "env.seed(args.seed)",
+            "render_mode = \"human\" if args.render else None",
+            "env = gym.make('CartPole-v1', render_mode=render_mode)",
+            "env.reset(seed=args.seed)",
             "torch.manual_seed(args.seed)",
             "",
             "",
@@ -1233,7 +1251,7 @@
             "\tfor i_episode in count(1):",
             "",
             "\t\t# reset environment and episode reward",
-            "\t\tstate = env.reset()",
+            "\t\tstate, _ = env.reset()",
             "\t\tep_reward = 0",
             "",
             "\t\t# for each episode, only run 9999 steps so that we don't",
@@ -1244,14 +1262,11 @@
             "\t\t\taction = select_action(state)",
             "",
             "\t\t\t# take the action",
-            "\t\t\tstate, reward, done, _ = env.step(action)",
-            "",
-            "\t\t\tif args.render:",
-            "\t\t\t\tenv.render()",
+            "\t\t\tstate, reward, terminated, truncated, _ = env.step(action)",
             "",
             "\t\t\tmodel.rewards.append(reward)",
             "\t\t\tep_reward += reward",
-            "\t\t\tif done:",
+            "\t\t\tif terminated or truncated:",
             "\t\t\t\tbreak",
             "",
             "\t\t# update cumulative reward",
@@ -1364,13 +1379,13 @@
             "\tnc=3",
             "",
             "elif opt.dataset == 'mnist':",
-            "\t\tdataset = dset.MNIST(root=opt.dataroot, download=True,",
-            "\t\t\t\t\t\t   transform=transforms.Compose([",
-            "\t\t\t\t\t\t\t   transforms.Resize(opt.imageSize),",
-            "\t\t\t\t\t\t\t   transforms.ToTensor(),",
-            "\t\t\t\t\t\t\t   transforms.Normalize((0.5,), (0.5,)),",
-            "\t\t\t\t\t\t   ]))",
-            "\t\tnc=1",
+            "\tdataset = dset.MNIST(root=opt.dataroot, download=True,",
+            "\t\t\t\t\t   transform=transforms.Compose([",
+            "\t\t\t\t\t\t   transforms.Resize(opt.imageSize),",
+            "\t\t\t\t\t\t   transforms.ToTensor(),",
+            "\t\t\t\t\t\t   transforms.Normalize((0.5,), (0.5,)),",
+            "\t\t\t\t\t   ]))",
+            "\tnc=1",
             "",
             "elif opt.dataset == 'fake':",
             "\tdataset = dset.FakeData(image_size=(3, opt.imageSize, opt.imageSize),",
@@ -1499,7 +1514,8 @@
             "\t\tnetD.zero_grad()",
             "\t\treal_cpu = data[0].to(device)",
             "\t\tbatch_size = real_cpu.size(0)",
-            "\t\tlabel = torch.full((batch_size,), real_label, device=device)",
+            "\t\tlabel = torch.full((batch_size,), real_label,",
+            "\t\t\t\t\t\t   dtype=real_cpu.dtype, device=device)",
             "",
             "\t\toutput = netD(real_cpu)",
             "\t\terrD_real = criterion(output, label)",
