@@ -24,6 +24,32 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - ...
 - -->
+## [Unreleased]
+
+### Added
+
+- `pytorch:torchvision:imagenet` (ImageNet cannot be downloaded, so it no longer shares the snippet with STL10 / SVHN)
+- `GELU`, `SiLU` in `pytorch:layer:activation`, `gelu`, `silu` in `pytorch:F:activation`, `LazyLinear` in `pytorch:layer:linear`, `batch_first` in `pytorch:layer:attention`
+
+### Changed
+
+- Snippets validated against PyTorch 2.15 / torchvision 0.29: deprecated `pretrained=` replaced by `weights=`, private `_stacklevel` and removed arguments dropped, implicit `dim=None` softmax replaced by `dim=-1`
+- Templates use `super().__init__()`; `pytorch:train` calls `net.train()`
+- ResNet blocks follow torchvision (`downsample`, `expansion`, stride on the 3x3 conv in `Bottleneck`)
+- RL examples use the `gymnasium` API, as upstream `pytorch/examples` does
+
+### Fixed
+
+- `pytorch:freeze` / `pytorch:unfreeze` set `require_grad` instead of `requires_grad`, so nothing was frozen (#8)
+- `pytorch:init`: `if m.bias:` crashed on biases with more than one element, `nn.init.zeros` does not exist, RNN weight and bias initializers were applied to each other's tensors, the embedding branch reused tabstop `$1`
+- Syntax errors in `pytorch:function`, `pytorch:layer:conv`, `pytorch:layer:padding`, `pytorch:F:pooling`
+- Wrong names: `SequantialSample`, `AdaptiveLogSoftmaxWithLogits`, `out_padding`, `DataFolder`, `Flickr`, `esnext101_32x8d`
+- `pytorch:scheduler` was missing the required arguments of most schedulers
+- `pytorch:checkpoint` passed a path to `load_state_dict`; `pytorch:github` used removed `torch.hub.load` keywords
+- Defaults that always raised: `num_classes=0` in `pytorch:F:one_hot`, `size=None, scale_factor=None` in upsampling, `padding=(2,2)` for 2d/3d padding layers
+- `desription` typo hid the description of five snippets
+- DCGAN example created integer labels for `BCELoss`
+
 ## [1.0.0] - 2019-07-25
 
 ### Added
